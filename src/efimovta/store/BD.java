@@ -16,6 +16,8 @@ import java.util.ArrayList;
  * Created by EFIMOVAT on 13.03.2017.
  */
 public class BD {
+
+
     static final public ArrayList<Device> devices = new ArrayList<>();
     static final public ArrayList<Client> clients = new ArrayList<>();
     static final public ArrayList<Sale> sales = new ArrayList<>();

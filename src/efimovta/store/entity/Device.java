@@ -29,6 +29,17 @@ public class Device {
                 ", price=" + price +
                 '}';
     }
+    public String toString2() {
+        return (new StringBuilder().append("Device{")
+                .append("id=").append(id)
+                .append(", model='").append(model).append('\'')
+                .append(", type=").append(type)
+                .append(", brand=").append(brand)
+                .append(", color=").append(color)
+                .append(", releaseDate=").append(releaseDate)
+                .append(", price=").append(price)
+                .append('}')).toString();
+    }
 
     public Device(String model, DeviceType type, Brand brand, NamedColor color, Date releaseDate, BigDecimal price) {
         this.model = model;
