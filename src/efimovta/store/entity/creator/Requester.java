@@ -11,7 +11,7 @@ import java.util.Date;
 /**
  * Created by jcd on 13.03.2017.
  */
-public abstract class Requester {
+public class Requester {
     final int NUMBER_OF_ATTEMPTS;
     final String ERR_IN_MSG = "Неверный ввод, осталось попыток: ";
 
