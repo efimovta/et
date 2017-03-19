@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by jcd on 13.03.2017.
  */
-public class DeviceCreator extends Requester {
+public class DeviceCreator extends Creator {
 
     public DeviceCreator(BufferedReader br) {
         super(br);
@@ -47,7 +47,7 @@ public class DeviceCreator extends Requester {
 
             if (price.doubleValue() > 0) break;
             else if (i < NUMBER_OF_ATTEMPTS)
-                System.err.println(ERR_IN_MSG + (NUMBER_OF_ATTEMPTS - i));
+                System.err.println(INPUT_ERROR_MSG + (NUMBER_OF_ATTEMPTS - i));
             else throw new ExceededAttemptsException();
         }
         return price;
@@ -108,7 +108,7 @@ public class DeviceCreator extends Requester {
             model = br.readLine().trim();
             if (!model.isEmpty()) break;
             else if (i < NUMBER_OF_ATTEMPTS)
-                System.err.println(ERR_IN_MSG + (NUMBER_OF_ATTEMPTS - i));
+                System.err.println(INPUT_ERROR_MSG + (NUMBER_OF_ATTEMPTS - i));
             else throw new ExceededAttemptsException();
         }
         return model;

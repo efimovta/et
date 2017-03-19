@@ -5,7 +5,7 @@ import java.io.BufferedReader;
 /**
  * Created by jcd on 13.03.2017.
  */
-public class SaleCreator extends Requester {
+public class SaleCreator extends Creator {
     public SaleCreator(BufferedReader br) {
         super(br);
     }

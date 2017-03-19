@@ -1,24 +1,30 @@
 package efimovta.store;
 
-import efimovta.store.entity.creator.Creator;
+import efimovta.store.entity.creator.CreateMenu;
 import efimovta.store.finder.Finder;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+
+/**
+ * Class contains only one method that represents the "main menu"
+ */
 public class Console {
+    private static final int ADDING = 1;
+    private static final int SEARCHING = 2;
+    private static final int EXIT = 3;
+
     final public BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    final public CreateMenu createMenu = new CreateMenu(br);
+    final public Finder finder = new Finder(br, createMenu);
 
-    final public Creator creator = new Creator(br);
-    final public Finder finder = new Finder(br, creator);
-
-    public static void main(String[] args) throws IOException {
-        Console console = new Console();
-        console.run();
-    }
-
-    private void run() throws IOException {
+    /**
+     * Represents the "main menu"
+     * @throws IOException
+     */
+    public void run() throws IOException {
         while (true) {
             System.out.println("\n### Компания \"Horns and hooves and your super device\" ###");
             System.out.println("1. Добавление");
@@ -29,13 +35,13 @@ public class Console {
             int otv = Integer.parseInt(br.readLine());
 
             switch (otv) {
-                case 1:
-                    creator.startDialog();
+                case ADDING:
+                    createMenu.startDialog();
                     break;
-                case 2:
+                case SEARCHING:
                     finder.startDialog();
                     break;
-                case 3:
+                case EXIT:
                     System.exit(0);
                     break;
                 default:

@@ -1,16 +1,25 @@
 package efimovta.store.entity.creator;
 
+import efimovta.store.dao.ClientDAO;
+import efimovta.store.dao.exeption.DAOException;
+import efimovta.store.dao.factory.DAOFactory;
 import efimovta.store.entity.Client;
 import efimovta.store.exception.ExceededAttemptsException;
+import efimovta.store.storage.StorageInMemory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Date;
 
 /**
- * Created by jcd on 13.03.2017.
+ * The class is responsible for creating a new client in interactive mode.
+ * Use STORAGE_IN_MEMORY(SIM)
+ * @see DAOFactory
+ * @see StorageInMemory
  */
-public class ClientCreator extends Requester {
+public class ClientCreator extends Creator {
+
+    ClientDAO clientDAO = DAOFactory.getDAOFactory(DAOFactory.STORAGE_IN_MEMORY).getClientDAO();
 
     public ClientCreator(BufferedReader br) {
         super(br);
@@ -20,11 +29,22 @@ public class ClientCreator extends Requester {
         super(br, numberOfAttempts);
     }
 
-    public Client createClient() throws IOException, ExceededAttemptsException {
+    /**
+     * Creating a new client in interactive mode.
+     * @throws IOException
+     * @throws ExceededAttemptsException
+     */
+    public void createClient() throws IOException, ExceededAttemptsException {
         String[] fio = requestFIO();
         Date birthDay = requestBirthDay();
 
-        return new Client(fio[0], fio[1], fio[2], birthDay);
+        Client client = new Client(fio[0], fio[1], fio[2], birthDay);
+
+        try {
+            clientDAO.record(client);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Date requestBirthDay() throws IOException, ExceededAttemptsException {
@@ -35,12 +55,10 @@ public class ClientCreator extends Requester {
     public String[] requestFIO() throws ExceededAttemptsException, IOException {
         System.out.println("Введите ФИО(Например: Васильев Вася Васильевич)");
         String[] fio = null;
-        for (int i = 1; i <= NUMBER_OF_ATTEMPTS; i++) {
+        while (true) {
             fio = br.readLine().trim().split("[ ]+");
             if (fio.length == 3) break;
-            else if (i < NUMBER_OF_ATTEMPTS)
-                System.err.println(ERR_IN_MSG + (NUMBER_OF_ATTEMPTS - i));
-            else throw new ExceededAttemptsException();
+            else System.err.println(INPUT_ERROR_MSG);
         }
         return fio;
     }

@@ -1,13 +1,13 @@
 package efimovta.store.finder;
 
-import efimovta.store.BD;
 import efimovta.store.entity.Client;
 import efimovta.store.entity.Device;
-import efimovta.store.entity.creator.Creator;
+import efimovta.store.entity.creator.CreateMenu;
 import efimovta.store.enums.Brand;
 import efimovta.store.enums.DeviceType;
 import efimovta.store.exception.ExceededAttemptsException;
 import efimovta.store.exception.OperationException;
+import efimovta.store.storage.StorageInMemory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,11 +21,11 @@ import java.util.Date;
  */
 public class Finder {
     BufferedReader br;
-    Creator creator;
+    CreateMenu createMenu;
 
-    public Finder(BufferedReader br, Creator creator) {
+    public Finder(BufferedReader br, CreateMenu createMenu) {
         this.br = br;
-        this.creator = creator;
+        this.createMenu = createMenu;
     }
 
     public void startDialog() throws IOException {
@@ -66,9 +66,9 @@ public class Finder {
     }
 
     private void findDeviceByReleaseDate() throws IOException, ExceededAttemptsException {
-        Date type = creator.deviceCreator.requestReleaseDate();
+        Date type = createMenu.deviceCreator.requestReleaseDate();
 
-        find(BD.devices, type, new Comparator() {
+        find(StorageInMemory.devices, type, new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
                 return ((Device) o1).getReleaseDate().compareTo((Date) o2);
@@ -77,9 +77,9 @@ public class Finder {
     }
 
     private void findDeviceByType() throws IOException, ExceededAttemptsException {
-        DeviceType type = creator.deviceCreator.requestType();
+        DeviceType type = createMenu.deviceCreator.requestType();
 
-        find(BD.devices, type, new Comparator() {
+        find(StorageInMemory.devices, type, new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
                 return ((Device) o1).getType().compareTo((DeviceType) o2);
@@ -88,9 +88,9 @@ public class Finder {
     }
 
     private void findDeviceByBrand() throws IOException, ExceededAttemptsException {
-        Brand brand = creator.deviceCreator.requestBrand();
+        Brand brand = createMenu.deviceCreator.requestBrand();
 
-        find(BD.devices, brand, new Comparator() {
+        find(StorageInMemory.devices, brand, new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
                 return ((Device) o1).getBrand().compareTo((Brand) o2);
@@ -99,11 +99,11 @@ public class Finder {
     }
 
     private void findClient() throws IOException, ExceededAttemptsException {
-        String[] fiom = creator.clientCreator.requestFIO();
+        String[] fiom = createMenu.clientCreator.requestFIO();
 
         String fio = Arrays.toString(fiom).replaceAll("\\[|\\]|,", "").toLowerCase();
 
-        find(BD.clients, fio, new Comparator() {
+        find(StorageInMemory.clients, fio, new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
                 return ((Client) o1).getFIO().compareToIgnoreCase((String) o2);

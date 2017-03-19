@@ -10,10 +10,11 @@ import java.util.Date;
 /**
  * Created by EFIMOVAT on 11.03.2017.
  */
-public class Device {
+public class Device implements Identified {
     private static int nextId = 1;
     private final int id = nextId++;
-    public int getId() {
+
+    public long getId() {
         return id;
     }
 
@@ -27,7 +28,7 @@ public class Device {
                 ", color=" + color +
                 ", releaseDate=" + releaseDate +
                 ", price=" + price +
-                '}';
+                "}\n";
     }
     public String toString2() {
         return (new StringBuilder().append("Device{")

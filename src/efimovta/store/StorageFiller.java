@@ -1,5 +1,10 @@
 package efimovta.store;
 
+import efimovta.store.dao.ClientDAO;
+import efimovta.store.dao.factory.DAOFactory;
+import efimovta.store.dao.DeviceDAO;
+import efimovta.store.dao.SaleDAO;
+import efimovta.store.dao.exeption.DAOException;
 import efimovta.store.entity.Client;
 import efimovta.store.entity.Device;
 import efimovta.store.entity.Sale;
@@ -11,18 +16,21 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Created by EFIMOVAT on 13.03.2017.
+ * The class contains only one method that fills STORAGE_IN_MEMORY(SIM) storage with some data
  */
-public class BD {
+public class StorageFiller {
+    /**
+     * Fills STORAGE_IN_MEMORY(SIM) storage with some data
+     */
+    public static void fillStorage() {
+        ArrayList<Device> devices = new ArrayList<>();
+        ArrayList<Client> clients = new ArrayList<>();
+        ArrayList<Sale> sales = new ArrayList<>();
 
-
-    static final public ArrayList<Device> devices = new ArrayList<>();
-    static final public ArrayList<Client> clients = new ArrayList<>();
-    static final public ArrayList<Sale> sales = new ArrayList<>();
-
-    static {
         try {
             devices.add(new Device("gbt-7", DeviceType.LAPTOP, Brand.HTC, NamedColor.BLACK, DateFormat.getDateInstance().parse("12.11.2995"), new BigDecimal("100257")));
             devices.add(new Device("rjd-9", DeviceType.PLAYER, Brand.HP, NamedColor.BLACK, DateFormat.getDateInstance().parse("13.12.3995"), new BigDecimal("37257")));
@@ -42,7 +50,36 @@ public class BD {
             clients.add(new Client("Попов", "Александр", "Александрович", DateFormat.getDateInstance().parse("13.11.1994")));
             clients.add(new Client("Феоктистов", "Иван", "Олегович", DateFormat.getDateInstance().parse("13.11.1997")));
             clients.add(new Client("А", "Б", "В", DateFormat.getDateInstance().parse("13.11.1997")));
+
+            Map<Device,Integer> ds = new HashMap<>();
+            for (int i = 0; i < 6; i++) {
+                ds.put(devices.get(i),i+1);
+                sales.add(new Sale(clients.get(i),DateFormat.getDateInstance().parse("13.11.199"+i),ds));
+            }
         } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+
+        DAOFactory df = DAOFactory.getDAOFactory(DAOFactory.STORAGE_IN_MEMORY);
+
+        ClientDAO clientDAO = df.getClientDAO();
+        DeviceDAO deviceDAO = df.getDeviceDAO();
+        SaleDAO saleDAO = df.getSaleDAO();
+
+        try {
+            for (Client c : clients) {
+                clientDAO.record(c);
+            }
+            for (Device d : devices) {
+                deviceDAO.record(d);
+            }
+            for (Sale s : sales) {
+                saleDAO.record(s);
+                System.out.println(s);
+            }
+        } catch (DAOException e) {
             e.printStackTrace();
         }
     }

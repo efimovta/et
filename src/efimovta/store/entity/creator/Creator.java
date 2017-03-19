@@ -1,60 +1,58 @@
 package efimovta.store.entity.creator;
 
-import efimovta.store.BD;
-import efimovta.store.exception.OperationException;
+import efimovta.store.exception.ExceededAttemptsException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 
 /**
- * Created by EFIMOVAT on 13.03.2017.
+ * Created by jcd on 13.03.2017.
  */
 public class Creator {
-    final public ClientCreator clientCreator;
-    final public DeviceCreator deviceCreator;
-    final public SaleCreator saleCreator;
+    final int NUMBER_OF_ATTEMPTS;
+    final String INPUT_ERROR_MSG = "Неверный ввод. Для выхода введите \"q\".";
 
     BufferedReader br;
 
-    public Creator(BufferedReader br) {
-        this.br = br;
-        this.clientCreator = new ClientCreator(br);
-        this.deviceCreator = new DeviceCreator(br);
-        this.saleCreator = new SaleCreator(br);
+    Creator(BufferedReader br) {
+        this(br, 3);
     }
 
-    public void startDialog() throws IOException {
-        while (true) {
-            System.out.println("\n### Добавление ###");
-            System.out.println("1. Добавление клиента");
-            System.out.println("2. Добавление устройства");
-            System.out.println("3. Добавление продажи");
-            System.out.println("4. Возврат к главному меню");
-            System.out.println("Выбирете действие:");
+    Creator(BufferedReader br, int numberOfAttempts) {
+        NUMBER_OF_ATTEMPTS = numberOfAttempts;
+        this.br = br;
+    }
 
-            int otv = Integer.parseInt(br.readLine());
+    public int requestIntNumber(int start, int end) throws ExceededAttemptsException, IOException {
+        int otv = -1;
+        for (int i = 1; i <= NUMBER_OF_ATTEMPTS; i++) {
+            otv = Integer.parseInt(br.readLine());
 
+            if (start <= otv && otv <= end) break;
+
+            if (i < NUMBER_OF_ATTEMPTS)
+                System.err.println(INPUT_ERROR_MSG + (NUMBER_OF_ATTEMPTS - i));
+            else throw new ExceededAttemptsException();
+        }
+        return otv;
+    }
+
+    public Date requestDate() throws IOException, ExceededAttemptsException {
+        Date date = null;
+        for (int i = 1; i <= NUMBER_OF_ATTEMPTS; i++) {
+            String strDate = br.readLine();
             try {
-                switch (otv) {
-                    case 1:
-                        BD.clients.add(clientCreator.createClient());
-                        System.out.println("Клиент успешно добавлен.");
-                        break;
-                    case 2:
-                        BD.devices.add(deviceCreator.createDevice());
-                        System.out.println("Устройство успешно добавлено.");
-                        break;
-                    case 3:
-                        System.err.println("Магазин закрыт.");
-                        break;
-                    case 4:
-                        return;
-                    default:
-                        System.err.println("Неверный ввод.");
-                }
-            } catch (OperationException e) {
-                System.err.println(e.getMessage());
+                date = DateFormat.getDateInstance().parse(strDate);
+                break;
+            } catch (ParseException e) {
+                if (i < NUMBER_OF_ATTEMPTS)
+                    System.err.println(INPUT_ERROR_MSG + (NUMBER_OF_ATTEMPTS - i));
+                else throw new ExceededAttemptsException();
             }
         }
+        return date;
     }
 }
