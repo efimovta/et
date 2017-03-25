@@ -9,17 +9,15 @@ public class Client implements Identified {//TODO builder(or not?)
     private static long nextId = 1;
     private final long id = nextId++;
 
+
     private String secondName;
     private String name;
     private String middleName;
     private Date birthDay;
 
 
-    public Client(String secondName, String name, String middleName, Date birthDay) {
-        this.secondName = secondName;
-        this.name = name;
-        this.middleName = middleName;
-        this.birthDay = birthDay;
+    private Client() {
+
     }
 
     @Override
@@ -65,5 +63,39 @@ public class Client implements Identified {//TODO builder(or not?)
 
     public Date getBirthDay() {
         return birthDay;
+    }
+
+    public static Builder getBuilder() {
+        return new Client().new Builder();
+    }
+
+    public class Builder {
+        private Builder() {
+
+        }
+
+        public Client build() {
+            return Client.this;
+        }
+
+        public Builder setSecondName(String secondName) {
+            Client.this.secondName = secondName;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            Client.this.name = name;
+            return this;
+        }
+
+        public Builder setMiddleName(String middleName) {
+            Client.this.middleName = middleName;
+            return this;
+        }
+
+        public Builder setBirthDay(Date birthDay) {
+            Client.this.birthDay = birthDay;
+            return this;
+        }
     }
 }

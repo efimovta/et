@@ -14,6 +14,13 @@ public class Device implements Identified {//TODO builder(or not?)
     private static int nextId = 1;
     private final int id = nextId++;
 
+    String model;
+    DeviceType type;
+    Brand brand;
+    NamedColor color;
+    Date releaseDate;
+    BigDecimal price;
+
     public long getId() {
         return id;
     }
@@ -30,6 +37,7 @@ public class Device implements Identified {//TODO builder(or not?)
                 ",\n\tprice=" + price +
                 "\n}";
     }
+
     public String toStringWithOneTab() {//TODO delete view piece from model
         return "\tDevice{" +
                 "\n\t\tid=" + id +
@@ -42,13 +50,8 @@ public class Device implements Identified {//TODO builder(or not?)
                 "\n\t}";
     }
 
-    public Device(String model, DeviceType type, Brand brand, NamedColor color, Date releaseDate, BigDecimal price) {
-        this.model = model;
-        this.type = type;
-        this.brand = brand;
-        this.color = color;
-        this.releaseDate = releaseDate;
-        this.price = price;
+    private Device() {
+
     }
 
     public static int getNextId() {
@@ -79,10 +82,51 @@ public class Device implements Identified {//TODO builder(or not?)
         return price;
     }
 
-    String model;
-    DeviceType type;
-    Brand brand;
-    NamedColor color;
-    Date releaseDate;
-    BigDecimal price;
+
+    public static Builder getBuilder() {
+        return new Device().new Builder();
+    }
+
+
+    public class Builder {
+        private Builder() {
+
+        }
+
+        public Device build(){
+            return Device.this;
+        }
+
+        public Builder setModel(String model) {
+            Device.this.model = model;
+            return this;
+        }
+
+        public Builder setType(DeviceType type) {
+            Device.this.type = type;
+            return this;
+        }
+
+        public Builder setBrand(Brand brand) {
+            Device.this.brand = brand;
+            return this;
+        }
+
+        public Builder setColor(NamedColor color) {
+            Device.this.color = color;
+            return this;
+        }
+
+        public Builder setReleaseDate(Date releaseDate) {
+            Device.this.releaseDate = releaseDate;
+            return this;
+        }
+
+        public Builder setPrice(BigDecimal price) {
+            Device.this.price = price;
+            return this;
+        }
+    }
+
+
 }

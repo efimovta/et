@@ -11,12 +11,12 @@ import java.util.List;
 public interface GenericDAO<T> {
 
     /**
-     * Creates a new record that corresponds to the {@link T} object
+     * Creates a new add that corresponds to the {@link T} object
      *
-     * @param object object to record
+     * @param object object to add
      * @return recorded object
      */
-    public T record(T object) throws DAOException;
+    public T add(T object) throws DAOException;
 
     /**
      * Returns {@link T} object with the corresponding Id or null
@@ -27,14 +27,14 @@ public interface GenericDAO<T> {
     public T getById(long id) throws DAOException;
 
     /**
-     * Updates the corresponding record
+     * Updates the corresponding add
      *
-     * @param object object to update record
+     * @param object object to update add
      */
     public void update(T object) throws DAOException;
 
     /**
-     * Deletes an object record
+     * Deletes an object add
      *
      * @param object object to delete
      */

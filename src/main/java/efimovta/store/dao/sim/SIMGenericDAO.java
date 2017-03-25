@@ -21,7 +21,7 @@ public class SIMGenericDAO<T> implements GenericDAO<T> {
 
 
     @Override
-    public T record(T object) throws RecordAlreadyExistsException {
+    public T add(T object) throws RecordAlreadyExistsException {
         boolean added = records.add(object);
         if (!added) throw new RecordAlreadyExistsException();
         return object;

@@ -1,11 +1,11 @@
 package efimovta.store.dao.sim;
 
-import efimovta.store.storage.StorageInMemory;
 import efimovta.store.dao.SaleDAO;
+import efimovta.store.dao.entity.Sale;
 import efimovta.store.dao.exeption.RecordAlreadyExistsException;
 import efimovta.store.dao.exeption.RecordNotFoundException;
 import efimovta.store.dao.sim.helper.FindHelper;
-import efimovta.store.dao.entity.Sale;
+import efimovta.store.storage.StorageInMemory;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,10 +17,10 @@ import java.util.List;
 public class SIMSaleDAO extends SIMGenericDAO<Sale> implements SaleDAO {
 
     @Override
-    public Sale record(Sale object) throws RecordAlreadyExistsException {
+    public Sale add(Sale object) throws RecordAlreadyExistsException {
         StorageInMemory.clients.add(object.getClient());
         StorageInMemory.devices.addAll(object.getDevices().keySet());
-        return super.record(object);
+        return super.add(object);
     }
 
     public SIMSaleDAO(ArrayList<Sale> records) {

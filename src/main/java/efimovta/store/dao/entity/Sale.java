@@ -14,10 +14,8 @@ public class Sale implements Identified {//TODO builder(or not?)
     private Date saleDate;
     private Map<Device, Integer> devices;
 
-    public Sale(Client client, Date saleDate, Map<Device, Integer> devices) {
-        this.client = client;
-        this.saleDate = saleDate;
-        this.devices = devices;
+    private Sale() {
+        
     }
 
     @Override
@@ -29,7 +27,7 @@ public class Sale implements Identified {//TODO builder(or not?)
                 .append(", \nsaleDate=").append(saleDate)
                 .append(", \ndevices=");
 
-        for(Map.Entry<Device, Integer> entry: devices.entrySet()){
+        for (Map.Entry<Device, Integer> entry : devices.entrySet()) {
             sb.append('\n').append(entry.getKey().toStringWithOneTab()).append("---Number of this devices: ").append(entry.getValue());
         }
 
@@ -52,5 +50,35 @@ public class Sale implements Identified {//TODO builder(or not?)
     @Override
     public long getId() {
         return id;
+    }
+
+    public static Builder getBuilder() {
+        return new Sale().new Builder();
+    }
+
+
+    public class Builder {
+        private Builder() {
+
+        }
+
+        public Sale build(){
+            return Sale.this;
+        }
+        
+        public Builder setClient(Client client) {
+            Sale.this.client = client;
+            return this;
+        }
+
+        public Builder setSaleDate(Date saleDate) {
+            Sale.this.saleDate = saleDate;
+            return this;
+        }
+
+        public Builder setDevices(Map<Device, Integer> devices) {
+            Sale.this.devices = devices;
+            return this;
+        }
     }
 }

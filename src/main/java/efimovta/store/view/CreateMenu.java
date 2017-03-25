@@ -1,11 +1,10 @@
 package efimovta.store.view;
 
-import efimovta.store.view.exception.OperationException;
 import efimovta.store.view.creator.ClientCreator;
 import efimovta.store.view.creator.DeviceCreator;
 import efimovta.store.view.creator.SaleCreator;
+import efimovta.store.view.exception.OperationException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -13,13 +12,11 @@ import java.util.List;
 /**
  * The class contains only one method that represents "create menu"
  */
-public class CreateMenu {//todo mb singleton
+public class CreateMenu extends Menu{//todo mb singleton
 
     final static public ClientCreator clientCreator = new ClientCreator();
     final static public DeviceCreator deviceCreator = new DeviceCreator();
     final static public SaleCreator saleCreator = new SaleCreator();
-
-    BufferedReader br = MainMenu.br;
 
     /**
      * represents "create menu"
@@ -36,18 +33,19 @@ public class CreateMenu {//todo mb singleton
 
             System.out.println("Выбирете действие:");
             try {
-                int otv = Integer.parseInt(br.readLine())-1;
+                int otv = Integer.parseInt(getReader().readLine())-1;
                 CreateMenuItem otvItem = items.get(otv);
                 switch (otvItem) {
                     case ADDING_A_CLIENT:
-                        clientCreator.createClient();
+                        clientCreator.startCreationDialog();
                         System.out.println("Клиент успешно добавлен.");
                         break;
                     case ADDING_A_DEVICE:
-                        deviceCreator.createDevice();
+                        deviceCreator.startCreationDialog();
                         System.out.println("Устройство успешно добавлено.");
                         break;
                     case ADDING_A_SALE:
+                        saleCreator.startCreationDialog();
                         System.err.println("Магазин закрыт.");
                         break;
                     case RETURN_TO_MAIN_MENU:

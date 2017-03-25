@@ -1,18 +1,18 @@
 package efimovta.store.dao.sim.factory;
 
+import efimovta.store.dao.ClientDAO;
+import efimovta.store.dao.DeviceDAO;
+import efimovta.store.dao.SaleDAO;
+import efimovta.store.dao.factory.DAOFactory;
+import efimovta.store.dao.sim.SIMClientDAO;
 import efimovta.store.dao.sim.SIMDeviceDAO;
 import efimovta.store.dao.sim.SIMSaleDAO;
 import efimovta.store.storage.StorageInMemory;
-import efimovta.store.dao.ClientDAO;
-import efimovta.store.dao.factory.DAOFactory;
-import efimovta.store.dao.DeviceDAO;
-import efimovta.store.dao.SaleDAO;
-import efimovta.store.dao.sim.SIMClientDAO;
 
 /**
  * Created by jcd on 19.03.2017.
  */
-public class SIMDAOFactory extends DAOFactory {//TODO rename, or otherwise make
+public class SIMDAOFactory extends DAOFactory {
 
     @Override
     public ClientDAO getClientDAO() {

@@ -3,30 +3,35 @@ package efimovta.store.view;
 import efimovta.store.dao.ClientDAO;
 import efimovta.store.dao.DeviceDAO;
 import efimovta.store.dao.SaleDAO;
-import efimovta.store.dao.entity.Sale;
-import efimovta.store.dao.exeption.DAOException;
-import efimovta.store.dao.factory.DAOFactory;
 import efimovta.store.dao.entity.Client;
 import efimovta.store.dao.entity.Device;
+import efimovta.store.dao.entity.Sale;
 import efimovta.store.dao.entity.enums.Brand;
 import efimovta.store.dao.entity.enums.DeviceType;
+import efimovta.store.dao.exeption.DAOException;
+import efimovta.store.dao.factory.DAOFactory;
+import efimovta.store.view.creator.requester.ClientParamsRequester;
+import efimovta.store.view.creator.requester.DeviceParamsRequester;
 import efimovta.store.view.exception.OperationCanceledByUserException;
 import efimovta.store.view.exception.OperationException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by jcd on 13.03.2017.
  */
-public class SearchMenu {//todo mb singleton
+public class SearchMenu extends Menu{//todo mb singleton
 
-    BufferedReader br = MainMenu.br;
+    ClientDAO clientDAO = DAOFactory.get().getClientDAO();
+    DeviceDAO deviceDAO = DAOFactory.get().getDeviceDAO();
+    SaleDAO saleDAO = DAOFactory.get().getSaleDAO();
 
-    ClientDAO clientDAO = DAOFactory.getDAOFactory(DAOFactory.STORAGE_IN_MEMORY).getClientDAO();
-    DeviceDAO deviceDAO = DAOFactory.getDAOFactory(DAOFactory.STORAGE_IN_MEMORY).getDeviceDAO();
-    SaleDAO saleDAO = DAOFactory.getDAOFactory(DAOFactory.STORAGE_IN_MEMORY).getSaleDAO();
+    DeviceParamsRequester dpr = DeviceParamsRequester.getInstance();
+    ClientParamsRequester cpr = ClientParamsRequester.getInstance();
+
 
     public void startDialog() throws IOException {
         List<SearchMenuItem> items = Arrays.asList(SearchMenuItem.values());
@@ -38,7 +43,7 @@ public class SearchMenu {//todo mb singleton
 
             System.out.println("Выбирете действие:");
             try {
-                int otv = Integer.parseInt(br.readLine())-1;
+                int otv = Integer.parseInt(getReader().readLine())-1;
                 SearchMenuItem otvItem = items.get(otv);
                 switch (otvItem) {
                     case ALL_CLIENT:
@@ -88,25 +93,25 @@ public class SearchMenu {//todo mb singleton
     }
 
     private List<Device> findDeviceByReleaseDate() throws IOException, OperationCanceledByUserException, DAOException {
-        Date date = CreateMenu.deviceCreator.requestReleaseDate();
+        Date date = dpr.requestReleaseDate();
 
         return deviceDAO.findDeviceByReleaseDate(date);
     }
 
     private List<Device> findDeviceByType() throws IOException, OperationCanceledByUserException, DAOException {
-        DeviceType type = CreateMenu.deviceCreator.requestType();
+        DeviceType type = dpr.requestType();
 
         return deviceDAO.findDeviceByType(type);
     }
 
     private List<Device> findDeviceByBrand() throws IOException, OperationCanceledByUserException, DAOException {
-        Brand brand = CreateMenu.deviceCreator.requestBrand();
+        Brand brand = dpr.requestBrand();
 
         return deviceDAO.findDevicesByBrand(brand);
     }
 
     private List<Client> findClientByFIO() throws IOException, OperationCanceledByUserException, DAOException {
-        String[] fiom = CreateMenu.clientCreator.requestFIO();
+        String[] fiom = cpr.requestFIO();
 
         String fio = Arrays.toString(fiom).replaceAll("\\[|\\]|,", "").toLowerCase();
 

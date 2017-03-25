@@ -1,7 +1,7 @@
 package efimovta.store;
 
-import efimovta.store.view.MainMenu;
 import efimovta.store.storage.StorageFiller;
+import efimovta.store.view.MainMenu;
 
 import java.io.IOException;
 
@@ -12,6 +12,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         StorageFiller.fillStorage();
 
-        new MainMenu().run();
+        new MainMenu().startDialog();
     }
 }
