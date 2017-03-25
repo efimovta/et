@@ -12,7 +12,7 @@ import efimovta.store.dao.sim.SIMClientDAO;
 /**
  * Created by jcd on 19.03.2017.
  */
-public class SIMDAOFactory extends DAOFactory {
+public class SIMDAOFactory extends DAOFactory {//TODO rename, or otherwise make
 
     @Override
     public ClientDAO getClientDAO() {

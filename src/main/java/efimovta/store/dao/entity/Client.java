@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by EFIMOVAT on 11.03.2017.
  */
-public class Client implements Identified {
+public class Client implements Identified {//TODO builder(or not?)
     private static long nextId = 1;
     private final long id = nextId++;
 
@@ -33,7 +33,7 @@ public class Client implements Identified {
                 "\n}";
     }
 
-    public String toStringWithOneTab() {
+    public String toStringWithOneTab() {//TODO delete view piece from model
         return "\tClient{" +
                 "\n\t\tid=" + id +
                 ",\n\t\tsecondName='" + secondName + '\'' +

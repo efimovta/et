@@ -1,4 +1,4 @@
-package efimovta.store.menu;
+package efimovta.store.view;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Class contains only one method that represents the "main menu"
  */
-public class MainMenu {
+public class MainMenu {//todo mb singleton
     final static public BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     final public CreateMenu createMenu = new CreateMenu();
@@ -22,9 +22,9 @@ public class MainMenu {
      * @throws IOException
      */
     public void run() throws IOException {
+        List<MainMenuItem> items = Arrays.asList(MainMenuItem.values());
         while (true) {
             System.out.println("\n### Компания \"Horns and hooves and your super device\" ###");
-            List<MainMenuItem> items = Arrays.asList(MainMenuItem.values());
             for (MainMenuItem mmi : MainMenuItem.values()) {
                 System.out.println(mmi.ordinal() + 1 + ". " + mmi);
             }
@@ -49,7 +49,6 @@ public class MainMenu {
             }
         }
     }
-
 
     enum MainMenuItem {
         ADDING("Добавление"),

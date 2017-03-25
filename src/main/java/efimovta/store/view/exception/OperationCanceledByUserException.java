@@ -1,4 +1,4 @@
-package efimovta.store.menu.exception;
+package efimovta.store.view.exception;
 
 /**
  * Created by EFIMOVAT on 12.03.2017.

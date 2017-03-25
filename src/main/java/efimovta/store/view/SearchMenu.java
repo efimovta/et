@@ -1,4 +1,4 @@
-package efimovta.store.menu;
+package efimovta.store.view;
 
 import efimovta.store.dao.ClientDAO;
 import efimovta.store.dao.DeviceDAO;
@@ -10,8 +10,8 @@ import efimovta.store.dao.entity.Client;
 import efimovta.store.dao.entity.Device;
 import efimovta.store.dao.entity.enums.Brand;
 import efimovta.store.dao.entity.enums.DeviceType;
-import efimovta.store.menu.exception.OperationCanceledByUserException;
-import efimovta.store.menu.exception.OperationException;
+import efimovta.store.view.exception.OperationCanceledByUserException;
+import efimovta.store.view.exception.OperationException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import java.util.*;
 /**
  * Created by jcd on 13.03.2017.
  */
-public class SearchMenu {
+public class SearchMenu {//todo mb singleton
 
     BufferedReader br = MainMenu.br;
 
@@ -29,9 +29,9 @@ public class SearchMenu {
     SaleDAO saleDAO = DAOFactory.getDAOFactory(DAOFactory.STORAGE_IN_MEMORY).getSaleDAO();
 
     public void startDialog() throws IOException {
+        List<SearchMenuItem> items = Arrays.asList(SearchMenuItem.values());
         while (true) {
             System.out.println("\n### Поиск ###");
-            List<SearchMenuItem> items = Arrays.asList(SearchMenuItem.values());
             for (SearchMenuItem smi : SearchMenuItem.values()) {
                 System.out.println(smi.ordinal()+1 + ". " + smi);
             }

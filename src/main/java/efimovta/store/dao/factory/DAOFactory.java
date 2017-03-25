@@ -8,7 +8,7 @@ import efimovta.store.dao.sim.factory.SIMDAOFactory;
 /**
  * Created by jcd on 19.03.2017.
  */
-public abstract class DAOFactory {
+public abstract class DAOFactory {//TODO rename, or otherwise make
     public static final int STORAGE_IN_MEMORY = 1;
 
 

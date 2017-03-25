@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by EFIMOVAT on 11.03.2017.
  */
-public class Sale implements Identified {
+public class Sale implements Identified {//TODO builder(or not?)
     private static long nextId = 1;
     private final long id = nextId++;
 
@@ -21,7 +21,7 @@ public class Sale implements Identified {
     }
 
     @Override
-    public String toString() {
+    public String toString() {//TODO delete view piece from model
         StringBuilder sb = new StringBuilder()
                 .append("Sale{")
                 .append("\nid=").append(id)

@@ -1,9 +1,9 @@
-package efimovta.store.menu;
+package efimovta.store.view;
 
-import efimovta.store.menu.exception.OperationException;
-import efimovta.store.menu.creator.ClientCreator;
-import efimovta.store.menu.creator.DeviceCreator;
-import efimovta.store.menu.creator.SaleCreator;
+import efimovta.store.view.exception.OperationException;
+import efimovta.store.view.creator.ClientCreator;
+import efimovta.store.view.creator.DeviceCreator;
+import efimovta.store.view.creator.SaleCreator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,13 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * The class contains only one method that represents "create a menu"
+ * The class contains only one method that represents "create menu"
  */
-public class CreateMenu {
-    private static final int ADDING_A_CLIENT = 1;
-    private static final int ADDING_A_DEVICE = ADDING_A_CLIENT + 1;
-    private static final int ADDING_A_SALE = ADDING_A_DEVICE + 1;
-    private static final int RETURN_TO_MAIN_MENU = ADDING_A_SALE + 1;
+public class CreateMenu {//todo mb singleton
 
     final static public ClientCreator clientCreator = new ClientCreator();
     final static public DeviceCreator deviceCreator = new DeviceCreator();
@@ -25,16 +21,15 @@ public class CreateMenu {
 
     BufferedReader br = MainMenu.br;
 
-
     /**
-     * represents "create a menu"
+     * represents "create menu"
      *
      * @throws IOException
      */
     public void startDialog() throws IOException {
+        List<CreateMenuItem> items = Arrays.asList(CreateMenuItem.values());
         while (true) {
             System.out.println("\n### Добавление ###");
-            List<CreateMenuItem> items = Arrays.asList(CreateMenuItem.values());
             for (CreateMenuItem cmi : CreateMenuItem.values()) {
                 System.out.println(cmi.ordinal()+1 + ". " + cmi);
             }

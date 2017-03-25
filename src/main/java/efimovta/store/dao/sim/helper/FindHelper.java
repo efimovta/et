@@ -14,10 +14,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by jcd on 19.03.2017.
+ * Used to find the entity by parameter in the array
  */
-
-public class FindHelper {
+public class FindHelper { //todo delete comparators
 
     public static final Comparator BY_ID = new Comparator() {
         @Override

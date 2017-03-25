@@ -1,26 +1,21 @@
-package efimovta.store.menu.creator;
+package efimovta.store.view.creator;
 
 import efimovta.store.dao.ClientDAO;
 import efimovta.store.dao.exeption.DAOException;
 import efimovta.store.dao.factory.DAOFactory;
 import efimovta.store.dao.entity.Client;
-import efimovta.store.menu.exception.OperationCanceledByUserException;
+import efimovta.store.view.exception.OperationCanceledByUserException;
 import efimovta.store.storage.StorageInMemory;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Date;
 
 /**
  * The class is responsible for creating a new client in interactive mode.
- * Use STORAGE_IN_MEMORY(SIM)
- * @see DAOFactory
- * @see StorageInMemory
  */
-public class ClientCreator extends Creator {
+public class ClientCreator extends Creator {//todo mb singleton
 
     ClientDAO clientDAO = DAOFactory.getDAOFactory(DAOFactory.STORAGE_IN_MEMORY).getClientDAO();
-
 
     /**
      * Creating a new client in interactive mode.

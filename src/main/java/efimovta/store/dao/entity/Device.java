@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * Created by EFIMOVAT on 11.03.2017.
  */
-public class Device implements Identified {
+public class Device implements Identified {//TODO builder(or not?)
     private static int nextId = 1;
     private final int id = nextId++;
 
@@ -30,7 +30,7 @@ public class Device implements Identified {
                 ",\n\tprice=" + price +
                 "\n}";
     }
-    public String toStringWithOneTab() {
+    public String toStringWithOneTab() {//TODO delete view piece from model
         return "\tDevice{" +
                 "\n\t\tid=" + id +
                 ", \n\t\tmodel='" + model + '\'' +

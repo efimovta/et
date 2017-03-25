@@ -26,6 +26,7 @@ public class StorageFiller {
     /**
      * Fills STORAGE_IN_MEMORY(SIM) storage with some data
      */
+    @SuppressWarnings("all")
     public static void fillStorage() {
         ArrayList<Device> devices = new ArrayList<>();
         ArrayList<Client> clients = new ArrayList<>();
@@ -59,8 +60,6 @@ public class StorageFiller {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
 
         DAOFactory df = DAOFactory.getDAOFactory(DAOFactory.STORAGE_IN_MEMORY);
 

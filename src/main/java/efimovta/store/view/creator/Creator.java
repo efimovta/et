@@ -1,7 +1,7 @@
-package efimovta.store.menu.creator;
+package efimovta.store.view.creator;
 
-import efimovta.store.menu.MainMenu;
-import efimovta.store.menu.exception.OperationCanceledByUserException;
+import efimovta.store.view.MainMenu;
+import efimovta.store.view.exception.OperationCanceledByUserException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * Created by jcd on 13.03.2017.
  */
-public class Creator {
+public class Creator { //todo mb singleton
     final static String EXIT_SYMBOL = "q";
     final static String INPUT_ERROR_MSG = "Неверный ввод. Повторите. Для выхода введите \""+EXIT_SYMBOL+"\".";
 

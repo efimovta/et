@@ -1,4 +1,4 @@
-package efimovta.store.menu.creator;
+package efimovta.store.view.creator;
 
 import efimovta.store.dao.DeviceDAO;
 import efimovta.store.dao.exeption.DAOException;
@@ -7,9 +7,8 @@ import efimovta.store.dao.entity.Device;
 import efimovta.store.dao.entity.enums.Brand;
 import efimovta.store.dao.entity.enums.DeviceType;
 import efimovta.store.dao.entity.enums.NamedColor;
-import efimovta.store.menu.exception.OperationCanceledByUserException;
+import efimovta.store.view.exception.OperationCanceledByUserException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -19,7 +18,7 @@ import java.util.List;
 /**
  * Created by jcd on 13.03.2017.
  */
-public class DeviceCreator extends Creator {
+public class DeviceCreator extends Creator {//todo mb singleton
 
     DeviceDAO deviceDAO = DAOFactory.getDAOFactory(DAOFactory.STORAGE_IN_MEMORY).getDeviceDAO();
 
