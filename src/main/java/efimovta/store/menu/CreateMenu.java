@@ -1,29 +1,25 @@
 package efimovta.store.menu;
 
-import efimovta.store.menu.creator.ClientCreator;
-import efimovta.store.menu.creator.DeviceCreator;
-import efimovta.store.menu.creator.SaleCreator;
 import efimovta.store.menu.exception.OperationException;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * The class contains only one method that represents "create menu"
  */
-public class CreateMenu extends Menu{//todo mb singleton
-
-    final static public ClientCreator clientCreator = new ClientCreator();
-    final static public DeviceCreator deviceCreator = new DeviceCreator();
-    final static public SaleCreator saleCreator = new SaleCreator();
+public class CreateMenu {//todo mb singleton
 
     /**
      * represents "create menu"
      *
      * @throws IOException
      */
-    public void startDialog() throws IOException {
+    public static void startDialog() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         List<CreateMenuItem> items = Arrays.asList(CreateMenuItem.values());
         while (true) {
             System.out.println("\n### Добавление ###");
@@ -33,20 +29,20 @@ public class CreateMenu extends Menu{//todo mb singleton
 
             System.out.println("Выбирете действие:");
             try {
-                int otv = Integer.parseInt(getReader().readLine())-1;
+                int otv = Integer.parseInt(br.readLine())-1;
                 CreateMenuItem otvItem = items.get(otv);
                 switch (otvItem) {
                     case ADDING_A_CLIENT:
-                        clientCreator.startCreationDialog();
+                        Creator.startClientCreationDialog();
                         System.out.println("Клиент успешно добавлен.");
                         break;
                     case ADDING_A_DEVICE:
-                        deviceCreator.startCreationDialog();
+                        Creator.startDeviceCreationDialog();
                         System.out.println("Устройство успешно добавлено.");
                         break;
                     case ADDING_A_SALE:
-                        saleCreator.startCreationDialog();
-                        System.err.println("Магазин закрыт.");
+                        Creator.startSaleCreationDialog();
+                        System.out.println("Продажа успешно добавлена.");
                         break;
                     case RETURN_TO_MAIN_MENU:
                         return;
@@ -62,7 +58,7 @@ public class CreateMenu extends Menu{//todo mb singleton
     }
 
 
-    enum CreateMenuItem {
+    public enum CreateMenuItem {
         ADDING_A_CLIENT("Добавление клиента"),
         ADDING_A_DEVICE("Добавление устройства"),
         ADDING_A_SALE("Добавление продажи"),

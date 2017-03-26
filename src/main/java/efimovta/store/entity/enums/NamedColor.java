@@ -1,4 +1,4 @@
-package efimovta.store.dao.entity.enums;
+package efimovta.store.entity.enums;
 
 import java.awt.*;
 

@@ -1,6 +1,8 @@
 package efimovta.store.menu;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,17 +10,15 @@ import java.util.List;
 /**
  * Class contains only one method that represents the "main menu"
  */
-public class MainMenu extends Menu{//todo mb singleton
-
-    final public CreateMenu createMenu = new CreateMenu();
-    final public SearchMenu searchMenu = new SearchMenu();
+public class MainMenu {
 
     /**
      * Represents the "main menu"
      *
      * @throws IOException
      */
-    public void startDialog() throws IOException {//todo mb command executor
+    public static void startDialog() throws IOException {//todo mb command executor
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         List<MainMenuItem> items = Arrays.asList(MainMenuItem.values());
         while (true) {
             System.out.println("\n### Компания \"Horns and hooves and your super device\" ###");
@@ -28,14 +28,14 @@ public class MainMenu extends Menu{//todo mb singleton
 
             System.out.println("Выбирете действие:");
             try {
-                int otv = Integer.parseInt(getReader().readLine()) - 1;
+                int otv = Integer.parseInt(br.readLine()) - 1;
                 MainMenuItem otvItem = items.get(otv);
                 switch (otvItem) {
                     case ADDING:
-                        createMenu.startDialog();
+                        CreateMenu.startDialog();
                         break;
                     case SEARCHING:
-                        searchMenu.startDialog();
+                        SearchMenu.startDialog();
                         break;
                     case EXIT:
                         System.exit(0);

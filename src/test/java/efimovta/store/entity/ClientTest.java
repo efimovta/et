@@ -1,4 +1,4 @@
-package efimovta.store.dao.entity;
+package efimovta.store.entity;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

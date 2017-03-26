@@ -1,4 +1,4 @@
-package efimovta.store.dao.entity;
+package efimovta.store.entity;
 
 import java.util.Date;
 
@@ -43,27 +43,6 @@ public class Client implements Identified {
 
     private Client() {
 
-    }
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "\n\tid=" + id +
-                ",\n\tsecondName='" + secondName + '\'' +
-                ",\n\tname='" + name + '\'' +
-                ",\n\tmiddleName='" + middleName + '\'' +
-                ",\n\tbirthDay=" + birthDay +
-                "\n}";
-    }
-
-    public String toStringWithOneTab() {//TODO delete view piece from model
-        return "\tClient{" +
-                "\n\t\tid=" + id +
-                ",\n\t\tsecondName='" + secondName + '\'' +
-                ",\n\t\tname='" + name + '\'' +
-                ",\n\t\tmiddleName='" + middleName + '\'' +
-                ",\n\t\tbirthDay=" + birthDay +
-                "\n\t}";
     }
 
     public long getId() {

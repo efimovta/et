@@ -1,7 +1,7 @@
 package efimovta.store.dao.impl.sim;
 
-import efimovta.store.dao.entity.Client;
 import efimovta.store.dao.exeption.RecordNotFoundException;
+import efimovta.store.entity.Client;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

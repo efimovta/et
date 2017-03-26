@@ -1,39 +1,24 @@
 package efimovta.store.menu;
 
-import efimovta.store.dao.ClientDAO;
-import efimovta.store.dao.DeviceDAO;
-import efimovta.store.dao.SaleDAO;
-import efimovta.store.dao.entity.Client;
-import efimovta.store.dao.entity.Device;
-import efimovta.store.dao.entity.Sale;
-import efimovta.store.dao.entity.enums.Brand;
-import efimovta.store.dao.entity.enums.DeviceType;
 import efimovta.store.dao.exeption.DAOException;
-import efimovta.store.dao.factory.DAOFactory;
-import efimovta.store.menu.exception.OperationCanceledByUserException;
+import efimovta.store.entity.Client;
+import efimovta.store.entity.Device;
+import efimovta.store.entity.Sale;
 import efimovta.store.menu.exception.OperationException;
-import efimovta.store.menu.requester.ClientParamsRequester;
-import efimovta.store.menu.requester.DeviceParamsRequester;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Created by jcd on 13.03.2017.
  */
-public class SearchMenu extends Menu{//todo mb singleton
+public class SearchMenu {
 
-    ClientDAO clientDAO = DAOFactory.get().getClientDAO();
-    DeviceDAO deviceDAO = DAOFactory.get().getDeviceDAO();
-    SaleDAO saleDAO = DAOFactory.get().getSaleDAO();
-
-    DeviceParamsRequester dpr = DeviceParamsRequester.getInstance();
-    ClientParamsRequester cpr = ClientParamsRequester.getInstance();
-
-
-    public void startDialog() throws IOException {
+    public static void startDialog() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         List<SearchMenuItem> items = Arrays.asList(SearchMenuItem.values());
         while (true) {
             System.out.println("\n### Поиск ###");
@@ -43,41 +28,41 @@ public class SearchMenu extends Menu{//todo mb singleton
 
             System.out.println("Выбирете действие:");
             try {
-                int otv = Integer.parseInt(getReader().readLine())-1;
+                int otv = Integer.parseInt(br.readLine())-1;
                 SearchMenuItem otvItem = items.get(otv);
                 switch (otvItem) {
                     case ALL_CLIENT:
-                        for (Client client : clientDAO.getAll()) {
+                        for (Client client : Searcher.findAllClients()) {
                             System.out.println(client);
                         }
                         break;
                     case ALL_DEVICE:
-                        for (Device device : deviceDAO.getAll()) {
+                        for (Device device : Searcher.findAllDevices()) {
                             System.out.println(device);
                         }
                         break;
                     case ALL_SALE:
-                        for (Sale device : saleDAO.getAll()) {
-                            System.out.println(device);
+                        for (Sale sale : Searcher.findAllSales()) {
+                            System.out.println(sale);
                         }
                         break;
                     case CLIENT_BY_FIO:
-                        for (Client client : findClientByFIO()) {
+                        for (Client client : Searcher.findClientByFIO()) {
                             System.out.println(client);
                         }
                         break;
                     case DEVICE_BY_BRAND:
-                        for (Device device : findDeviceByBrand()) {
+                        for (Device device : Searcher.findDeviceByBrand()) {
                             System.out.println(device);
                         }
                         break;
                     case DEVICE_BY_TYPE:
-                        for (Device device : findDeviceByType()) {
+                        for (Device device : Searcher.findDeviceByType()) {
                             System.out.println(device);
                         }
                         break;
                     case DEVICE_BY_RELEASE_DATE:
-                        for (Device device : findDeviceByReleaseDate()) {
+                        for (Device device : Searcher.findDeviceByReleaseDate()) {
                             System.out.println(device);
                         }
                         break;
@@ -90,32 +75,6 @@ public class SearchMenu extends Menu{//todo mb singleton
                 System.err.println("Неверный ввод.");
             }
         }
-    }
-
-    private List<Device> findDeviceByReleaseDate() throws IOException, OperationCanceledByUserException, DAOException {
-        Date date = dpr.requestReleaseDate();
-
-        return deviceDAO.findDeviceByReleaseDate(date);
-    }
-
-    private List<Device> findDeviceByType() throws IOException, OperationCanceledByUserException, DAOException {
-        DeviceType type = dpr.requestType();
-
-        return deviceDAO.findDeviceByType(type);
-    }
-
-    private List<Device> findDeviceByBrand() throws IOException, OperationCanceledByUserException, DAOException {
-        Brand brand = dpr.requestBrand();
-
-        return deviceDAO.findDevicesByBrand(brand);
-    }
-
-    private List<Client> findClientByFIO() throws IOException, OperationCanceledByUserException, DAOException {
-        String[] fiom = cpr.requestFIO();
-
-        String fio = Arrays.toString(fiom).replaceAll("\\[|\\]|,", "").toLowerCase();
-
-        return clientDAO.findByFIO(fio);
     }
 
     enum SearchMenuItem {

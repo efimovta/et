@@ -1,11 +1,11 @@
 package efimovta.store.dao.impl.sim;
 
 import efimovta.store.dao.DeviceDAO;
-import efimovta.store.dao.entity.Device;
-import efimovta.store.dao.entity.enums.Brand;
-import efimovta.store.dao.entity.enums.DeviceType;
 import efimovta.store.dao.exeption.RecordNotFoundException;
-import efimovta.store.dao.impl.sim.helper.FindHelper;
+import efimovta.store.entity.Device;
+import efimovta.store.entity.enums.Brand;
+import efimovta.store.entity.enums.DeviceType;
+import efimovta.store.util.FindHelper;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +20,10 @@ public class SIMDeviceDAO extends SIMGenericDAO<Device> implements DeviceDAO {
         super(records);
     }
 
+    @Override
+    public Device findById(long id) throws RecordNotFoundException {
+        return FindHelper.find(records, id, FindHelper.DEVICE_BY_ID).get(0);
+    }
     @Override
     public List<Device> findDevicesByBrand(Brand brand) throws RecordNotFoundException {
         return FindHelper.find(records, brand, FindHelper.DEVICE_BY_BRAND);

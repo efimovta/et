@@ -1,9 +1,9 @@
 package efimovta.store.dao.impl.sim;
 
 import efimovta.store.dao.GenericDAO;
+import efimovta.store.dao.exeption.DAOException;
 import efimovta.store.dao.exeption.RecordAlreadyExistsException;
 import efimovta.store.dao.exeption.RecordNotFoundException;
-import efimovta.store.dao.impl.sim.helper.FindHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,6 @@ public class SIMGenericDAO<T> implements GenericDAO<T> {
         this.records = records;
     }
 
-
     @Override
     public T add(T object) throws RecordAlreadyExistsException, RecordNotFoundException {
         boolean added = records.add(object);
@@ -28,8 +27,8 @@ public class SIMGenericDAO<T> implements GenericDAO<T> {
     }
 
     @Override
-    public T findById(long id) throws RecordNotFoundException {
-        return FindHelper.find(records, id, FindHelper.BY_ID).get(0);
+    public T findById(long id) throws DAOException {
+        throw  new UnsupportedOperationException();
     }
 
     @Override

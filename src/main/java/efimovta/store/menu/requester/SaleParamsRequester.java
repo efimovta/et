@@ -1,9 +1,9 @@
 package efimovta.store.menu.requester;
 
 import efimovta.store.dao.ClientDAO;
-import efimovta.store.dao.entity.Client;
 import efimovta.store.dao.exeption.DAOException;
 import efimovta.store.dao.factory.DAOFactory;
+import efimovta.store.entity.Client;
 import efimovta.store.menu.exception.OperationCanceledByUserException;
 
 import java.io.IOException;

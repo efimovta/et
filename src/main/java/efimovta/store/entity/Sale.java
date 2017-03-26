@@ -1,4 +1,4 @@
-package efimovta.store.dao.entity;
+package efimovta.store.entity;
 
 import java.util.Date;
 import java.util.Map;
@@ -48,7 +48,7 @@ public class Sale implements Identified {
         StringBuilder sb = new StringBuilder()
                 .append("Sale{")
                 .append("\nid=").append(id)
-                .append(", \nclient=\n").append(client.toStringWithOneTab())
+                //.append(", \nclient=\n").append(client.toStringWithOneTab())
                 .append(", \nsaleDate=").append(saleDate)
                 .append(", \ndevices=");
 

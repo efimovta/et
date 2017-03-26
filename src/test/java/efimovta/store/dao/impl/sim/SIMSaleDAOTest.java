@@ -1,12 +1,12 @@
 package efimovta.store.dao.impl.sim;
 
-import efimovta.store.dao.entity.Client;
-import efimovta.store.dao.entity.Device;
-import efimovta.store.dao.entity.Sale;
-import efimovta.store.dao.entity.enums.Brand;
-import efimovta.store.dao.entity.enums.DeviceType;
-import efimovta.store.dao.entity.enums.NamedColor;
 import efimovta.store.dao.exeption.RecordNotFoundException;
+import efimovta.store.entity.Client;
+import efimovta.store.entity.Device;
+import efimovta.store.entity.Sale;
+import efimovta.store.entity.enums.Brand;
+import efimovta.store.entity.enums.DeviceType;
+import efimovta.store.entity.enums.NamedColor;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

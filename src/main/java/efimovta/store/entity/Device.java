@@ -1,8 +1,8 @@
-package efimovta.store.dao.entity;
+package efimovta.store.entity;
 
-import efimovta.store.dao.entity.enums.Brand;
-import efimovta.store.dao.entity.enums.DeviceType;
-import efimovta.store.dao.entity.enums.NamedColor;
+import efimovta.store.entity.enums.Brand;
+import efimovta.store.entity.enums.DeviceType;
+import efimovta.store.entity.enums.NamedColor;
 
 import java.math.BigDecimal;
 import java.util.Date;
