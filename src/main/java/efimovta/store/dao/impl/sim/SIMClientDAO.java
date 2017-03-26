@@ -1,9 +1,9 @@
-package efimovta.store.dao.sim;
+package efimovta.store.dao.impl.sim;
 
 import efimovta.store.dao.ClientDAO;
 import efimovta.store.dao.entity.Client;
 import efimovta.store.dao.exeption.RecordNotFoundException;
-import efimovta.store.dao.sim.helper.FindHelper;
+import efimovta.store.dao.impl.sim.helper.FindHelper;
 
 import java.util.ArrayList;
 import java.util.List;

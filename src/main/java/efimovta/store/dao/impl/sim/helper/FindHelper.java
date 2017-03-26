@@ -1,4 +1,4 @@
-package efimovta.store.dao.sim.helper;
+package efimovta.store.dao.impl.sim.helper;
 
 import efimovta.store.dao.entity.Client;
 import efimovta.store.dao.entity.Device;

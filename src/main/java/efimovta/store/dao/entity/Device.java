@@ -10,13 +10,44 @@ import java.util.Date;
 /**
  * Created by EFIMOVAT on 11.03.2017.
  */
-public class Device implements Identified {//TODO builder(or not?)
+public class Device implements Identified {
     private static int nextId = 1;
     private final int id = nextId++;
 
     String model;
     DeviceType type;
     Brand brand;
+
+    @Override
+    public boolean equals(Object o) {
+        boolean otv = false;
+
+        if (this == o) {
+            otv = true;
+        } else if (o != null && getClass() == o.getClass()) {
+            Device device = (Device) o;
+            if (getModel().equals(device.getModel())
+                    && getType() == device.getType()
+                    && getBrand() == device.getBrand()
+                    && getColor() == device.getColor()
+                    && getReleaseDate().equals(device.getReleaseDate())) {
+                otv = true;
+            }
+        }
+
+        return otv;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getType().hashCode();
+        result = 31 * result + getBrand().hashCode();
+        result = 31 * result + getColor().hashCode();
+        result = 31 * result + getReleaseDate().hashCode();
+        result = 31 * result + getPrice().hashCode();
+        return result;
+    }
+
     NamedColor color;
     Date releaseDate;
     BigDecimal price;
@@ -93,7 +124,7 @@ public class Device implements Identified {//TODO builder(or not?)
 
         }
 
-        public Device build(){
+        public Device build() {
             return Device.this;
         }
 

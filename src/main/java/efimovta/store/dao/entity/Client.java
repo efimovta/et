@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by EFIMOVAT on 11.03.2017.
  */
-public class Client implements Identified {//TODO builder(or not?)
+public class Client implements Identified {
     private static long nextId = 1;
     private final long id = nextId++;
 
@@ -14,6 +14,32 @@ public class Client implements Identified {//TODO builder(or not?)
     private String middleName;
     private Date birthDay;
 
+    @Override
+    public boolean equals(Object o) {
+        boolean otv = false;
+
+        if (this == o) {
+            otv = true;
+        } else if (o != null && getClass() == o.getClass()) {
+            Client client = (Client) o;
+            if (getSecondName().equals(client.getSecondName())
+                    && getName().equals(client.getName())
+                    && getMiddleName().equals(client.getMiddleName())
+                    && getBirthDay().equals(client.getBirthDay())) {
+                otv = true;
+            }
+        }
+        return otv;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getSecondName().hashCode();
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + getMiddleName().hashCode();
+        result = 31 * result + getBirthDay().hashCode();
+        return result;
+    }
 
     private Client() {
 

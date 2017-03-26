@@ -5,9 +5,10 @@ package efimovta.store.dao.exeption;
  */
 public class RecordNotFoundException extends DAOException {
     public RecordNotFoundException() {
+        super("Запись не найдена");
     }
 
     public RecordNotFoundException(String message) {
-        super("Запись не найдена");
+        super(message);
     }
 }

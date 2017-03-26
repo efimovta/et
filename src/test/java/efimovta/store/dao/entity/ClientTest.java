@@ -3,77 +3,89 @@ package efimovta.store.dao.entity;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.text.DateFormat;
-import java.text.ParseException;
+import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
- * Created by jcd on 26.03.2017.
+ * Created by EFIMOVAT on 26.03.2017.
  */
 public class ClientTest {
 
+    static Client client;
+    static Client client2;
+    static String secondName = "Васильев";
+    static String name = "Вася";
+    static String middleName = "Васильевич";
+    static Date birthDay = new Date();
 
-
-    Client client = Client.getBuilder()
-            .setSecondName("Васильев")
-            .setName("Вася")
-            .setMiddleName("Васильевич")
-            .setBirthDay(DateFormat.getDateInstance().parse("11.11.1994"))
-            .build();
-
-    public ClientTest() throws ParseException {
-    }
 
     @BeforeClass
-    public static void name() throws Exception {
+    public static void setUp() throws Exception {
+        Client.Builder clientBuilder = Client.getBuilder();
+        assertNotNull(clientBuilder);
+
+        client = clientBuilder
+                .setSecondName(secondName)
+                .setName(name)
+                .setMiddleName(middleName)
+                .setBirthDay(birthDay)
+                .build();
+        assertNotNull(client);
+
+        //client2.id != client.id
+        client2 = clientBuilder
+                .setSecondName(secondName)
+                .setName(name)
+                .setMiddleName(middleName)
+                .setBirthDay(birthDay)
+                .build();
+        assertNotNull(client2);
+    }
+
+
+    @Test
+    public void clientEquals() throws Exception {
+        assertTrue(client.equals(client2));
 
     }
 
     @Test
-    public void clientToString() throws Exception {
-        assertEquals(client.getSecondName(),"Васильев");
-
-    }
-
-    @Test
-    public void toStringWithOneTab() throws Exception {
-
+    public void clientHashCode() throws Exception {
+        assertTrue(client.hashCode()==client2.hashCode());
     }
 
     @Test
     public void getId() throws Exception {
-
+        assertNotNull(client.getId());
+        assertTrue(client.getId()>0);
     }
 
     @Test
     public void getSecondName() throws Exception {
-
+        assertEquals(client.getSecondName(), secondName);
     }
 
     @Test
     public void getName() throws Exception {
+        assertEquals(client.getName(), name);
 
     }
 
     @Test
     public void getMiddleName() throws Exception {
-
-    }
-
-    @Test
-    public void getFIO() throws Exception {
+        assertEquals(client.getMiddleName(), middleName);
 
     }
 
     @Test
     public void getBirthDay() throws Exception {
-
+        assertEquals(client.getBirthDay(), birthDay);
     }
 
     @Test
-    public void getBuilder() throws Exception {
-
+    public void clientToString() throws Exception {
+        assertNotNull(client.toString());
     }
 
 }

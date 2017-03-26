@@ -6,7 +6,32 @@ import java.util.Map;
 /**
  * Created by EFIMOVAT on 11.03.2017.
  */
-public class Sale implements Identified {//TODO builder(or not?)
+public class Sale implements Identified {
+    @Override
+    public boolean equals(Object o) {
+        boolean otv = false;
+        if (this == o) {
+            otv = true;
+        } else if (o != null && getClass() == o.getClass()) {
+            Sale sale = (Sale) o;
+            if (getClient().equals(sale.getClient())
+                    && getSaleDate().equals(sale.getSaleDate())
+                    && getDevices().equals(sale.getDevices())){
+                otv = true;
+            }
+        }
+
+        return otv;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getClient().hashCode();
+        result = 31 * result + getSaleDate().hashCode();
+        result = 31 * result + getDevices().hashCode();
+        return result;
+    }
+
     private static long nextId = 1;
     private final long id = nextId++;
 
