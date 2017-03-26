@@ -93,21 +93,21 @@ public class SIMSaleDAOTest {
 
         sales.add(sale);
     }
-
-    @Test
-    public void add() throws Exception {
-        Map<Device, Integer> ds = new HashMap<>();
-        ds.put(device, 3);
-
-        Sale sale = Sale.getBuilder()
-                .setSaleDate(new Date())
-                .setClient(client)
-                .setDevices(ds)
-                .build();
-
-        simSaleDAO.add(sale);
-        assertTrue(sales.contains(sale));
-    }
+//
+//    @Test
+//    public void add() throws Exception {
+//        Map<Device, Integer> ds = new HashMap<>();
+//        ds.put(device, 3);
+//
+//        Sale sale = Sale.getBuilder()
+//                .setSaleDate(new Date())
+//                .setClient(client)
+//                .setDevices(ds)
+//                .build();
+//
+//        simSaleDAO.add(sale);
+//        assertTrue(sales.contains(sale));
+//    }
 
     //You can not add a purchase to a client or device that does not exist in the database
     @Test(expected = RecordNotFoundException.class)
@@ -130,15 +130,14 @@ public class SIMSaleDAOTest {
     @Test
     public void findBySaleId() throws Exception {
         Sale sale = sales.get(0);
-        List<Sale> ss = simSaleDAO.findBySaleId(sale.getId());
-        assertTrue(ss.size() == 1);
-        assertTrue(ss.contains(sales.get(0)));
+        Sale ss = simSaleDAO.findById(sale.getId());
+        assertTrue(ss.equals(sale));
     }
 
     @Test
     public void findByClientId() throws Exception {
         Client client = clients.get(0);
-        List<Sale> ss = simSaleDAO.findBySaleId(client.getId());
+        List<Sale> ss = simSaleDAO.findByClientId(client.getId());
         assertTrue(ss.size() == 1);
         assertEquals(ss.get(0).getClient(), client);
     }

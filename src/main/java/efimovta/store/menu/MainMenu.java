@@ -27,8 +27,9 @@ public class MainMenu {
             }
 
             System.out.println("Выбирете действие:");
+            String strOtv = br.readLine();
             try {
-                int otv = Integer.parseInt(br.readLine()) - 1;
+                int otv = Integer.parseInt(strOtv) - 1;
                 MainMenuItem otvItem = items.get(otv);
                 switch (otvItem) {
                     case ADDING:
@@ -36,6 +37,9 @@ public class MainMenu {
                         break;
                     case SEARCHING:
                         SearchMenu.startDialog();
+                        break;
+                    case SORTED_VIEW:
+                        SortedViewMenu.startDialog();
                         break;
                     case EXIT:
                         System.exit(0);
@@ -50,6 +54,7 @@ public class MainMenu {
     enum MainMenuItem {
         ADDING("Добавление"),
         SEARCHING("Поиск"),
+        SORTED_VIEW("Просмотр в отсортированном виде"),
         EXIT("Выход из программы");
 
         String description;

@@ -1,5 +1,8 @@
 package efimovta.store;
 
+import efimovta.store.menu.MainMenu;
+import efimovta.store.storage.StorageFiller;
+
 import java.io.IOException;
 
 /**
@@ -7,11 +10,8 @@ import java.io.IOException;
  */
 public class Main {
     public static void main(String[] args) throws IOException {
-        //StorageFiller.fillStorage();
+        StorageFiller.fillStorage();
 
-        //MainMenu.startDialog();
-
-        String i = String.format("%" + 1 + "s", "");
-        System.out.println("gogogo"+i+"gogogo");
+        MainMenu.startDialog();
     }
 }

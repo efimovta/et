@@ -28,8 +28,9 @@ public class CreateMenu {//todo mb singleton
             }
 
             System.out.println("Выбирете действие:");
+            String strOtv = br.readLine();
             try {
-                int otv = Integer.parseInt(br.readLine())-1;
+                int otv = Integer.parseInt(strOtv)-1;
                 CreateMenuItem otvItem = items.get(otv);
                 switch (otvItem) {
                     case ADDING_A_CLIENT:

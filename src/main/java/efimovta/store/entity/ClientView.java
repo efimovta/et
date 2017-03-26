@@ -5,36 +5,36 @@ package efimovta.store.entity;
  */
 public class ClientView {
 
-    private Client client;
-
-    public ClientView(Client client) {
-        this.client = client;
+    /**
+     * Return structured client information
+     *
+     * @param client client to view
+     * @return
+     */
+    public static String toString(Client client) {
+        return toStringWithIndentations(0, client);
     }
-
-    public Client getClient() {
-        return client;
-    }
-
-    @Override
-    public String toString() {
-        return toStringWithIndentations(0);
-    }
-
 
     /**
      * Return structured client information with a specified number of indentations
      *
-     * @param num number of indentations
-     * @return string with structured client information with a specified number of indentations
+     * @param num    number of indentations
+     * @param client client to view
+     * @return
      */
-    public String toStringWithIndentations(int num) {
-        String i = String.format("%" + num + "s", "");
-        return i + "Client{" +
-                i + "\n\tid=" + client.getId() +
-                i + ",\n\tsecondName='" + client.getSecondName() + '\'' +
-                i + ",\n\tname='" + client.getName() + '\'' +
-                i + ",\n\tmiddleName='" + client.getMiddleName() + '\'' +
-                i + ",\n\tbirthDay=" + client.getBirthDay() +
-                i + "\n}";
+    public static String toStringWithIndentations(int num, Client client) {
+        String i;
+        if (num == 0) {
+            i = "";
+        } else {
+            i = String.format("%" + num + "s", "");
+        }
+        return i + "Client{\n" +
+                i + "\tid=" + client.getId() + ",\n" +
+                i + "\tsecondName=" + client.getSecondName() + ",\n" +
+                i + "\tname=" + client.getName() + ",\n" +
+                i + "\tmiddleName=" + client.getMiddleName() + ",\n" +
+                i + "\tbirthDay=" + client.getBirthDay() + "\n" +
+                i + "}";
     }
 }

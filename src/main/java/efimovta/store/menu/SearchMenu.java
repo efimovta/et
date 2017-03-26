@@ -27,8 +27,9 @@ public class SearchMenu {
             }
 
             System.out.println("Выбирете действие:");
+            String strOtv = br.readLine();
             try {
-                int otv = Integer.parseInt(br.readLine())-1;
+                int otv = Integer.parseInt(strOtv)-1;
                 SearchMenuItem otvItem = items.get(otv);
                 switch (otvItem) {
                     case ALL_CLIENT:
