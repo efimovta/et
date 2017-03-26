@@ -1,6 +1,6 @@
-package efimovta.store.view.creator.requester;
+package efimovta.store.menu.requester;
 
-import efimovta.store.view.exception.OperationCanceledByUserException;
+import efimovta.store.menu.exception.OperationCanceledByUserException;
 
 import java.io.BufferedReader;
 import java.io.IOException;

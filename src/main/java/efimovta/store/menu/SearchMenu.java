@@ -1,4 +1,4 @@
-package efimovta.store.view;
+package efimovta.store.menu;
 
 import efimovta.store.dao.ClientDAO;
 import efimovta.store.dao.DeviceDAO;
@@ -10,10 +10,10 @@ import efimovta.store.dao.entity.enums.Brand;
 import efimovta.store.dao.entity.enums.DeviceType;
 import efimovta.store.dao.exeption.DAOException;
 import efimovta.store.dao.factory.DAOFactory;
-import efimovta.store.view.creator.requester.ClientParamsRequester;
-import efimovta.store.view.creator.requester.DeviceParamsRequester;
-import efimovta.store.view.exception.OperationCanceledByUserException;
-import efimovta.store.view.exception.OperationException;
+import efimovta.store.menu.exception.OperationCanceledByUserException;
+import efimovta.store.menu.exception.OperationException;
+import efimovta.store.menu.requester.ClientParamsRequester;
+import efimovta.store.menu.requester.DeviceParamsRequester;
 
 import java.io.IOException;
 import java.util.Arrays;

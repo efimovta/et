@@ -13,20 +13,23 @@ import efimovta.store.storage.StorageInMemory;
  * Created by jcd on 19.03.2017.
  */
 public class SIMDAOFactory extends DAOFactory {
+    ClientDAO clientDAO = new SIMClientDAO(StorageInMemory.clients);
+    DeviceDAO deviceDAO = new SIMDeviceDAO(StorageInMemory.devices);
+    SaleDAO saleDAO = new SIMSaleDAO(StorageInMemory.sales);
 
     @Override
     public ClientDAO getClientDAO() {
-        return new SIMClientDAO(StorageInMemory.clients);
+        return clientDAO;
     }
 
     @Override
     public DeviceDAO getDeviceDAO() {
-        return new SIMDeviceDAO(StorageInMemory.devices);
+        return deviceDAO;
 
     }
 
     @Override
     public SaleDAO getSaleDAO() {
-        return new SIMSaleDAO(StorageInMemory.sales);
+        return saleDAO;
     }
 }

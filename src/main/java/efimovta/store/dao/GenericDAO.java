@@ -24,7 +24,7 @@ public interface GenericDAO<T> {
      * @param id id of object
      * @return {@link T} with the corresponding Id
      */
-    public T getById(long id) throws DAOException;
+    public T findById(long id) throws DAOException;
 
     /**
      * Updates the corresponding add

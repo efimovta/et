@@ -1,7 +1,7 @@
 package efimovta.store;
 
+import efimovta.store.menu.MainMenu;
 import efimovta.store.storage.StorageFiller;
-import efimovta.store.view.MainMenu;
 
 import java.io.IOException;
 

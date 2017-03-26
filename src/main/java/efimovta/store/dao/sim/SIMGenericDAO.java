@@ -28,7 +28,7 @@ public class SIMGenericDAO<T> implements GenericDAO<T> {
     }
 
     @Override
-    public T getById(long id) throws RecordNotFoundException {
+    public T findById(long id) throws RecordNotFoundException {
         return FindHelper.find(records, id, FindHelper.BY_ID).get(0);
     }
 
