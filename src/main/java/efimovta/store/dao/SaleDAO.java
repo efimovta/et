@@ -1,7 +1,7 @@
 package efimovta.store.dao;
 
 import efimovta.store.dao.exeption.DAOException;
-import efimovta.store.dao.entity.Sale;
+import efimovta.store.entity.Sale;
 
 import java.util.Date;
 import java.util.List;
@@ -17,15 +17,7 @@ public interface SaleDAO extends GenericDAO<Sale> {
      * @param id client id
      * @return list of {@link Sale} objects founded by client id
      */
-    public List<Sale> findBySaleId(int id) throws DAOException;
-
-    /**
-     * Finds the {@link Sale} objects by client id
-     *
-     * @param id client id
-     * @return list of {@link Sale} objects founded by client id
-     */
-    public List<Sale> findByClientId(int id) throws DAOException;
+    public List<Sale> findByClientId(long id) throws DAOException;
 
     /**
      * Finds the {@link Sale} objects by device id
@@ -33,7 +25,7 @@ public interface SaleDAO extends GenericDAO<Sale> {
      * @param id device id
      * @return list of {@link Sale} objects founded by device id
      */
-    public List<Sale> findByDeviceId(int id) throws DAOException;
+    public List<Sale> findByDeviceId(long id) throws DAOException;
 
     /**
      * Finds the {@link Sale} objects by sale date

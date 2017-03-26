@@ -1,7 +1,7 @@
 package efimovta.store.dao;
 
 import efimovta.store.dao.exeption.DAOException;
-import efimovta.store.dao.entity.Client;
+import efimovta.store.entity.Client;
 
 import java.util.List;
 
@@ -13,7 +13,8 @@ public interface ClientDAO extends GenericDAO<Client> {
     /**
      * Finds the {@link Client} objects with the appropriate FIO
      *
-     * @param fio An array of strings containing respectively: first, second and middle names
+     * @param fio string contains respectively: first, second and middle names;
+     *            with space delimiter
      * @return list of {@link Client} objects with the appropriate FIO
      */
     public List<Client> findByFIO(String fio) throws DAOException;

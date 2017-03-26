@@ -5,6 +5,7 @@ package efimovta.store.dao.exeption;
  */
 public class DAOException extends Exception {
     public DAOException() {
+        super("Ошибка хранилища");
     }
 
     public DAOException(String message) {

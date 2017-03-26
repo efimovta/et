@@ -1,8 +1,8 @@
 package efimovta.store.storage;
 
-import efimovta.store.dao.entity.Client;
-import efimovta.store.dao.entity.Device;
-import efimovta.store.dao.entity.Sale;
+import efimovta.store.entity.Client;
+import efimovta.store.entity.Device;
+import efimovta.store.entity.Sale;
 
 import java.util.ArrayList;
 

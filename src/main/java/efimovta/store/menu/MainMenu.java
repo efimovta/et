@@ -11,34 +11,35 @@ import java.util.List;
  * Class contains only one method that represents the "main menu"
  */
 public class MainMenu {
-    final static public BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-    final public CreateMenu createMenu = new CreateMenu();
-    final public SearchMenu searchMenu = new SearchMenu();
 
     /**
      * Represents the "main menu"
      *
      * @throws IOException
      */
-    public void run() throws IOException {
+    public static void startDialog() throws IOException {//todo mb command executor
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        List<MainMenuItem> items = Arrays.asList(MainMenuItem.values());
         while (true) {
             System.out.println("\n### Компания \"Horns and hooves and your super device\" ###");
-            List<MainMenuItem> items = Arrays.asList(MainMenuItem.values());
             for (MainMenuItem mmi : MainMenuItem.values()) {
                 System.out.println(mmi.ordinal() + 1 + ". " + mmi);
             }
 
             System.out.println("Выбирете действие:");
+            String strOtv = br.readLine();
             try {
-                int otv = Integer.parseInt(br.readLine()) - 1;
+                int otv = Integer.parseInt(strOtv) - 1;
                 MainMenuItem otvItem = items.get(otv);
                 switch (otvItem) {
                     case ADDING:
-                        createMenu.startDialog();
+                        CreateMenu.startDialog();
                         break;
                     case SEARCHING:
-                        searchMenu.startDialog();
+                        SearchMenu.startDialog();
+                        break;
+                    case SORTED_VIEW:
+                        SortedViewMenu.startDialog();
                         break;
                     case EXIT:
                         System.exit(0);
@@ -50,10 +51,10 @@ public class MainMenu {
         }
     }
 
-
     enum MainMenuItem {
         ADDING("Добавление"),
         SEARCHING("Поиск"),
+        SORTED_VIEW("Просмотр в отсортированном виде"),
         EXIT("Выход из программы");
 
         String description;

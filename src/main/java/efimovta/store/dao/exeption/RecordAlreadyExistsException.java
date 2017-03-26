@@ -5,9 +5,10 @@ package efimovta.store.dao.exeption;
  */
 public class RecordAlreadyExistsException extends DAOException {
     public RecordAlreadyExistsException() {
+        super("Запись уже существует");
     }
 
     public RecordAlreadyExistsException(String message) {
-        super("Запись о клиенте уже существует");
+        super(message);
     }
 }
