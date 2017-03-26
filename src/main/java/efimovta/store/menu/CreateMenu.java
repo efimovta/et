@@ -1,9 +1,9 @@
-package efimovta.store.view;
+package efimovta.store.menu;
 
-import efimovta.store.view.creator.ClientCreator;
-import efimovta.store.view.creator.DeviceCreator;
-import efimovta.store.view.creator.SaleCreator;
-import efimovta.store.view.exception.OperationException;
+import efimovta.store.menu.creator.ClientCreator;
+import efimovta.store.menu.creator.DeviceCreator;
+import efimovta.store.menu.creator.SaleCreator;
+import efimovta.store.menu.exception.OperationException;
 
 import java.io.IOException;
 import java.util.Arrays;

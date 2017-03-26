@@ -1,11 +1,11 @@
-package efimovta.store.view.creator;
+package efimovta.store.menu.creator;
 
-import efimovta.store.controller.ClientController;
-import efimovta.store.controller.ClientControllerFactory;
+import efimovta.store.dao.ClientDAO;
 import efimovta.store.dao.entity.Client;
 import efimovta.store.dao.exeption.DAOException;
-import efimovta.store.view.creator.requester.ClientParamsRequester;
-import efimovta.store.view.exception.OperationCanceledByUserException;
+import efimovta.store.dao.factory.DAOFactory;
+import efimovta.store.menu.exception.OperationCanceledByUserException;
+import efimovta.store.menu.requester.ClientParamsRequester;
 
 import java.io.IOException;
 import java.util.Date;
@@ -20,7 +20,7 @@ public class ClientCreator extends Creator {//todo mb singleton
      * @throws OperationCanceledByUserException
      */
     public void startCreationDialog() throws IOException, OperationCanceledByUserException {
-        ClientController clientController = (new ClientControllerFactory()).get();
+        ClientDAO clientDAO = DAOFactory.get().getClientDAO();
         ClientParamsRequester cpr = ClientParamsRequester.getInstance();
         
         String[] fio = cpr.requestFIO();
@@ -33,8 +33,9 @@ public class ClientCreator extends Creator {//todo mb singleton
                 .setBirthDay(birthDay)
                 .build();
 
+        //todo validator?
         try {
-            clientController.addNewClient(client);
+            clientDAO.add(client);
         } catch (DAOException e) {
             System.out.println(e.getMessage());
         }

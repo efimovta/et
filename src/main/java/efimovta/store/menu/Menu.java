@@ -1,4 +1,4 @@
-package efimovta.store.view;
+package efimovta.store.menu;
 
 import java.io.BufferedReader;
 import java.io.IOException;

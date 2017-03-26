@@ -1,20 +1,18 @@
-package efimovta.store.view.creator;
+package efimovta.store.menu.creator;
 
-import efimovta.store.controller.DeviceController;
-import efimovta.store.controller.DeviceControllerFactory;
+import efimovta.store.dao.DeviceDAO;
 import efimovta.store.dao.entity.Device;
 import efimovta.store.dao.entity.enums.Brand;
 import efimovta.store.dao.entity.enums.DeviceType;
 import efimovta.store.dao.entity.enums.NamedColor;
 import efimovta.store.dao.exeption.DAOException;
-import efimovta.store.view.creator.requester.DeviceParamsRequester;
-import efimovta.store.view.exception.OperationCanceledByUserException;
+import efimovta.store.dao.factory.DAOFactory;
+import efimovta.store.menu.exception.OperationCanceledByUserException;
+import efimovta.store.menu.requester.DeviceParamsRequester;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by jcd on 13.03.2017.
@@ -23,7 +21,7 @@ public class DeviceCreator extends Creator {//todo mb singleton
 
 
     public void startCreationDialog() throws IOException, OperationCanceledByUserException {
-        DeviceController deviceController = (new DeviceControllerFactory()).get();
+        DeviceDAO deviceDAO = DAOFactory.get().getDeviceDAO();
         DeviceParamsRequester dpr = DeviceParamsRequester.getInstance();
         DeviceType type = dpr.requestType();
         String model = dpr.requestModel();
@@ -41,8 +39,10 @@ public class DeviceCreator extends Creator {//todo mb singleton
                 .setPrice(price)
                 .build();
 
+
+        //todo validator?
         try {
-            deviceController.addNewDevice(device);
+            deviceDAO.add(device);
         } catch (DAOException e) {
             e.printStackTrace();
         }

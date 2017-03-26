@@ -1,4 +1,4 @@
-package efimovta.store.view;
+package efimovta.store.menu;
 
 import java.io.IOException;
 import java.util.Arrays;

@@ -9,7 +9,6 @@ public class Client implements Identified {//TODO builder(or not?)
     private static long nextId = 1;
     private final long id = nextId++;
 
-
     private String secondName;
     private String name;
     private String middleName;

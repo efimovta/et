@@ -3,7 +3,7 @@ package efimovta.store.config;
 import efimovta.store.dao.factory.DAOFactory.DataSourceNames;
 
 /**
- * Created by jcd on 25.03.2017.
+ * Class is used as a configuration file
  */
 public class Config {
     public static final DataSourceNames DATA_SOURCE = DataSourceNames.STORAGE_IN_MEMORY;
