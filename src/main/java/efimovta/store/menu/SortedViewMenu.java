@@ -2,8 +2,8 @@ package efimovta.store.menu;
 
 import efimovta.store.dao.exeption.DAOException;
 import efimovta.store.entity.Client;
-import efimovta.store.entity.ClientView;
-import efimovta.store.util.comparator.ClientComparators;
+import efimovta.store.entity.ClientComparator;
+import efimovta.store.entity.Viewer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,9 +34,9 @@ public class SortedViewMenu {
                 switch (otvItem) {
                     case CLIENTS_BY_FIO:
                         List<Client> ar = Searcher.findAllClients();
-                        Collections.sort(ar, ClientComparators.BY_FIO);
+                        Collections.sort(ar, ClientComparator.BY_FIO);
                         for (Client client : ar) {
-                            System.out.println(ClientView.toString(client));
+                            System.out.println(Viewer.toString(client));
                         }
                         break;
                     case RETURN_TO_MAIN_MENU:

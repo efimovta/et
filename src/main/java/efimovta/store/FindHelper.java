@@ -1,12 +1,7 @@
-package efimovta.store.util;
+package efimovta.store;
 
 import efimovta.store.dao.exeption.RecordNotFoundException;
-import efimovta.store.entity.Client;
-import efimovta.store.entity.Device;
-import efimovta.store.entity.Identified;
-import efimovta.store.entity.Sale;
-import efimovta.store.entity.enums.Brand;
-import efimovta.store.entity.enums.DeviceType;
+import efimovta.store.entity.*;
 
 import java.util.ArrayList;
 import java.util.Date;

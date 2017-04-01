@@ -2,36 +2,12 @@ package efimovta.store.entity;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by EFIMOVAT on 11.03.2017.
  */
-public class Sale implements Identified {
-    @Override
-    public boolean equals(Object o) {
-        boolean otv = false;
-        if (this == o) {
-            otv = true;
-        } else if (o != null && getClass() == o.getClass()) {
-            Sale sale = (Sale) o;
-            if (getClient().equals(sale.getClient())
-                    && getSaleDate().equals(sale.getSaleDate())
-                    && getDevices().equals(sale.getDevices())){
-                otv = true;
-            }
-        }
-
-        return otv;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getClient().hashCode();
-        result = 31 * result + getSaleDate().hashCode();
-        result = 31 * result + getDevices().hashCode();
-        return result;
-    }
-
+public class Sale implements Identified, Cloneable  {
     private static long nextId = 1;
     private final long id = nextId++;
 
@@ -40,24 +16,7 @@ public class Sale implements Identified {
     private Map<Device, Integer> devices;
 
     private Sale() {
-        
-    }
 
-    @Override
-    public String toString() {//TODO delete view piece from model
-        StringBuilder sb = new StringBuilder()
-                .append("Sale{")
-                .append("\nid=").append(id)
-                //.append(", \nclient=\n").append(client.toStringWithOneTab())
-                .append(", \nsaleDate=").append(saleDate)
-                .append(", \ndevices=");
-
-        for (Map.Entry<Device, Integer> entry : devices.entrySet()) {
-            sb.append('\n').append(entry.getKey().toStringWithOneTab()).append("---Number of this devices: ").append(entry.getValue());
-        }
-
-        sb.append("\n}");
-        return sb.toString();
     }
 
     public Client getClient() {
@@ -78,31 +37,91 @@ public class Sale implements Identified {
     }
 
     public static Builder getBuilder() {
-        return new Sale().new Builder();
+        return new Builder();
     }
 
 
-    public class Builder {
+    @Override
+    public boolean equals(Object o) {
+        boolean otv = false;
+        if (this == o) {
+            otv = true;
+        } else if (o != null && getClass() == o.getClass()) {
+            Sale sale = (Sale) o;
+            if (getClient().equals(sale.getClient())
+                    && getSaleDate().equals(sale.getSaleDate())
+                    && getDevices().equals(sale.getDevices())) {
+                otv = true;
+            }
+        }
+
+        return otv;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getClient().hashCode();
+        result = 31 * result + getSaleDate().hashCode();
+        result = 31 * result + getDevices().hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder()
+                .append("Sale{")
+                .append("id=").append(id)
+                .append(", saleDate=").append(saleDate)
+                .append(", clientId=").append(client.getId())
+                .append(", devices(id:count)={");
+
+
+        Set<Map.Entry<Device, Integer>> entries = devices.entrySet();
+        int size = entries.size();
+        int i = 0;
+        for (Map.Entry<Device, Integer> entry : entries) {
+            sb
+                    .append('(')
+                    .append(entry.getKey().getId())
+                    .append(':')
+                    .append(entry.getValue())
+                    .append(')');
+            if (++i != size) sb.append(',');
+        }
+
+        sb.append("}}");
+        return sb.toString();
+    }
+
+
+    public static class Builder {
+        Sale tmp = new Sale();
+        
         private Builder() {
 
         }
 
-        public Sale build(){
-            return Sale.this;
+        public Sale build() {
+            try {
+                return (Sale) tmp.clone();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+            return null;//Unreachable
         }
-        
+
         public Builder setClient(Client client) {
-            Sale.this.client = client;
+            tmp.client = client;
             return this;
         }
 
         public Builder setSaleDate(Date saleDate) {
-            Sale.this.saleDate = saleDate;
+            tmp.saleDate = saleDate;
             return this;
         }
 
         public Builder setDevices(Map<Device, Integer> devices) {
-            Sale.this.devices = devices;
+            tmp.devices = devices;
             return this;
         }
     }

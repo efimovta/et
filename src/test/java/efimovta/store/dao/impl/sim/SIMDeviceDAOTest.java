@@ -1,9 +1,9 @@
 package efimovta.store.dao.impl.sim;
 
+import efimovta.store.entity.Brand;
 import efimovta.store.entity.Device;
-import efimovta.store.entity.enums.Brand;
-import efimovta.store.entity.enums.DeviceType;
-import efimovta.store.entity.enums.NamedColor;
+import efimovta.store.entity.DeviceType;
+import efimovta.store.entity.NamedColor;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

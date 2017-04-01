@@ -1,6 +1,4 @@
-package efimovta.store.util.comparator;
-
-import efimovta.store.entity.Client;
+package efimovta.store.entity;
 
 import java.util.Comparator;
 
@@ -8,12 +6,12 @@ import java.util.Comparator;
  * Created by EFIMOVAT on 26.03.2017.
  */
 
-
-    public enum ClientComparators implements Comparator<Client>{
+//todo http://stackoverflow.com/questions/1421322/how-do-i-sort-a-list-by-different-parameters-at-different-timed/1421537#1421537
+    public enum ClientComparator implements Comparator<Client>{
         BY_ID{
             @Override
             public int compare(Client o1, Client o2) {
-                return IdentifiedeComparators.BY_ID.compare(o1,o2);
+                return IdentifiedComparator.BY_ID.compare(o1,o2);
             }
         },
         BY_FIO{

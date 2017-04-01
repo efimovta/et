@@ -1,4 +1,4 @@
-package efimovta.store.config;
+package efimovta.store;
 
 import efimovta.store.dao.factory.DAOFactory.DataSourceNames;
 

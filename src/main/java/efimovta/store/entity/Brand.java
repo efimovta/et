@@ -1,4 +1,4 @@
-package efimovta.store.entity.enums;
+package efimovta.store.entity;
 
 /**
  * Created by EFIMOVAT on 11.03.2017.

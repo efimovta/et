@@ -1,8 +1,8 @@
 package efimovta.store.menu.requester;
 
-import efimovta.store.entity.enums.Brand;
-import efimovta.store.entity.enums.DeviceType;
-import efimovta.store.entity.enums.NamedColor;
+import efimovta.store.entity.Brand;
+import efimovta.store.entity.DeviceType;
+import efimovta.store.entity.NamedColor;
 import efimovta.store.menu.exception.OperationCanceledByUserException;
 
 import java.io.IOException;

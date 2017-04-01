@@ -1,5 +1,6 @@
 package efimovta.store.dao.impl.sim;
 
+import efimovta.store.FindHelper;
 import efimovta.store.dao.SaleDAO;
 import efimovta.store.dao.exeption.ClientRecordNotFoundException;
 import efimovta.store.dao.exeption.DeviceRecordNotFoundException;
@@ -8,7 +9,6 @@ import efimovta.store.dao.exeption.RecordNotFoundException;
 import efimovta.store.entity.Device;
 import efimovta.store.entity.Sale;
 import efimovta.store.storage.StorageInMemory;
-import efimovta.store.util.FindHelper;
 
 import java.util.ArrayList;
 import java.util.Date;

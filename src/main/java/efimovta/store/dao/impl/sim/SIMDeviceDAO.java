@@ -1,11 +1,11 @@
 package efimovta.store.dao.impl.sim;
 
+import efimovta.store.FindHelper;
 import efimovta.store.dao.DeviceDAO;
 import efimovta.store.dao.exeption.RecordNotFoundException;
+import efimovta.store.entity.Brand;
 import efimovta.store.entity.Device;
-import efimovta.store.entity.enums.Brand;
-import efimovta.store.entity.enums.DeviceType;
-import efimovta.store.util.FindHelper;
+import efimovta.store.entity.DeviceType;
 
 import java.util.ArrayList;
 import java.util.Date;

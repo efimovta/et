@@ -1,8 +1,5 @@
 package efimovta.store.entity;
 
-import efimovta.store.entity.enums.Brand;
-import efimovta.store.entity.enums.DeviceType;
-import efimovta.store.entity.enums.NamedColor;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

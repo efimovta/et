@@ -1,4 +1,4 @@
-package efimovta.store.entity.enums;
+package efimovta.store.entity;
 
 import java.awt.*;
 

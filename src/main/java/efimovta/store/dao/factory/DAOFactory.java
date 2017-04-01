@@ -1,6 +1,6 @@
 package efimovta.store.dao.factory;
 
-import efimovta.store.config.Config;
+import efimovta.store.Config;
 import efimovta.store.dao.ClientDAO;
 import efimovta.store.dao.DeviceDAO;
 import efimovta.store.dao.SaleDAO;

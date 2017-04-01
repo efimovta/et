@@ -1,9 +1,9 @@
 package efimovta.store.dao;
 
 import efimovta.store.dao.exeption.DAOException;
+import efimovta.store.entity.Brand;
 import efimovta.store.entity.Device;
-import efimovta.store.entity.enums.Brand;
-import efimovta.store.entity.enums.DeviceType;
+import efimovta.store.entity.DeviceType;
 
 import java.util.Date;
 import java.util.List;

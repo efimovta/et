@@ -5,12 +5,7 @@ import efimovta.store.dao.DeviceDAO;
 import efimovta.store.dao.SaleDAO;
 import efimovta.store.dao.exeption.DAOException;
 import efimovta.store.dao.factory.DAOFactory;
-import efimovta.store.entity.Client;
-import efimovta.store.entity.Device;
-import efimovta.store.entity.Sale;
-import efimovta.store.entity.enums.Brand;
-import efimovta.store.entity.enums.DeviceType;
-import efimovta.store.entity.enums.NamedColor;
+import efimovta.store.entity.*;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
@@ -53,7 +48,7 @@ public class StorageFiller {
 
             Map<Device,Integer> ds = new HashMap<>();
             for (int i = 0; i < 6; i++) {
-                ds.put(devices.get(i),i+1);
+                ds.put(devices.get(i),i*i+1);
                 sales.add(Sale.getBuilder().setClient(clients.get(i)).setSaleDate(DateFormat.getDateInstance().parse("13.11.199"+i)).setDevices(ds).build());
             }
         } catch (ParseException e) {
@@ -74,6 +69,7 @@ public class StorageFiller {
                 deviceDAO.add(d);
             }
             for (Sale s : sales) {
+                System.out.println(s);
                 saleDAO.add(s);
             }
         } catch (DAOException e) {
