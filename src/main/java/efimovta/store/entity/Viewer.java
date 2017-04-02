@@ -65,7 +65,7 @@ public class Viewer {
                 .append(spaces)
                 .append("\tmiddleName=").append(c.getMiddleName()).append(",\n")
                 .append(spaces)
-                .append("\tbirthDay=").append(c.getBirthDay()).append("\n")
+                .append("\tbirthDay=").append(c.getBirthday()).append("\n")
                 .append(spaces)
                 .append("}");
         return sb.toString();
@@ -139,6 +139,10 @@ public class Viewer {
         return sb.toString();
     }
 
+    /**
+     * @param num number of left spaces
+     * @return string with specified number of spaces
+     */
     public static String getSpaces(int num) {
         String spaces;
         if (num == 0) {

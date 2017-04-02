@@ -3,7 +3,9 @@ package efimovta.store.entity;
 import java.awt.*;
 
 /**
- * Created by EFIMOVAT on 12.03.2017.
+ * Named color listing. Each element contains a reference
+ * to the corresponding instance of {@link Color}
+ * @see NamedColor#getAwtColor()
  */
 public enum NamedColor {
 

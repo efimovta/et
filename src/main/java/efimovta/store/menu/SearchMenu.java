@@ -1,6 +1,6 @@
 package efimovta.store.menu;
 
-import efimovta.store.dao.exeption.DAOException;
+import efimovta.store.dao.DAOException;
 import efimovta.store.entity.Client;
 import efimovta.store.entity.Device;
 import efimovta.store.entity.Sale;

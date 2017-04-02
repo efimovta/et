@@ -1,12 +1,14 @@
 package efimovta.store.entity;
 
+import efimovta.store.NotAllFieldsAreFilledException;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * Created by EFIMOVAT on 11.03.2017.
+ * Immutable Device entity. Creation occurs through the builder.
  */
-public class Device implements Identified, Cloneable {
+public class Device implements Identified {
     private static int nextId = 1;
     private final int id = nextId++;
 
@@ -18,27 +20,20 @@ public class Device implements Identified, Cloneable {
     private Date releaseDate;
     private BigDecimal price;
 
-    public long getId() {
-        return id;
-    }
-
-
     private Device() {
 
     }
 
-    @Override
-    protected Device clone() {
-        Device d = null;
-        try {
-            d = (Device) super.clone();
-        } catch (CloneNotSupportedException e) {
-        } // Won't happen
-        return d;
-    }
-
+    /**
+     * @return a new builder instance
+     * @see Builder
+     */
     public static Builder getBuilder() {
         return new Builder();
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getModel() {
@@ -65,7 +60,14 @@ public class Device implements Identified, Cloneable {
         return price;
     }
 
-
+    /**
+     * Compares this device to the specified object.
+     * The identifier is not taken into comparing.
+     *
+     * @param o The object to compare this Device against
+     * @return true if the given object represents a Device equivalent
+     * to this device, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         boolean otv = false;
@@ -86,6 +88,12 @@ public class Device implements Identified, Cloneable {
         return otv;
     }
 
+    /**
+     * Returns a hash code for this device.
+     * The identifier is not taken into calculation.
+     *
+     * @return a hash code for this device.
+     */
     @Override
     public int hashCode() {
         int result = getType().hashCode();
@@ -96,6 +104,9 @@ public class Device implements Identified, Cloneable {
         return result;
     }
 
+    /**
+     * @return a string representation of the device.
+     */
     @Override
     public String toString() {
         return "Device{" +
@@ -109,6 +120,17 @@ public class Device implements Identified, Cloneable {
                 '}';
     }
 
+
+    /**
+     * Class is used to instantiate devices.<br/> Contains a temporary instance
+     * of the device, which is filled with information through the setters.
+     * <br/>Creation of new device instances is performed by calling
+     * a {@link Builder#build()} method.
+     * <br/>One instance of the builder can be used multiple times,
+     * the constructed instances are independent
+     *
+     * @see Device#getBuilder()
+     */
     public static class Builder {
         Device tmp = new Device();
 
@@ -116,8 +138,18 @@ public class Device implements Identified, Cloneable {
 
         }
 
-        public Device build() {
-            return tmp.clone();
+
+        /**
+         * Verifies that all fields have been filled in and
+         * creates a new instance of the device.
+         * @return new device instance
+         * @throws NotAllFieldsAreFilledException
+         */
+        public Device build() throws NotAllFieldsAreFilledException {
+            checkFields();
+            Device newDevice = tmp;
+            tmp = new Device();
+            return newDevice;
         }
 
         public Builder setModel(String model) {
@@ -141,13 +173,23 @@ public class Device implements Identified, Cloneable {
         }
 
         public Builder setReleaseDate(Date releaseDate) {
-            tmp.releaseDate = releaseDate;
+            tmp.releaseDate = (Date) releaseDate.clone();
             return this;
         }
 
         public Builder setPrice(BigDecimal price) {
             tmp.price = price;
             return this;
+        }
+
+        private void checkFields() throws NotAllFieldsAreFilledException {
+            if( tmp.brand == null
+                    || tmp.color == null
+                    || tmp.model == null
+                    || tmp.price == null
+                    || tmp.releaseDate == null
+                    || tmp.type == null){
+                throw new NotAllFieldsAreFilledException();}
         }
     }
 

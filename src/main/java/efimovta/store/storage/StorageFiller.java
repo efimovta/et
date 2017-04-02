@@ -1,10 +1,7 @@
 package efimovta.store.storage;
 
-import efimovta.store.dao.ClientDAO;
-import efimovta.store.dao.DeviceDAO;
-import efimovta.store.dao.SaleDAO;
-import efimovta.store.dao.exeption.DAOException;
-import efimovta.store.dao.factory.DAOFactory;
+import efimovta.store.NotAllFieldsAreFilledException;
+import efimovta.store.dao.*;
 import efimovta.store.entity.*;
 
 import java.math.BigDecimal;
@@ -53,6 +50,8 @@ public class StorageFiller {
             }
         } catch (ParseException e) {
             e.printStackTrace();
+        }catch (NotAllFieldsAreFilledException e) {
+            e.printStackTrace();
         }
 
         DAOFactory df = DAOFactory.get();
@@ -64,13 +63,15 @@ public class StorageFiller {
         try {
             for (Client c : clients) {
                 clientDAO.add(c);
+                System.out.println(c);
             }
             for (Device d : devices) {
                 deviceDAO.add(d);
+                System.out.println(d);
             }
             for (Sale s : sales) {
-                System.out.println(s);
                 saleDAO.add(s);
+                System.out.println(s);
             }
         } catch (DAOException e) {
             e.printStackTrace();

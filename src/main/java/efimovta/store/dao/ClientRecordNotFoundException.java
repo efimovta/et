@@ -1,4 +1,4 @@
-package efimovta.store.dao.exeption;
+package efimovta.store.dao;
 
 /**
  * Created by EFIMOVAT on 26.03.2017.

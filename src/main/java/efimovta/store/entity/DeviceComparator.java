@@ -2,6 +2,9 @@ package efimovta.store.entity;
 
 import java.util.Comparator;
 
+/**
+ * Device comparator instances listing
+ */
 public enum DeviceComparator implements Comparator<Device> {
      BY_ID {
          @Override

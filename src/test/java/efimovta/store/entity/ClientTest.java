@@ -80,7 +80,7 @@ public class ClientTest {
 
     @Test
     public void getBirthDay() throws Exception {
-        assertEquals(client.getBirthDay(), birthDay);
+        assertEquals(client.getBirthday(), birthDay);
     }
 
     @Test

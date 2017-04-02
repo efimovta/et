@@ -2,6 +2,9 @@ package efimovta.store.entity;
 
 import java.util.Comparator;
 
+/**
+ * Identified comparator instances listing
+ */
 public enum IdentifiedComparator implements Comparator<Identified> {
         BY_ID {
             @Override

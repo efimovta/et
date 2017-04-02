@@ -1,12 +1,9 @@
-package efimovta.store.dao.impl.sim.factory;
+package efimovta.store.dao.impl.sim;
 
 import efimovta.store.dao.ClientDAO;
+import efimovta.store.dao.DAOFactory;
 import efimovta.store.dao.DeviceDAO;
 import efimovta.store.dao.SaleDAO;
-import efimovta.store.dao.factory.DAOFactory;
-import efimovta.store.dao.impl.sim.SIMClientDAO;
-import efimovta.store.dao.impl.sim.SIMDeviceDAO;
-import efimovta.store.dao.impl.sim.SIMSaleDAO;
 import efimovta.store.storage.StorageInMemory;
 
 /**

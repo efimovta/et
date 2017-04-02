@@ -1,9 +1,9 @@
 package efimovta.store.dao.impl.sim;
 
+import efimovta.store.dao.DAOException;
 import efimovta.store.dao.GenericDAO;
-import efimovta.store.dao.exeption.DAOException;
-import efimovta.store.dao.exeption.RecordAlreadyExistsException;
-import efimovta.store.dao.exeption.RecordNotFoundException;
+import efimovta.store.dao.RecordAlreadyExistsException;
+import efimovta.store.dao.RecordNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;

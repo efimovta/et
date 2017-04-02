@@ -1,11 +1,7 @@
 package efimovta.store.dao.impl.sim;
 
 import efimovta.store.FindHelper;
-import efimovta.store.dao.SaleDAO;
-import efimovta.store.dao.exeption.ClientRecordNotFoundException;
-import efimovta.store.dao.exeption.DeviceRecordNotFoundException;
-import efimovta.store.dao.exeption.RecordAlreadyExistsException;
-import efimovta.store.dao.exeption.RecordNotFoundException;
+import efimovta.store.dao.*;
 import efimovta.store.entity.Device;
 import efimovta.store.entity.Sale;
 import efimovta.store.storage.StorageInMemory;
@@ -25,7 +21,7 @@ public class SIMSaleDAO extends SIMGenericDAO<Sale> implements SaleDAO {
     }
 
     /**
-     * You can not add a purchase to a client or device that does not exist in the database
+     * You can not add a sale to a non-existent client or devices
      *
      * @param sale sale to add
      * @throws RecordAlreadyExistsException
@@ -33,14 +29,22 @@ public class SIMSaleDAO extends SIMGenericDAO<Sale> implements SaleDAO {
      */
     @Override
     public void add(Sale sale) throws RecordAlreadyExistsException, RecordNotFoundException {
-        if (!StorageInMemory.clients.contains(sale.getClient())) {
+        Sale.Builder sb = Sale.getBuilder();
+        sb.setSaleDate(sale.getSaleDate());
+
+        int clientIndex = StorageInMemory.clients.indexOf(sale.getClient());
+        if (clientIndex == -1) {
             throw new ClientRecordNotFoundException();
         }
+        sb.setClient(StorageInMemory.clients.get(clientIndex));
+        ArrayList<Integer> deviceIndexes = new ArrayList<>();
         for (Device device : sale.getDevices().keySet()) {
-            if (!StorageInMemory.devices.contains(device)) {
+            int deviceIndex = StorageInMemory.devices.indexOf(device);
+            if (deviceIndex==-1) {
                 throw new DeviceRecordNotFoundException();
             }
         }
+
         super.add(sale);
     }
 

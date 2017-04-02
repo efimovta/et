@@ -1,10 +1,6 @@
 package efimovta.store.menu;
 
-import efimovta.store.dao.ClientDAO;
-import efimovta.store.dao.DeviceDAO;
-import efimovta.store.dao.SaleDAO;
-import efimovta.store.dao.exeption.DAOException;
-import efimovta.store.dao.factory.DAOFactory;
+import efimovta.store.dao.*;
 import efimovta.store.entity.*;
 import efimovta.store.menu.exception.OperationCanceledByUserException;
 import efimovta.store.menu.requester.ClientParamsRequester;

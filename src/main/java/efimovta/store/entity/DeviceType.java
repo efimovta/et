@@ -1,10 +1,10 @@
 package efimovta.store.entity;
 
 /**
- * Created by EFIMOVAT on 11.03.2017.
+ * Device types listing
  */
 public enum DeviceType {
-    PHONE {
+    PHONE {//todo delete view from
         @Override
         public String toString() {
             return "Телефон";

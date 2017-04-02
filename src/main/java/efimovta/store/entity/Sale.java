@@ -1,9 +1,11 @@
 package efimovta.store.entity;
 
+import efimovta.store.NotAllFieldsAreFilledException;
+
 import java.util.*;
 
 /**
- * Created by EFIMOVAT on 11.03.2017.
+ * Immutable Sale entity. Creation occurs through the builder.
  */
 public class Sale implements Identified, Cloneable {
     private static long nextId = 1;
@@ -17,18 +19,17 @@ public class Sale implements Identified, Cloneable {
 
     }
 
-    @Override
-    protected Sale clone() {
-        Sale s = null;
-        try {
-            s = (Sale) super.clone();
-        } catch (CloneNotSupportedException e) {
-        } // Won't happen
-        return s;
-    }
-
+    /**
+     * @return a new builder instance
+     * @see Client.Builder
+     */
     public static Builder getBuilder() {
         return new Builder();
+    }
+
+    @Override
+    public long getId() {
+        return id;
     }
 
     public Client getClient() {
@@ -40,18 +41,17 @@ public class Sale implements Identified, Cloneable {
     }
 
     public Map<Device, Integer> getDevices() {
-//        Map<Device, Integer> copy = new HashMap<>(devices.size());
-//        for (Map.Entry<Device, Integer> entry : devices.entrySet()) {
-//            copy.put(entry.getKey().clone(), entry.getValue());
-//        }
         return Collections.unmodifiableMap(devices);
     }
 
-    @Override
-    public long getId() {
-        return id;
-    }
-
+    /**
+     * Compares this sale to the specified object.
+     * The identifier is not taken into comparing.
+     *
+     * @param o The object to compare this Sale against
+     * @return true if the given object represents a Sale equivalent
+     * to this sale, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         boolean otv = false;
@@ -65,10 +65,15 @@ public class Sale implements Identified, Cloneable {
                 otv = true;
             }
         }
-
         return otv;
     }
 
+    /**
+     * Returns a hash code for this client.
+     * The identifier is not taken into calculation.
+     *
+     * @return a hash code for this client.
+     */
     @Override
     public int hashCode() {
         int result = getClient().hashCode();
@@ -77,6 +82,11 @@ public class Sale implements Identified, Cloneable {
         return result;
     }
 
+    /**
+     * todo example
+     *
+     * @return a string representation of the sale.
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder()
@@ -104,7 +114,16 @@ public class Sale implements Identified, Cloneable {
         return sb.toString();
     }
 
-
+    /**
+     * Class is used to instantiate sales.<br/> Contains a temporary instance
+     * of the sale, which is filled with information through the setters.
+     * <br/>Creation of new sale instances is performed by calling
+     * a {@link Builder#build()} method.
+     * <br/>One instance of the builder can be used multiple times,
+     * the constructed instances are independent
+     *
+     * @see Sale#getBuilder()
+     */
     public static class Builder {
         Sale tmp = new Sale();
 
@@ -112,8 +131,18 @@ public class Sale implements Identified, Cloneable {
 
         }
 
-        public Sale build() {
-            return tmp.clone();
+        /**
+         * Verifies that all fields have been filled in and
+         * creates a new instance of the sale.
+         *
+         * @return new sale instance
+         * @throws NotAllFieldsAreFilledException
+         */
+        public Sale build() throws NotAllFieldsAreFilledException {
+            checkFields();
+            Sale newSale = tmp;
+            tmp = new Sale();
+            return newSale;
         }
 
         public Builder setClient(Client client) {
@@ -122,13 +151,21 @@ public class Sale implements Identified, Cloneable {
         }
 
         public Builder setSaleDate(Date saleDate) {
-            tmp.saleDate = saleDate;
+            tmp.saleDate = (Date) saleDate.clone();
             return this;
         }
 
         public Builder setDevices(Map<Device, Integer> devices) {
-            tmp.devices = devices;
+            tmp.devices = new HashMap<>(devices);
             return this;
+        }
+
+        private void checkFields() throws NotAllFieldsAreFilledException {
+            if (tmp.saleDate == null
+                    || tmp.client == null
+                    || tmp.devices == null) {
+                throw new NotAllFieldsAreFilledException();
+            }
         }
     }
 }

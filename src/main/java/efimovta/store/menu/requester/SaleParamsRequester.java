@@ -1,8 +1,8 @@
 package efimovta.store.menu.requester;
 
 import efimovta.store.dao.ClientDAO;
-import efimovta.store.dao.exeption.DAOException;
-import efimovta.store.dao.factory.DAOFactory;
+import efimovta.store.dao.DAOException;
+import efimovta.store.dao.DAOFactory;
 import efimovta.store.entity.Client;
 import efimovta.store.menu.exception.OperationCanceledByUserException;
 

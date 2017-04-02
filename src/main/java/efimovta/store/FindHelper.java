@@ -1,6 +1,6 @@
 package efimovta.store;
 
-import efimovta.store.dao.exeption.RecordNotFoundException;
+import efimovta.store.dao.RecordNotFoundException;
 import efimovta.store.entity.*;
 
 import java.util.ArrayList;
