@@ -20,10 +20,9 @@ public class SIMGenericDAO<T> implements GenericDAO<T> {
     }
 
     @Override
-    public T add(T object) throws RecordAlreadyExistsException, RecordNotFoundException {
+    public void add(T object) throws RecordAlreadyExistsException, RecordNotFoundException {
         boolean added = records.add(object);
         if (!added) throw new RecordAlreadyExistsException();
-        return object;
     }
 
     @Override
@@ -33,14 +32,16 @@ public class SIMGenericDAO<T> implements GenericDAO<T> {
 
     @Override
     public void update(T object) throws RecordNotFoundException {
-        if (!records.contains(object)) throw new RecordNotFoundException();
+        throw new UnsupportedOperationException();
+        //if (!records.contains(object)) throw new RecordNotFoundException();
     }
 
     @Override
     public void delete(T object) throws RecordNotFoundException {
-        int index = records.indexOf(object);
-        if (index == -1) throw new RecordNotFoundException();
-        records.remove(index);
+        throw new UnsupportedOperationException();
+//        int index = records.indexOf(object);
+//        if (index == -1) throw new RecordNotFoundException();
+//        records.remove(index);
     }
 
     @Override

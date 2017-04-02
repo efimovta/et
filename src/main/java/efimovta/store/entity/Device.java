@@ -6,17 +6,17 @@ import java.util.Date;
 /**
  * Created by EFIMOVAT on 11.03.2017.
  */
-public class Device implements Identified,Cloneable {
+public class Device implements Identified, Cloneable {
     private static int nextId = 1;
     private final int id = nextId++;
 
-    String model;
-    DeviceType type;
-    Brand brand;
+    private String model;
+    private DeviceType type;
+    private Brand brand;
 
-    NamedColor color;
-    Date releaseDate;
-    BigDecimal price;
+    private NamedColor color;
+    private Date releaseDate;
+    private BigDecimal price;
 
     public long getId() {
         return id;
@@ -27,8 +27,18 @@ public class Device implements Identified,Cloneable {
 
     }
 
-    public static int getNextId() {
-        return nextId;
+    @Override
+    protected Device clone() {
+        Device d = null;
+        try {
+            d = (Device) super.clone();
+        } catch (CloneNotSupportedException e) {
+        } // Won't happen
+        return d;
+    }
+
+    public static Builder getBuilder() {
+        return new Builder();
     }
 
     public String getModel() {
@@ -48,17 +58,13 @@ public class Device implements Identified,Cloneable {
     }
 
     public Date getReleaseDate() {
-        return releaseDate;
+        return (Date) releaseDate.clone();
     }
 
     public BigDecimal getPrice() {
         return price;
     }
 
-
-    public static Builder getBuilder() {
-        return new Builder();
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -111,12 +117,7 @@ public class Device implements Identified,Cloneable {
         }
 
         public Device build() {
-            try {
-                return (Device) tmp.clone();
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
-            }
-            return null;//Unreachable
+            return tmp.clone();
         }
 
         public Builder setModel(String model) {

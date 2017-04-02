@@ -1,22 +1,34 @@
 package efimovta.store.entity;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by EFIMOVAT on 11.03.2017.
  */
-public class Sale implements Identified, Cloneable  {
+public class Sale implements Identified, Cloneable {
     private static long nextId = 1;
     private final long id = nextId++;
 
     private Client client;
     private Date saleDate;
-    private Map<Device, Integer> devices;
+    private Map<Device, Integer> devices = new HashMap<>();
 
     private Sale() {
 
+    }
+
+    @Override
+    protected Sale clone() {
+        Sale s = null;
+        try {
+            s = (Sale) super.clone();
+        } catch (CloneNotSupportedException e) {
+        } // Won't happen
+        return s;
+    }
+
+    public static Builder getBuilder() {
+        return new Builder();
     }
 
     public Client getClient() {
@@ -24,22 +36,21 @@ public class Sale implements Identified, Cloneable  {
     }
 
     public Date getSaleDate() {
-        return saleDate;
+        return (Date) saleDate.clone();
     }
 
     public Map<Device, Integer> getDevices() {
-        return devices;
+//        Map<Device, Integer> copy = new HashMap<>(devices.size());
+//        for (Map.Entry<Device, Integer> entry : devices.entrySet()) {
+//            copy.put(entry.getKey().clone(), entry.getValue());
+//        }
+        return Collections.unmodifiableMap(devices);
     }
 
     @Override
     public long getId() {
         return id;
     }
-
-    public static Builder getBuilder() {
-        return new Builder();
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -96,18 +107,13 @@ public class Sale implements Identified, Cloneable  {
 
     public static class Builder {
         Sale tmp = new Sale();
-        
+
         private Builder() {
 
         }
 
         public Sale build() {
-            try {
-                return (Sale) tmp.clone();
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
-            }
-            return null;//Unreachable
+            return tmp.clone();
         }
 
         public Builder setClient(Client client) {

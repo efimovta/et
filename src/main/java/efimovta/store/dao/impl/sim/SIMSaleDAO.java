@@ -28,12 +28,11 @@ public class SIMSaleDAO extends SIMGenericDAO<Sale> implements SaleDAO {
      * You can not add a purchase to a client or device that does not exist in the database
      *
      * @param sale sale to add
-     * @return the added sale
      * @throws RecordAlreadyExistsException
      * @throws RecordNotFoundException
      */
     @Override
-    public Sale add(Sale sale) throws RecordAlreadyExistsException, RecordNotFoundException {
+    public void add(Sale sale) throws RecordAlreadyExistsException, RecordNotFoundException {
         if (!StorageInMemory.clients.contains(sale.getClient())) {
             throw new ClientRecordNotFoundException();
         }
@@ -42,7 +41,7 @@ public class SIMSaleDAO extends SIMGenericDAO<Sale> implements SaleDAO {
                 throw new DeviceRecordNotFoundException();
             }
         }
-        return super.add(sale);
+        super.add(sale);
     }
 
     @Override

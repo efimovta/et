@@ -14,9 +14,8 @@ public interface GenericDAO<T> {
      * Creates a new add that corresponds to the {@link T} object
      *
      * @param object object to add
-     * @return recorded object
      */
-    public T add(T object) throws DAOException;
+    public void add(T object) throws DAOException;
 
     /**
      * Returns {@link T} object with the corresponding Id or null

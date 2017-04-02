@@ -42,6 +42,16 @@ public class Client implements Identified, Cloneable {
         return birthDay;
     }
 
+    @Override
+    protected Client clone() {
+        Client c = null;
+        try {
+            c = (Client) super.clone();
+        } catch (CloneNotSupportedException e) {
+        } // Won't happen
+        return c;
+    }
+
     public static Builder getBuilder() {
         return new Builder();
     }
@@ -87,18 +97,13 @@ public class Client implements Identified, Cloneable {
 
     public static class Builder {
         Client tmp = new Client();
-        
+
         private Builder() {
 
         }
 
         public Client build() {
-            try {
-                return (Client) tmp.clone();
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
-            }
-            return null;//Unreachable
+            return tmp.clone();
         }
 
         public Builder setSecondName(String secondName) {
