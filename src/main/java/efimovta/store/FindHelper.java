@@ -120,7 +120,7 @@ public class FindHelper {
      * @return list of objects with the corresponding parameter
      * @throws RecordNotFoundException If no objects are found with the corresponding parameter
      */
-    public static <T, P> List<T> find(ArrayList<T> list, P value, FieldChecker<T, P> fieldChecker)
+    public static <T, P> List<T> find(List<T> list, P value, FieldChecker<T, P> fieldChecker)
             throws RecordNotFoundException {
         ArrayList<T> founded = new ArrayList<>();
         for (T t : list) {

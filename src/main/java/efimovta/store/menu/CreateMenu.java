@@ -2,16 +2,16 @@ package efimovta.store.menu;
 
 import efimovta.store.menu.exception.OperationException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
+
+import static efimovta.store.Constants.br;
 
 /**
  * The class contains only one method that represents "create menu"
  */
-public class CreateMenu {//todo mb singleton
+public class CreateMenu {
 
     /**
      * represents "create menu"
@@ -19,7 +19,6 @@ public class CreateMenu {//todo mb singleton
      * @throws IOException
      */
     public static void startDialog() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         List<CreateMenuItem> items = Arrays.asList(CreateMenuItem.values());
         while (true) {
             System.out.println("\n### Добавление ###");

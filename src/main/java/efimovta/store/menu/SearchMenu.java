@@ -4,13 +4,14 @@ import efimovta.store.dao.DAOException;
 import efimovta.store.entity.Client;
 import efimovta.store.entity.Device;
 import efimovta.store.entity.Sale;
+import efimovta.store.entity.Viewer;
 import efimovta.store.menu.exception.OperationException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
+
+import static efimovta.store.Constants.br;
 
 /**
  * Created by jcd on 13.03.2017.
@@ -18,53 +19,52 @@ import java.util.List;
 public class SearchMenu {
 
     public static void startDialog() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         List<SearchMenuItem> items = Arrays.asList(SearchMenuItem.values());
         while (true) {
             System.out.println("\n### Поиск ###");
             for (SearchMenuItem smi : SearchMenuItem.values()) {
-                System.out.println(smi.ordinal()+1 + ". " + smi);
+                System.out.println(smi.ordinal() + 1 + ". " + smi);
             }
 
             System.out.println("Выбирете действие:");
             String strOtv = br.readLine();
             try {
-                int otv = Integer.parseInt(strOtv)-1;
+                int otv = Integer.parseInt(strOtv) - 1;
                 SearchMenuItem otvItem = items.get(otv);
                 switch (otvItem) {
                     case ALL_CLIENT:
                         for (Client client : Searcher.findAllClients()) {
-                            System.out.println(client);
+                            System.out.println(Viewer.toString(client));
                         }
                         break;
                     case ALL_DEVICE:
                         for (Device device : Searcher.findAllDevices()) {
-                            System.out.println(device);
+                            System.out.println(Viewer.toString(device));
                         }
                         break;
                     case ALL_SALE:
                         for (Sale sale : Searcher.findAllSales()) {
-                            System.out.println(sale);
+                            System.out.println(Viewer.toString(sale));
                         }
                         break;
                     case CLIENT_BY_FIO:
                         for (Client client : Searcher.findClientByFIO()) {
-                            System.out.println(client);
+                            System.out.println(Viewer.toString(client));
                         }
                         break;
                     case DEVICE_BY_BRAND:
                         for (Device device : Searcher.findDeviceByBrand()) {
-                            System.out.println(device);
+                            System.out.println(Viewer.toString(device));
                         }
                         break;
                     case DEVICE_BY_TYPE:
                         for (Device device : Searcher.findDeviceByType()) {
-                            System.out.println(device);
+                            System.out.println(Viewer.toString(device));
                         }
                         break;
                     case DEVICE_BY_RELEASE_DATE:
                         for (Device device : Searcher.findDeviceByReleaseDate()) {
-                            System.out.println(device);
+                            System.out.println(Viewer.toString(device));
                         }
                         break;
                     case RETURN_TO_MAIN_MENU:
@@ -72,7 +72,7 @@ public class SearchMenu {
                 }
             } catch (OperationException | DAOException e) {
                 System.err.println(e.getMessage());
-            }catch (IndexOutOfBoundsException|NumberFormatException e) {
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 System.err.println("Неверный ввод.");
             }
         }

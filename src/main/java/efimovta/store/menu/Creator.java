@@ -10,6 +10,7 @@ import efimovta.store.menu.requester.SaleParamsRequester;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -86,7 +87,7 @@ public class Creator {
 
         Client client = spr.requestClient();
         Date saleDate = new Date();
-        Map<Device, Integer> devices=null;//TODO CREATE REQUESTER FOR
+        Map<Device, Integer> devices=new HashMap<>();//TODO CREATE REQUESTER FOR
 
         Sale sale = new Sale()
                 .setClient(client)

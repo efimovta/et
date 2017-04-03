@@ -1,13 +1,10 @@
 package efimovta.store.dao.impl.sim;
 
 import efimovta.store.Serializator;
-import efimovta.store.dao.DAOException;
-import efimovta.store.dao.GenericDAO;
-import efimovta.store.dao.RecordAlreadyExistsException;
-import efimovta.store.dao.RecordNotFoundException;
+import efimovta.store.dao.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,16 +12,26 @@ import java.util.List;
  */
 
 public abstract class SIMGenericDAO<T> implements GenericDAO<T> {
-    protected ArrayList<T> records;
+    protected List<T> records;
 
-    public SIMGenericDAO(ArrayList<T> records) {
+    public SIMGenericDAO(List<T> records) {
         this.records = records;
     }
 
-    @Override
-    public void add(T object) throws DAOException {
-        if (records.contains(object)) throw new RecordAlreadyExistsException();
-        records.add(object);
+    public void check(T object) throws
+            RecordAlreadyExistsException, NotAllFieldsAreFilledException {
+        checkAlreadyExists(object);
+        checkNullFields(object);
+    }
+
+    protected abstract void checkNullFields(T object) throws
+            NotAllFieldsAreFilledException;
+
+    public void checkAlreadyExists(T object) throws
+            RecordAlreadyExistsException {
+        if (records.contains(object)) {
+            throw new RecordAlreadyExistsException();
+        }
     }
 
     @Override
@@ -42,12 +49,27 @@ public abstract class SIMGenericDAO<T> implements GenericDAO<T> {
     }
 
     @Override
-    public List<T> getAll() throws DAOException{
-        if(records.size()==0)throw new RecordNotFoundException();
+    public List<T> getAll() throws DAOException {
+        if (records.size() == 0) throw new RecordNotFoundException();
+        return (List<T>) serialize((Serializable) records);
+    }
+
+    /**
+     * Clones an object using serialization
+     *
+     * @param serializable - object to clone
+     * @param <W>          - type of cloning object
+     * @return clone of object
+     * @throws DAOException - problem with Serialization
+     */
+    protected <W extends Serializable> W serialize(W serializable) throws
+            DAOException {
         try {
-            return Serializator.clone(records);
+            return Serializator.serialize(serializable);
         } catch (IOException e) {
-            throw new DAOException("\"Serializator.clone(records);\" throw IOException");
+            throw new DAOException(
+                    "\"Serializator.serialize(serializable);\"" +
+                    " throw IOException");
         }
     }
 }

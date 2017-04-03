@@ -11,11 +11,22 @@ import java.util.Set;
  */
 public class Sale implements Identified, Serializable {
     private static long nextId = 1;
-    private final long id = nextId++;
+    private final long id;
 
-    private Client client;
     private Date saleDate;
+    private Client client;
     private Map<Device, Integer> devices;
+
+    public Sale() {
+        id = nextId++;
+    }
+
+    public Sale(Sale sale) {
+        id = sale.getId();
+        saleDate = sale.getSaleDate();
+        client = sale.getClient();
+        devices = sale.getDevices();
+    }
 
     @Override
     public long getId() {
@@ -31,7 +42,7 @@ public class Sale implements Identified, Serializable {
     }
 
     public Map<Device, Integer> getDevices() {
-        return devices;
+        return new HashMap<>(devices);
     }
 
     public Sale setClient(Client client) {

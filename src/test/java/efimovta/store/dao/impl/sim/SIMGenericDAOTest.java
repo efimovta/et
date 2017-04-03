@@ -40,7 +40,7 @@ public class SIMGenericDAOTest {
         source.add(client);
         source.add(client2);
 
-        SIMGenericDAO = new SIMGenericDAO<>(source);
+        SIMGenericDAO = new SIMClientDAO(source);
     }
 
     @Test

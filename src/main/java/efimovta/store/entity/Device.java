@@ -8,8 +8,8 @@ import java.util.Date;
  * Immutable Device entity. Creation occurs through the builder.
  */
 public class Device implements Identified, Serializable {
-    private static int nextId = 1;
-    private final int id = nextId++;
+    private static long nextId = 1;
+    private final long id;
 
     private String model;
     private DeviceType type;
@@ -17,6 +17,20 @@ public class Device implements Identified, Serializable {
     private NamedColor color;
     private Date releaseDate;
     private BigDecimal price;
+
+    public Device() {
+        id = nextId++;
+    }
+
+    public Device(Device device) {
+        id = device.getId();
+        model = device.getModel();
+        type = device.getType();
+        brand = device.getBrand();
+        color = device.getColor();
+        releaseDate = device.getReleaseDate();
+        price = device.getPrice();
+    }
 
     public long getId() {
         return id;

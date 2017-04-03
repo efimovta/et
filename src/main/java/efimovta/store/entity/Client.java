@@ -8,12 +8,24 @@ import java.util.Date;
  */
 public class Client implements Identified, Serializable {
     private static long nextId = 1;
-    private final long id = nextId++;
+    private final long id;
 
     private String secondName;
     private String name;
     private String middleName;
     private Date birthday;
+
+    public Client() {
+        id = nextId++;
+    }
+
+    public Client(Client client) {
+        id = client.getId();
+        secondName = client.getSecondName();
+        name = client.getName();
+        middleName = client.getMiddleName();
+        birthday = client.getBirthday();
+    }
 
     /**
      * Return unique identifier of this client.
