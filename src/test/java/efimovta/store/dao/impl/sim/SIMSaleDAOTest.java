@@ -39,40 +39,36 @@ public class SIMSaleDAOTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        client = Client.getBuilder()
+        client = new Client()
                 .setSecondName("Васильев")
                 .setName("Вася")
                 .setMiddleName("Васильевич")
-                .setBirthDay(DateFormat.getDateInstance().parse("11.11.1994"))
-                .build();
+                .setBirthday(DateFormat.getDateInstance().parse("11.11.1994"));
 
-        client2 = Client.getBuilder()
+        client2 = new Client()
                 .setSecondName("Васильев2")
                 .setName("Вася2")
                 .setMiddleName("Васильевич2")
-                .setBirthDay(DateFormat.getDateInstance().parse("22.22.2994"))
-                .build();
+                .setBirthday(DateFormat.getDateInstance().parse("22.22.2994"));
 
         clients.add(client);
         clients.add(client2);
 
-        device = Device.getBuilder()
+        device = new Device()
                 .setModel(model)
                 .setType(type)
                 .setBrand(brand)
                 .setColor(color)
                 .setReleaseDate(releaseDate)
-                .setPrice(price)
-                .build();
+                .setPrice(price);
 
-        device2 = Device.getBuilder()
+        device2 = new Device()
                 .setModel(model)
                 .setType(type)
                 .setBrand(brand)
                 .setColor(color)
                 .setReleaseDate(releaseDate2)//not releaseDate !!!
-                .setPrice(price)
-                .build();
+                .setPrice(price);
 
         devices.add(device);
         devices.add(device2);
@@ -80,11 +76,10 @@ public class SIMSaleDAOTest {
 
         Map<Device, Integer> ds = new HashMap<>();
         ds.put(device, 3);
-        Sale sale = Sale.getBuilder()
+        Sale sale = new Sale()
                 .setSaleDate(new Date())
                 .setClient(client)
-                .setDevices(ds)
-                .build();
+                .setDevices(ds);
 
         sales.add(sale);
     }
@@ -107,16 +102,15 @@ public class SIMSaleDAOTest {
     //You can not add a purchase to a client or device that does not exist in the database
     @Test(expected = RecordNotFoundException.class)
     public void addFail() throws Exception {
-        Client c = Client.getBuilder().build();
+        Client c = new Client();
 
         Map<Device, Integer> ds = new HashMap<>();
         ds.put(device, 3);
 
-        Sale sale = Sale.getBuilder()
+        Sale sale = new Sale()
                 .setSaleDate(new Date())
                 .setClient(c)
-                .setDevices(ds)
-                .build();
+                .setDevices(ds);
 
         simSaleDAO.add(sale);
         assertTrue(sales.contains(sale));

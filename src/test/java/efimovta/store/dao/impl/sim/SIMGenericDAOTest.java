@@ -22,19 +22,19 @@ public class SIMGenericDAOTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        client = Client.getBuilder()
+        client = new Client()
                 .setSecondName("Васильев")
                 .setName("Вася")
                 .setMiddleName("Васильевич")
-                .setBirthDay(DateFormat.getDateInstance().parse("11.11.1994"))
-                .build();
+                .setBirthday(DateFormat.getDateInstance().parse("11.11.1994"))
+                ;
 
-        client2 = Client.getBuilder()
+        client2 = new Client()
                 .setSecondName("Васильев2")
                 .setName("Вася2")
                 .setMiddleName("Васильевич2")
-                .setBirthDay(DateFormat.getDateInstance().parse("22.22.2994"))
-                .build();
+                .setBirthday(DateFormat.getDateInstance().parse("22.22.2994"))
+                ;
 
         source = new ArrayList<>();
         source.add(client);
@@ -45,12 +45,12 @@ public class SIMGenericDAOTest {
 
     @Test
     public void add() throws Exception {
-        Client client3 = Client.getBuilder()
+        Client client3 = new Client()
                 .setSecondName("Васильев3")
                 .setName("Вася3")
                 .setMiddleName("Васильевич3")
-                .setBirthDay(DateFormat.getDateInstance().parse("33.33.3994"))
-                .build();
+                .setBirthday(DateFormat.getDateInstance().parse("33.33.3994"))
+                ;
         SIMGenericDAO.add(client3);
 
         assertTrue(source.contains(client3));
@@ -68,23 +68,23 @@ public class SIMGenericDAOTest {
 
     @Test(expected = RecordNotFoundException.class)
     public void updateFail() throws Exception {
-        Client client4 = Client.getBuilder()
+        Client client4 = new Client()
                 .setSecondName("Васильев4")
                 .setName("Вася4")
                 .setMiddleName("Васильевич4")
-                .setBirthDay(DateFormat.getDateInstance().parse("44.44.4994"))
-                .build();
+                .setBirthday(DateFormat.getDateInstance().parse("44.44.4994"))
+                ;
         SIMGenericDAO.update(client4);
     }
 
     @Test
     public void delete() throws Exception {
-        Client client4 = Client.getBuilder()
+        Client client4 = new Client()
                 .setSecondName("Васильев4")
                 .setName("Вася4")
                 .setMiddleName("Васильевич4")
-                .setBirthDay(DateFormat.getDateInstance().parse("44.44.4994"))
-                .build();
+                .setBirthday(DateFormat.getDateInstance().parse("44.44.4994"))
+                ;
         source.add(client4);
 
         assertTrue(source.contains(client4));
@@ -94,12 +94,12 @@ public class SIMGenericDAOTest {
 
     @Test(expected = RecordNotFoundException.class)
     public void deleteFail() throws Exception {
-        Client client4 = Client.getBuilder()
+        Client client4 = new Client()
                 .setSecondName("Васильев4")
                 .setName("Вася4")
                 .setMiddleName("Васильевич4")
-                .setBirthDay(DateFormat.getDateInstance().parse("44.44.4994"))
-                .build();
+                .setBirthday(DateFormat.getDateInstance().parse("44.44.4994"))
+                ;
         SIMGenericDAO.delete(client4);
     }
 

@@ -1,13 +1,12 @@
 package efimovta.store.entity;
 
-import efimovta.store.NotAllFieldsAreFilledException;
-
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Immutable Client entity. Creation occurs through the builder.
  */
-public class Client implements Identified {
+public class Client implements Identified, Serializable {
     private static long nextId = 1;
     private final long id = nextId++;
 
@@ -15,25 +14,6 @@ public class Client implements Identified {
     private String name;
     private String middleName;
     private Date birthday;
-
-    /**
-     * Use the builder to create instances
-     *
-     * @see Client#getBuilder()
-     * @see Builder
-     */
-    private Client() {
-
-    }
-
-    /**
-     * @return a new builder instance
-     * @see Builder
-     */
-    public static Builder getBuilder() {
-        return new Builder();
-    }
-
 
     /**
      * Return unique identifier of this client.
@@ -78,6 +58,26 @@ public class Client implements Identified {
      */
     public Date getBirthday() {
         return (Date) birthday.clone();
+    }
+
+    public Client setSecondName(String secondName) {
+        this.secondName = secondName;
+        return this;
+    }
+
+    public Client setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Client setMiddleName(String middleName) {
+        this.middleName = middleName;
+        return this;
+    }
+
+    public Client setBirthday(Date birthday) {
+        this.birthday = (Date) birthday.clone();
+        return this;
     }
 
     /**
@@ -133,64 +133,5 @@ public class Client implements Identified {
                 ", middleName='" + middleName + '\'' +
                 ", birthday=" + birthday +
                 '}';
-    }
-
-    /**
-     * Class is used to instantiate clients.<br/> Contains a temporary instance
-     * of the client, which is filled with information through the setters.
-     * <br/>Creation of new client instances is performed by calling
-     * a {@link Builder#build()} method.
-     * <br/>One instance of the builder can be used multiple times,
-     * the constructed instances are independent
-     *
-     * @see Client#getBuilder()
-     */
-    public static class Builder {
-        Client tmp = new Client();
-
-        private Builder() {
-
-        }
-
-        /**
-         * Verifies that all fields have been filled in and
-         * creates a new instance of the client.
-         * @return new client instance
-         * @throws NotAllFieldsAreFilledException
-         */
-        public Client build() throws NotAllFieldsAreFilledException {
-            checkFields();
-            Client newClient = tmp;
-            tmp = new Client();
-            return newClient;
-        }
-
-        public Builder setSecondName(String secondName) {
-            tmp.secondName = secondName;
-            return this;
-        }
-
-        public Builder setName(String name) {
-            tmp.name = name;
-            return this;
-        }
-
-        public Builder setMiddleName(String middleName) {
-            tmp.middleName = middleName;
-            return this;
-        }
-
-        public Builder setBirthDay(Date birthDay) {
-            tmp.birthday = (Date) birthDay.clone();
-            return this;
-        }
-
-        private void checkFields() throws NotAllFieldsAreFilledException {
-            if( tmp.middleName == null
-                    || tmp.name == null
-                    || tmp.secondName == null
-                    || tmp.birthday == null){
-            throw new NotAllFieldsAreFilledException();}
-        }
     }
 }

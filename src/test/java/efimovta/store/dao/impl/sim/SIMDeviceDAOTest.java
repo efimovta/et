@@ -34,23 +34,21 @@ public class SIMDeviceDAOTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        device = Device.getBuilder()
+        device = new Device()
                 .setModel(model)
                 .setType(type)
                 .setBrand(brand)
                 .setColor(color)
                 .setReleaseDate(releaseDate)
-                .setPrice(price)
-                .build();
+                .setPrice(price);
 
-        device2 = Device.getBuilder()
+        device2 = new Device()
                 .setModel(model)
                 .setType(type)
                 .setBrand(brand)
                 .setColor(color)
                 .setReleaseDate(releaseDate2)//not releaseDate !!!
-                .setPrice(price)
-                .build();
+                .setPrice(price);
 
         source = new ArrayList<>();
         source.add(device);

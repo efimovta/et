@@ -24,7 +24,7 @@ public class DeviceTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        Device.Builder builder = Device.getBuilder();
+        Device builder = new Device();
         assertNotNull(builder);
 
         device = builder
@@ -34,7 +34,7 @@ public class DeviceTest {
                 .setColor(color)
                 .setReleaseDate(releaseDate)
                 .setPrice(price)
-                .build();
+                ;
         assertNotNull(device);
 
         device2 = builder
@@ -44,7 +44,7 @@ public class DeviceTest {
                 .setColor(color)
                 .setReleaseDate(releaseDate)
                 .setPrice(price)
-                .build();
+                ;
         assertNotNull(device2);
     }
 

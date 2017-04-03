@@ -4,7 +4,6 @@ import efimovta.store.FindHelper;
 import efimovta.store.dao.*;
 import efimovta.store.entity.Device;
 import efimovta.store.entity.Sale;
-import efimovta.store.storage.StorageInMemory;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,14 +28,14 @@ public class SIMSaleDAO extends SIMGenericDAO<Sale> implements SaleDAO {
      */
     @Override
     public void add(Sale sale) throws RecordAlreadyExistsException, RecordNotFoundException {
-        Sale.Builder sb = Sale.getBuilder();
-        sb.setSaleDate(sale.getSaleDate());
+        Sale newSale = new Sale();
+        newSale.setSaleDate(sale.getSaleDate());
 
         int clientIndex = StorageInMemory.clients.indexOf(sale.getClient());
         if (clientIndex == -1) {
             throw new ClientRecordNotFoundException();
         }
-        sb.setClient(StorageInMemory.clients.get(clientIndex));
+        newSale.setClient(StorageInMemory.clients.get(clientIndex));
         ArrayList<Integer> deviceIndexes = new ArrayList<>();
         for (Device device : sale.getDevices().keySet()) {
             int deviceIndex = StorageInMemory.devices.indexOf(device);
@@ -44,8 +43,7 @@ public class SIMSaleDAO extends SIMGenericDAO<Sale> implements SaleDAO {
                 throw new DeviceRecordNotFoundException();
             }
         }
-
-        super.add(sale);
+        records.add(sale);
     }
 
     @Override

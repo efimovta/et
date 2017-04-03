@@ -4,7 +4,6 @@ import efimovta.store.dao.ClientDAO;
 import efimovta.store.dao.DAOFactory;
 import efimovta.store.dao.DeviceDAO;
 import efimovta.store.dao.SaleDAO;
-import efimovta.store.storage.StorageInMemory;
 
 /**
  * Created by jcd on 19.03.2017.

@@ -29,12 +29,11 @@ public class Creator {
         String[] fio = cpr.requestFIO();
         Date birthDay = cpr.requestBirthDay();
 
-        Client client = Client.getBuilder()
+        Client client = new Client()
                 .setSecondName(fio[0])
                 .setName(fio[1])
                 .setMiddleName(fio[2])
-                .setBirthDay(birthDay)
-                .build();
+                .setBirthday(birthDay);
 
         //todo validator?
         try {
@@ -59,14 +58,13 @@ public class Creator {
         Date releaseDate = dpr.requestReleaseDate();
         BigDecimal price = dpr.requestPrice();
 
-        Device device = Device.getBuilder()
+        Device device = new Device()
                 .setModel(model)
                 .setType(type)
                 .setBrand(brand)
                 .setColor(color)
                 .setReleaseDate(releaseDate)
-                .setPrice(price)
-                .build();
+                .setPrice(price);
 
 
         //todo validator?
@@ -90,11 +88,10 @@ public class Creator {
         Date saleDate = new Date();
         Map<Device, Integer> devices=null;//TODO CREATE REQUESTER FOR
 
-        Sale sale = Sale.getBuilder()
+        Sale sale = new Sale()
                 .setClient(client)
                 .setDevices(devices)
-                .setSaleDate(saleDate)
-                .build();
+                .setSaleDate(saleDate);
 
         //todo validator?
 

@@ -1,31 +1,21 @@
 package efimovta.store.entity;
 
-import efimovta.store.NotAllFieldsAreFilledException;
-
-import java.util.*;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Immutable Sale entity. Creation occurs through the builder.
  */
-public class Sale implements Identified, Cloneable {
+public class Sale implements Identified, Serializable {
     private static long nextId = 1;
     private final long id = nextId++;
 
     private Client client;
     private Date saleDate;
-    private Map<Device, Integer> devices = new HashMap<>();
-
-    private Sale() {
-
-    }
-
-    /**
-     * @return a new builder instance
-     * @see Client.Builder
-     */
-    public static Builder getBuilder() {
-        return new Builder();
-    }
+    private Map<Device, Integer> devices;
 
     @Override
     public long getId() {
@@ -41,7 +31,22 @@ public class Sale implements Identified, Cloneable {
     }
 
     public Map<Device, Integer> getDevices() {
-        return Collections.unmodifiableMap(devices);
+        return devices;
+    }
+
+    public Sale setClient(Client client) {
+        this.client = client;
+        return this;
+    }
+
+    public Sale setSaleDate(Date saleDate) {
+        this.saleDate = (Date) saleDate.clone();
+        return this;
+    }
+
+    public Sale setDevices(Map<Device, Integer> devices) {
+        this.devices = new HashMap<>(devices);
+        return this;
     }
 
     /**
@@ -112,60 +117,5 @@ public class Sale implements Identified, Cloneable {
 
         sb.append("}}");
         return sb.toString();
-    }
-
-    /**
-     * Class is used to instantiate sales.<br/> Contains a temporary instance
-     * of the sale, which is filled with information through the setters.
-     * <br/>Creation of new sale instances is performed by calling
-     * a {@link Builder#build()} method.
-     * <br/>One instance of the builder can be used multiple times,
-     * the constructed instances are independent
-     *
-     * @see Sale#getBuilder()
-     */
-    public static class Builder {
-        Sale tmp = new Sale();
-
-        private Builder() {
-
-        }
-
-        /**
-         * Verifies that all fields have been filled in and
-         * creates a new instance of the sale.
-         *
-         * @return new sale instance
-         * @throws NotAllFieldsAreFilledException
-         */
-        public Sale build() throws NotAllFieldsAreFilledException {
-            checkFields();
-            Sale newSale = tmp;
-            tmp = new Sale();
-            return newSale;
-        }
-
-        public Builder setClient(Client client) {
-            tmp.client = client;
-            return this;
-        }
-
-        public Builder setSaleDate(Date saleDate) {
-            tmp.saleDate = (Date) saleDate.clone();
-            return this;
-        }
-
-        public Builder setDevices(Map<Device, Integer> devices) {
-            tmp.devices = new HashMap<>(devices);
-            return this;
-        }
-
-        private void checkFields() throws NotAllFieldsAreFilledException {
-            if (tmp.saleDate == null
-                    || tmp.client == null
-                    || tmp.devices == null) {
-                throw new NotAllFieldsAreFilledException();
-            }
-        }
     }
 }
