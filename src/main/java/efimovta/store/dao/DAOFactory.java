@@ -1,15 +1,12 @@
-package efimovta.store.dao.factory;
+package efimovta.store.dao;
 
-import efimovta.store.config.Config;
-import efimovta.store.dao.ClientDAO;
-import efimovta.store.dao.DeviceDAO;
-import efimovta.store.dao.SaleDAO;
-import efimovta.store.dao.impl.sim.factory.SIMDAOFactory;
+import efimovta.store.Config;
+import efimovta.store.dao.impl.sim.SIMDAOFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static efimovta.store.dao.factory.DAOFactory.DataSourceNames.STORAGE_IN_MEMORY;
+import static efimovta.store.dao.DAOFactory.DataSourceNames.STORAGE_IN_MEMORY;
 
 /**
  * Created by jcd on 19.03.2017.

@@ -1,10 +1,10 @@
 package efimovta.store.menu;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
+
+import static efimovta.store.Constants.br;
 
 
 /**
@@ -18,7 +18,6 @@ public class MainMenu {
      * @throws IOException
      */
     public static void startDialog() throws IOException {//todo mb command executor
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         List<MainMenuItem> items = Arrays.asList(MainMenuItem.values());
         while (true) {
             System.out.println("\n### Компания \"Horns and hooves and your super device\" ###");

@@ -1,6 +1,5 @@
 package efimovta.store.dao;
 
-import efimovta.store.dao.exeption.DAOException;
 import efimovta.store.entity.Sale;
 
 import java.util.Date;

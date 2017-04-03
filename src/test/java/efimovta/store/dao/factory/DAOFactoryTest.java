@@ -1,5 +1,6 @@
 package efimovta.store.dao.factory;
 
+import efimovta.store.dao.DAOFactory;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;

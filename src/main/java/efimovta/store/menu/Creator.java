@@ -1,16 +1,7 @@
 package efimovta.store.menu;
 
-import efimovta.store.dao.ClientDAO;
-import efimovta.store.dao.DeviceDAO;
-import efimovta.store.dao.SaleDAO;
-import efimovta.store.dao.exeption.DAOException;
-import efimovta.store.dao.factory.DAOFactory;
-import efimovta.store.entity.Client;
-import efimovta.store.entity.Device;
-import efimovta.store.entity.Sale;
-import efimovta.store.entity.enums.Brand;
-import efimovta.store.entity.enums.DeviceType;
-import efimovta.store.entity.enums.NamedColor;
+import efimovta.store.dao.*;
+import efimovta.store.entity.*;
 import efimovta.store.menu.exception.OperationCanceledByUserException;
 import efimovta.store.menu.requester.ClientParamsRequester;
 import efimovta.store.menu.requester.DeviceParamsRequester;
@@ -19,6 +10,7 @@ import efimovta.store.menu.requester.SaleParamsRequester;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -38,12 +30,11 @@ public class Creator {
         String[] fio = cpr.requestFIO();
         Date birthDay = cpr.requestBirthDay();
 
-        Client client = Client.getBuilder()
+        Client client = new Client()
                 .setSecondName(fio[0])
                 .setName(fio[1])
                 .setMiddleName(fio[2])
-                .setBirthDay(birthDay)
-                .build();
+                .setBirthday(birthDay);
 
         //todo validator?
         try {
@@ -68,14 +59,13 @@ public class Creator {
         Date releaseDate = dpr.requestReleaseDate();
         BigDecimal price = dpr.requestPrice();
 
-        Device device = Device.getBuilder()
+        Device device = new Device()
                 .setModel(model)
                 .setType(type)
                 .setBrand(brand)
                 .setColor(color)
                 .setReleaseDate(releaseDate)
-                .setPrice(price)
-                .build();
+                .setPrice(price);
 
 
         //todo validator?
@@ -97,13 +87,12 @@ public class Creator {
 
         Client client = spr.requestClient();
         Date saleDate = new Date();
-        Map<Device, Integer> devices=null;//TODO CREATE REQUESTER FOR
+        Map<Device, Integer> devices=new HashMap<>();//TODO CREATE REQUESTER FOR
 
-        Sale sale = Sale.getBuilder()
+        Sale sale = new Sale()
                 .setClient(client)
                 .setDevices(devices)
-                .setSaleDate(saleDate)
-                .build();
+                .setSaleDate(saleDate);
 
         //todo validator?
 

@@ -1,12 +1,7 @@
-package efimovta.store.util;
+package efimovta.store;
 
-import efimovta.store.dao.exeption.RecordNotFoundException;
-import efimovta.store.entity.Client;
-import efimovta.store.entity.Device;
-import efimovta.store.entity.Identified;
-import efimovta.store.entity.Sale;
-import efimovta.store.entity.enums.Brand;
-import efimovta.store.entity.enums.DeviceType;
+import efimovta.store.dao.RecordNotFoundException;
+import efimovta.store.entity.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -125,7 +120,7 @@ public class FindHelper {
      * @return list of objects with the corresponding parameter
      * @throws RecordNotFoundException If no objects are found with the corresponding parameter
      */
-    public static <T, P> List<T> find(ArrayList<T> list, P value, FieldChecker<T, P> fieldChecker)
+    public static <T, P> List<T> find(List<T> list, P value, FieldChecker<T, P> fieldChecker)
             throws RecordNotFoundException {
         ArrayList<T> founded = new ArrayList<>();
         for (T t : list) {

@@ -1,4 +1,4 @@
-package efimovta.store.storage;
+package efimovta.store.dao.impl.sim;
 
 import efimovta.store.entity.Client;
 import efimovta.store.entity.Device;

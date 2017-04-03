@@ -1,51 +1,75 @@
 package efimovta.store.dao.impl.sim;
 
-import efimovta.store.dao.GenericDAO;
-import efimovta.store.dao.exeption.DAOException;
-import efimovta.store.dao.exeption.RecordAlreadyExistsException;
-import efimovta.store.dao.exeption.RecordNotFoundException;
+import efimovta.store.Serializator;
+import efimovta.store.dao.*;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by jcd on 19.03.2017.
  */
 
-public class SIMGenericDAO<T> implements GenericDAO<T> {
-    protected ArrayList<T> records;
+public abstract class SIMGenericDAO<T> implements GenericDAO<T> {
+    protected List<T> records;
 
-    public SIMGenericDAO(ArrayList<T> records) {
+    public SIMGenericDAO(List<T> records) {
         this.records = records;
     }
 
-    @Override
-    public T add(T object) throws RecordAlreadyExistsException, RecordNotFoundException {
-        boolean added = records.add(object);
-        if (!added) throw new RecordAlreadyExistsException();
-        return object;
+    public void check(T object) throws
+            RecordAlreadyExistsException, NotAllFieldsAreFilledException {
+        checkAlreadyExists(object);
+        checkNullFields(object);
+    }
+
+    protected abstract void checkNullFields(T object) throws
+            NotAllFieldsAreFilledException;
+
+    public void checkAlreadyExists(T object) throws
+            RecordAlreadyExistsException {
+        if (records.contains(object)) {
+            throw new RecordAlreadyExistsException();
+        }
     }
 
     @Override
-    public T findById(long id) throws DAOException {
-        throw  new UnsupportedOperationException();
+    public void update(T object) throws DAOException {
+        throw new UnsupportedOperationException();
+        //if (!records.contains(object)) throw new RecordNotFoundException();
     }
 
     @Override
-    public void update(T object) throws RecordNotFoundException {
-        if (!records.contains(object)) throw new RecordNotFoundException();
+    public void delete(T object) throws DAOException {
+        throw new UnsupportedOperationException();
+//        int index = records.indexOf(object);
+//        if (index == -1) throw new RecordNotFoundException();
+//        records.remove(index);
     }
 
     @Override
-    public void delete(T object) throws RecordNotFoundException {
-        int index = records.indexOf(object);
-        if (index == -1) throw new RecordNotFoundException();
-        records.remove(index);
+    public List<T> getAll() throws DAOException {
+        if (records.size() == 0) throw new RecordNotFoundException();
+        return (List<T>) serialize((Serializable) records);
     }
 
-    @Override
-    public List<T> getAll() {
-        return new ArrayList<T>(records);
+    /**
+     * Clones an object using serialization
+     *
+     * @param serializable - object to clone
+     * @param <W>          - type of cloning object
+     * @return clone of object
+     * @throws DAOException - problem with Serialization
+     */
+    protected <W extends Serializable> W serialize(W serializable) throws
+            DAOException {
+        try {
+            return Serializator.serialize(serializable);
+        } catch (IOException e) {
+            throw new DAOException(
+                    "\"Serializator.serialize(serializable);\"" +
+                    " throw IOException");
+        }
     }
-
 }

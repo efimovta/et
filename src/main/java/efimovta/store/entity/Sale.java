@@ -1,12 +1,73 @@
 package efimovta.store.entity;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
- * Created by EFIMOVAT on 11.03.2017.
+ * Immutable Sale entity. Creation occurs through the builder.
  */
-public class Sale implements Identified {
+public class Sale implements Identified, Serializable {
+    private static long nextId = 1;
+    private final long id;
+
+    private Date saleDate;
+    private Client client;
+    private Map<Device, Integer> devices;
+
+    public Sale() {
+        id = nextId++;
+    }
+
+    public Sale(Sale sale) {
+        id = sale.getId();
+        saleDate = sale.getSaleDate();
+        client = sale.getClient();
+        devices = sale.getDevices();
+    }
+
+    @Override
+    public long getId() {
+        return id;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public Date getSaleDate() {
+        return (Date) saleDate.clone();
+    }
+
+    public Map<Device, Integer> getDevices() {
+        return new HashMap<>(devices);
+    }
+
+    public Sale setClient(Client client) {
+        this.client = client;
+        return this;
+    }
+
+    public Sale setSaleDate(Date saleDate) {
+        this.saleDate = (Date) saleDate.clone();
+        return this;
+    }
+
+    public Sale setDevices(Map<Device, Integer> devices) {
+        this.devices = new HashMap<>(devices);
+        return this;
+    }
+
+    /**
+     * Compares this sale to the specified object.
+     * The identifier is not taken into comparing.
+     *
+     * @param o The object to compare this Sale against
+     * @return true if the given object represents a Sale equivalent
+     * to this sale, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         boolean otv = false;
@@ -16,14 +77,19 @@ public class Sale implements Identified {
             Sale sale = (Sale) o;
             if (getClient().equals(sale.getClient())
                     && getSaleDate().equals(sale.getSaleDate())
-                    && getDevices().equals(sale.getDevices())){
+                    && getDevices().equals(sale.getDevices())) {
                 otv = true;
             }
         }
-
         return otv;
     }
 
+    /**
+     * Returns a hash code for this client.
+     * The identifier is not taken into calculation.
+     *
+     * @return a hash code for this client.
+     */
     @Override
     public int hashCode() {
         int result = getClient().hashCode();
@@ -32,78 +98,35 @@ public class Sale implements Identified {
         return result;
     }
 
-    private static long nextId = 1;
-    private final long id = nextId++;
-
-    private Client client;
-    private Date saleDate;
-    private Map<Device, Integer> devices;
-
-    private Sale() {
-        
-    }
-
+    /**
+     * todo example
+     *
+     * @return a string representation of the sale.
+     */
     @Override
-    public String toString() {//TODO delete view piece from model
+    public String toString() {
         StringBuilder sb = new StringBuilder()
                 .append("Sale{")
-                .append("\nid=").append(id)
-                //.append(", \nclient=\n").append(client.toStringWithOneTab())
-                .append(", \nsaleDate=").append(saleDate)
-                .append(", \ndevices=");
+                .append("id=").append(id)
+                .append(", saleDate=").append(saleDate)
+                .append(", clientId=").append(client.getId())
+                .append(", devices(id:count)={");
 
-        for (Map.Entry<Device, Integer> entry : devices.entrySet()) {
-            sb.append('\n').append(entry.getKey().toStringWithOneTab()).append("---Number of this devices: ").append(entry.getValue());
+
+        Set<Map.Entry<Device, Integer>> entries = devices.entrySet();
+        int size = entries.size();
+        int i = 0;
+        for (Map.Entry<Device, Integer> entry : entries) {
+            sb
+                    .append('(')
+                    .append(entry.getKey().getId())
+                    .append(':')
+                    .append(entry.getValue())
+                    .append(')');
+            if (++i != size) sb.append(',');
         }
 
-        sb.append("\n}");
+        sb.append("}}");
         return sb.toString();
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public Date getSaleDate() {
-        return saleDate;
-    }
-
-    public Map<Device, Integer> getDevices() {
-        return devices;
-    }
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    public static Builder getBuilder() {
-        return new Sale().new Builder();
-    }
-
-
-    public class Builder {
-        private Builder() {
-
-        }
-
-        public Sale build(){
-            return Sale.this;
-        }
-        
-        public Builder setClient(Client client) {
-            Sale.this.client = client;
-            return this;
-        }
-
-        public Builder setSaleDate(Date saleDate) {
-            Sale.this.saleDate = saleDate;
-            return this;
-        }
-
-        public Builder setDevices(Map<Device, Integer> devices) {
-            Sale.this.devices = devices;
-            return this;
-        }
     }
 }

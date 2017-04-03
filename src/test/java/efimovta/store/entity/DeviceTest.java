@@ -1,8 +1,5 @@
 package efimovta.store.entity;
 
-import efimovta.store.entity.enums.Brand;
-import efimovta.store.entity.enums.DeviceType;
-import efimovta.store.entity.enums.NamedColor;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -27,7 +24,7 @@ public class DeviceTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        Device.Builder builder = Device.getBuilder();
+        Device builder = new Device();
         assertNotNull(builder);
 
         device = builder
@@ -37,7 +34,7 @@ public class DeviceTest {
                 .setColor(color)
                 .setReleaseDate(releaseDate)
                 .setPrice(price)
-                .build();
+                ;
         assertNotNull(device);
 
         device2 = builder
@@ -47,7 +44,7 @@ public class DeviceTest {
                 .setColor(color)
                 .setReleaseDate(releaseDate)
                 .setPrice(price)
-                .build();
+                ;
         assertNotNull(device2);
     }
 

@@ -1,20 +1,18 @@
-package efimovta.store.util.comparator;
-
-import efimovta.store.entity.Sale;
+package efimovta.store.entity;
 
 import java.util.Comparator;
 
-public enum SaleComparators implements Comparator<Sale> {
+public enum SaleComparator implements Comparator<Sale> {
         BY_ID {
             @Override
             public int compare(Sale o1, Sale o2) {
-                return IdentifiedeComparators.BY_ID.compare(o1,o2);
+                return IdentifiedComparator.BY_ID.compare(o1,o2);
             }
         },
         BY_CLIENT_ID {
             @Override
             public int compare(Sale o1, Sale o2) {
-                return ClientComparators.BY_ID.compare(o1.getClient(),o2.getClient());
+                return ClientComparator.BY_ID.compare(o1.getClient(),o2.getClient());
             }
         },
         BY_SALE_DATE {

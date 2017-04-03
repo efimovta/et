@@ -4,10 +4,11 @@ import efimovta.store.menu.exception.OperationCanceledByUserException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+
+import static efimovta.store.Constants.br;
 
 /**
  * Created by jcd on 25.03.2017.
@@ -27,7 +28,6 @@ public class Requester {
     public static final String INPUT_ERROR_MSG =
             ("Неверный ввод. Повторите. Для выхода введите \""+EXIT_SYMBOL +"\".");
 
-    private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     public BufferedReader getReader() {
         return br;

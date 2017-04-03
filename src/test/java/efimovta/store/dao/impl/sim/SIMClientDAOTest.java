@@ -1,6 +1,6 @@
 package efimovta.store.dao.impl.sim;
 
-import efimovta.store.dao.exeption.RecordNotFoundException;
+import efimovta.store.dao.RecordNotFoundException;
 import efimovta.store.entity.Client;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -23,19 +23,19 @@ public class SIMClientDAOTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        client = Client.getBuilder()
+        client = new Client()
                 .setSecondName("Васильев")
                 .setName("Вася")
                 .setMiddleName("Васильевич")
-                .setBirthDay(DateFormat.getDateInstance().parse("11.11.1994"))
-                .build();
+                .setBirthday(DateFormat.getDateInstance().parse("11.11.1994"))
+                ;
 
-        client2 = Client.getBuilder()
+        client2 = new Client()
                 .setSecondName("Васильев2")
                 .setName("Вася2")
                 .setMiddleName("Васильевич2")
-                .setBirthDay(DateFormat.getDateInstance().parse("22.22.2994"))
-                .build();
+                .setBirthday(DateFormat.getDateInstance().parse("22.22.2994"))
+                ;
 
         source = new ArrayList<>();
         source.add(client);

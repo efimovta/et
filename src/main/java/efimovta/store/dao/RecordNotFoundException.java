@@ -1,4 +1,4 @@
-package efimovta.store.dao.exeption;
+package efimovta.store.dao;
 
 /**
  * Created by jcd on 18.03.2017.

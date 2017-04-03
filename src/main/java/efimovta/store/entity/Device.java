@@ -1,23 +1,103 @@
 package efimovta.store.entity;
 
-import efimovta.store.entity.enums.Brand;
-import efimovta.store.entity.enums.DeviceType;
-import efimovta.store.entity.enums.NamedColor;
-
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * Created by EFIMOVAT on 11.03.2017.
+ * Immutable Device entity. Creation occurs through the builder.
  */
-public class Device implements Identified {
-    private static int nextId = 1;
-    private final int id = nextId++;
+public class Device implements Identified, Serializable {
+    private static long nextId = 1;
+    private final long id;
 
-    String model;
-    DeviceType type;
-    Brand brand;
+    private String model;
+    private DeviceType type;
+    private Brand brand;
+    private NamedColor color;
+    private Date releaseDate;
+    private BigDecimal price;
 
+    public Device() {
+        id = nextId++;
+    }
+
+    public Device(Device device) {
+        id = device.getId();
+        model = device.getModel();
+        type = device.getType();
+        brand = device.getBrand();
+        color = device.getColor();
+        releaseDate = device.getReleaseDate();
+        price = device.getPrice();
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public DeviceType getType() {
+        return type;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public NamedColor getColor() {
+        return color;
+    }
+
+    public Date getReleaseDate() {
+        return (Date) releaseDate.clone();
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public Device setModel(String model) {
+        this.model = model;
+        return this;
+    }
+
+    public Device setType(DeviceType type) {
+        this.type = type;
+        return this;
+    }
+
+    public Device setBrand(Brand brand) {
+        this.brand = brand;
+        return this;
+    }
+
+    public Device setColor(NamedColor color) {
+        this.color = color;
+        return this;
+    }
+
+    public Device setReleaseDate(Date releaseDate) {
+        this.releaseDate = (Date) releaseDate.clone();
+        return this;
+    }
+
+    public Device setPrice(BigDecimal price) {
+        this.price = price;
+        return this;
+    }
+
+    /**
+     * Compares this device to the specified object.
+     * The identifier is not taken into comparing.
+     *
+     * @param o The object to compare this Device against
+     * @return true if the given object represents a Device equivalent
+     * to this device, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         boolean otv = false;
@@ -38,6 +118,12 @@ public class Device implements Identified {
         return otv;
     }
 
+    /**
+     * Returns a hash code for this device.
+     * The identifier is not taken into calculation.
+     *
+     * @return a hash code for this device.
+     */
     @Override
     public int hashCode() {
         int result = getType().hashCode();
@@ -48,116 +134,19 @@ public class Device implements Identified {
         return result;
     }
 
-    NamedColor color;
-    Date releaseDate;
-    BigDecimal price;
-
-    public long getId() {
-        return id;
-    }
-
+    /**
+     * @return a string representation of the device.
+     */
     @Override
     public String toString() {
         return "Device{" +
-                "\n\tid=" + id +
-                ",\n\tmodel='" + model + '\'' +
-                ",\n\ttype=" + type +
-                ",\n\tbrand=" + brand +
-                ",\n\tcolor=" + color +
-                ",\n\treleaseDate=" + releaseDate +
-                ",\n\tprice=" + price +
-                "\n}";
+                "id=" + id +
+                ", model='" + model + '\'' +
+                ", type=" + type +
+                ", brand=" + brand +
+                ", color=" + color +
+                ", releaseDate=" + releaseDate +
+                ", price=" + price +
+                '}';
     }
-
-    public String toStringWithOneTab() {//TODO delete view piece from model
-        return "\tDevice{" +
-                "\n\t\tid=" + id +
-                ", \n\t\tmodel='" + model + '\'' +
-                ", \n\t\ttype=" + type +
-                ", \n\t\tbrand=" + brand +
-                ", \n\t\tcolor=" + color +
-                ", \n\t\treleaseDate=" + releaseDate +
-                ", \n\t\tprice=" + price +
-                "\n\t}";
-    }
-
-    private Device() {
-
-    }
-
-    public static int getNextId() {
-        return nextId;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public DeviceType getType() {
-        return type;
-    }
-
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public NamedColor getColor() {
-        return color;
-    }
-
-    public Date getReleaseDate() {
-        return releaseDate;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-
-    public static Builder getBuilder() {
-        return new Device().new Builder();
-    }
-
-
-    public class Builder {
-        private Builder() {
-
-        }
-
-        public Device build() {
-            return Device.this;
-        }
-
-        public Builder setModel(String model) {
-            Device.this.model = model;
-            return this;
-        }
-
-        public Builder setType(DeviceType type) {
-            Device.this.type = type;
-            return this;
-        }
-
-        public Builder setBrand(Brand brand) {
-            Device.this.brand = brand;
-            return this;
-        }
-
-        public Builder setColor(NamedColor color) {
-            Device.this.color = color;
-            return this;
-        }
-
-        public Builder setReleaseDate(Date releaseDate) {
-            Device.this.releaseDate = releaseDate;
-            return this;
-        }
-
-        public Builder setPrice(BigDecimal price) {
-            Device.this.price = price;
-            return this;
-        }
-    }
-
-
 }

@@ -16,27 +16,27 @@ public class SaleTest {
     static Sale sale;
     static Sale sale2;
     static Date saleDate = new Date();
-    static Client client = Client.getBuilder().build();
+    static Client client = new Client();
     static Map<Device, Integer> devices = new HashMap<>();
 
 
     @BeforeClass
     public static void setUp() throws Exception {
-        Sale.Builder builder = Sale.getBuilder();
+        Sale builder = new Sale();
         assertNotNull(builder);
 
         sale = builder
                 .setSaleDate(saleDate)
                 .setClient(client)
                 .setDevices(devices)
-                .build();
+                ;
         assertNotNull(sale);
 
         sale2 = builder
                 .setSaleDate(saleDate)
                 .setClient(client)
                 .setDevices(devices)
-                .build();
+                ;
         assertNotNull(sale2);
     }
 

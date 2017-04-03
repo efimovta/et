@@ -1,6 +1,6 @@
-package efimovta.store.config;
+package efimovta.store;
 
-import efimovta.store.dao.factory.DAOFactory.DataSourceNames;
+import efimovta.store.dao.DAOFactory.DataSourceNames;
 
 /**
  * Class is used as a configuration file

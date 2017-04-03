@@ -22,15 +22,14 @@ public class ClientTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        Client.Builder clientBuilder = Client.getBuilder();
+        Client clientBuilder = new Client();
         assertNotNull(clientBuilder);
 
         client = clientBuilder
                 .setSecondName(secondName)
                 .setName(name)
                 .setMiddleName(middleName)
-                .setBirthDay(birthDay)
-                .build();
+                .setBirthday(birthDay);
         assertNotNull(client);
 
         //client2.id != client.id
@@ -38,8 +37,7 @@ public class ClientTest {
                 .setSecondName(secondName)
                 .setName(name)
                 .setMiddleName(middleName)
-                .setBirthDay(birthDay)
-                .build();
+                .setBirthday(birthDay);
         assertNotNull(client2);
     }
 
@@ -52,13 +50,13 @@ public class ClientTest {
 
     @Test
     public void clientHashCode() throws Exception {
-        assertTrue(client.hashCode()==client2.hashCode());
+        assertTrue(client.hashCode() == client2.hashCode());
     }
 
     @Test
     public void getId() throws Exception {
         assertNotNull(client.getId());
-        assertTrue(client.getId()>0);
+        assertTrue(client.getId() > 0);
     }
 
     @Test
@@ -80,7 +78,7 @@ public class ClientTest {
 
     @Test
     public void getBirthDay() throws Exception {
-        assertEquals(client.getBirthDay(), birthDay);
+        assertEquals(client.getBirthday(), birthDay);
     }
 
     @Test

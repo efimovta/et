@@ -1,14 +1,15 @@
-package efimovta.store.util.comparator;
-
-import efimovta.store.entity.Device;
+package efimovta.store.entity;
 
 import java.util.Comparator;
 
-public enum DeviceComparators implements Comparator<Device> {
+/**
+ * Device comparator instances listing
+ */
+public enum DeviceComparator implements Comparator<Device> {
      BY_ID {
          @Override
          public int compare(Device o1, Device o2) {
-             return IdentifiedeComparators.BY_ID.compare(o1,o2);
+             return IdentifiedComparator.BY_ID.compare(o1,o2);
          }
      },
      BY_RELEASE_DATE {
