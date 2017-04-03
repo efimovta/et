@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * The class contains only one method that represents "create menu"
  */
-public class CreateMenu {//todo mb singleton
+public class CreateMenu {
 
     /**
      * represents "create menu"

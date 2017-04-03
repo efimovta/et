@@ -9,9 +9,9 @@ import efimovta.store.dao.SaleDAO;
  * Created by jcd on 19.03.2017.
  */
 public class SIMDAOFactory extends DAOFactory {
-    ClientDAO clientDAO = new SIMClientDAO(StorageInMemory.clients);
-    DeviceDAO deviceDAO = new SIMDeviceDAO(StorageInMemory.devices);
-    SaleDAO saleDAO = new SIMSaleDAO(StorageInMemory.sales);
+    private ClientDAO clientDAO = new SIMClientDAO(StorageInMemory.clients);
+    private DeviceDAO deviceDAO = new SIMDeviceDAO(StorageInMemory.devices);
+    private SaleDAO saleDAO = new SIMSaleDAO(StorageInMemory.sales);
 
     @Override
     public ClientDAO getClientDAO() {
