@@ -5,6 +5,7 @@ import java.awt.*;
 /**
  * Named color listing. Each element contains a reference
  * to the corresponding instance of {@link Color}
+ *
  * @see NamedColor#getAwtColor()
  */
 public enum NamedColor {
@@ -23,7 +24,7 @@ public enum NamedColor {
     PINK(Color.PINK),
     CYAN(Color.CYAN),
     MAGENTA(Color.MAGENTA);
-    
+
     private final Color awtColor;
 
     NamedColor(Color awtColor) {
@@ -32,6 +33,17 @@ public enum NamedColor {
 
     public Color getAwtColor() {
         return awtColor;
+    }
+
+    public static NamedColor getNamedColor(Color color) {
+        NamedColor namedColor = null;
+        for (NamedColor nc : NamedColor.values()) {
+            if (nc.getAwtColor().equals(color)) {
+                namedColor = nc;
+                break;
+            }
+        }
+        return namedColor;
     }
 
 }

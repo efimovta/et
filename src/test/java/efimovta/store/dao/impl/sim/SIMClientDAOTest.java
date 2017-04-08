@@ -25,14 +25,14 @@ public class SIMClientDAOTest {
     public static void setUp() throws Exception {
         client = new Client()
                 .setSecondName("Васильев")
-                .setName("Вася")
+                .setFirtsName("Вася")
                 .setMiddleName("Васильевич")
                 .setBirthday(DateFormat.getDateInstance().parse("11.11.1994"))
                 ;
 
         client2 = new Client()
                 .setSecondName("Васильев2")
-                .setName("Вася2")
+                .setFirtsName("Вася2")
                 .setMiddleName("Васильевич2")
                 .setBirthday(DateFormat.getDateInstance().parse("22.22.2994"))
                 ;

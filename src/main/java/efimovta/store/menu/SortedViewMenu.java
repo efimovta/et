@@ -70,4 +70,28 @@ public class SortedViewMenu {
         }
     }
 
+
+    static MenuItem[] menuItems = {
+            new MenuItem("Просмотр клиентов, отстортированных по ФИО") {//todo mb move strings to Constants
+                @Override public void execute() throws IOException {
+                    List<Client> ar = null;
+                    try {
+                        ar = Searcher.findAllClients();
+                    } catch (DAOException e) {
+                        System.err.println(e.getMessage());
+                    }
+                    Collections.sort(ar, ClientComparator.BY_FIO);
+                    for (Client client : ar) {
+                        System.out.println(Viewer.toString(client));
+                    }
+                }
+            },
+            new MenuItem("Возвращение к главному меню") {
+                @Override public void execute() throws IOException {
+                    System.out.println("...возвращение к главному меню...");
+                    //todo mb better way?
+                }
+            }
+    };
+
 }

@@ -1,10 +1,9 @@
 package efimovta.store.menu;
 
+import efimovta.store.menu.exception.OperationCanceledByUserException;
 import efimovta.store.menu.exception.OperationException;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 import static efimovta.store.Constants.br;
 
@@ -19,36 +18,19 @@ public class CreateMenu {
      * @throws IOException
      */
     public static void startDialog() throws IOException {
-        List<CreateMenuItem> items = Arrays.asList(CreateMenuItem.values());
         while (true) {
             System.out.println("\n### Добавление ###");
-            for (CreateMenuItem cmi : CreateMenuItem.values()) {
-                System.out.println(cmi.ordinal()+1 + ". " + cmi);
+            int i=1;
+            for (MenuItem mi : menuItems) {
+                System.out.println(i + ". " + mi);
+                i++;
             }
 
             System.out.println("Выбирете действие:");
             String strOtv = br.readLine();
             try {
-                int otv = Integer.parseInt(strOtv)-1;
-                CreateMenuItem otvItem = items.get(otv);
-                switch (otvItem) {
-                    case ADDING_A_CLIENT:
-                        Creator.startClientCreationDialog();
-                        System.out.println("Клиент успешно добавлен.");
-                        break;
-                    case ADDING_A_DEVICE:
-                        Creator.startDeviceCreationDialog();
-                        System.out.println("Устройство успешно добавлено.");
-                        break;
-                    case ADDING_A_SALE:
-                        Creator.startSaleCreationDialog();
-                        System.out.println("Продажа успешно добавлена.");
-                        break;
-                    case RETURN_TO_MAIN_MENU:
-                        return;
-                    default:
-                        System.err.println("Неверный ввод.");
-                }
+                int otv = Integer.parseInt(strOtv) - 1;
+                menuItems[otv].execute();
             } catch (OperationException e) {
                 System.err.println(e.getMessage());
             }catch (IndexOutOfBoundsException|NumberFormatException e) {
@@ -56,23 +38,30 @@ public class CreateMenu {
             }
         }
     }
-
-
-    public enum CreateMenuItem {
-        ADDING_A_CLIENT("Добавление клиента"),
-        ADDING_A_DEVICE("Добавление устройства"),
-        ADDING_A_SALE("Добавление продажи"),
-        RETURN_TO_MAIN_MENU("Возврат к главному меню");
-
-        String description;
-
-        CreateMenuItem(String description) {
-            this.description = description;
-        }
-
-        @Override
-        public String toString() {
-            return description;
-        }
-    }
+    static MenuItem[] menuItems = {
+            new MenuItem("Добавление клиента") {//todo mb move strings to Constants
+                @Override public void execute() throws IOException, OperationCanceledByUserException {
+                    Creator.startClientCreationDialog();
+                    System.out.println("Клиент успешно добавлен.");
+                }
+            },
+            new MenuItem("Добавление устройства") {
+                @Override public void execute() throws IOException, OperationCanceledByUserException {
+                    Creator.startDeviceCreationDialog();
+                    System.out.println("Устройство успешно добавлено.");
+                }
+            },
+            new MenuItem("Добавление продажи") {
+                @Override public void execute() throws IOException, OperationCanceledByUserException {
+                    Creator.startSaleCreationDialog();
+                    System.out.println("Продажа успешно добавлена.");
+                }
+            },
+            new MenuItem("Возвращение к главному меню") {
+                @Override public void execute() throws IOException {
+                    System.out.println("...возвращение к главному меню...");
+                    //todo mb better way?
+                }
+            }
+    };
 }

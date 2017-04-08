@@ -77,7 +77,7 @@ public class Client implements Identified, Serializable {
         return this;
     }
 
-    public Client setName(String name) {
+    public Client setFirtsName(String name) {
         this.name = name;
         return this;
     }

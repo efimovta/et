@@ -24,14 +24,14 @@ public class SIMGenericDAOTest {
     public static void setUp() throws Exception {
         client = new Client()
                 .setSecondName("Васильев")
-                .setName("Вася")
+                .setFirtsName("Вася")
                 .setMiddleName("Васильевич")
                 .setBirthday(DateFormat.getDateInstance().parse("11.11.1994"))
                 ;
 
         client2 = new Client()
                 .setSecondName("Васильев2")
-                .setName("Вася2")
+                .setFirtsName("Вася2")
                 .setMiddleName("Васильевич2")
                 .setBirthday(DateFormat.getDateInstance().parse("22.22.2994"))
                 ;
@@ -47,7 +47,7 @@ public class SIMGenericDAOTest {
     public void add() throws Exception {
         Client client3 = new Client()
                 .setSecondName("Васильев3")
-                .setName("Вася3")
+                .setFirtsName("Вася3")
                 .setMiddleName("Васильевич3")
                 .setBirthday(DateFormat.getDateInstance().parse("33.33.3994"))
                 ;
@@ -70,7 +70,7 @@ public class SIMGenericDAOTest {
     public void updateFail() throws Exception {
         Client client4 = new Client()
                 .setSecondName("Васильев4")
-                .setName("Вася4")
+                .setFirtsName("Вася4")
                 .setMiddleName("Васильевич4")
                 .setBirthday(DateFormat.getDateInstance().parse("44.44.4994"))
                 ;
@@ -81,7 +81,7 @@ public class SIMGenericDAOTest {
     public void delete() throws Exception {
         Client client4 = new Client()
                 .setSecondName("Васильев4")
-                .setName("Вася4")
+                .setFirtsName("Вася4")
                 .setMiddleName("Васильевич4")
                 .setBirthday(DateFormat.getDateInstance().parse("44.44.4994"))
                 ;
@@ -96,7 +96,7 @@ public class SIMGenericDAOTest {
     public void deleteFail() throws Exception {
         Client client4 = new Client()
                 .setSecondName("Васильев4")
-                .setName("Вася4")
+                .setFirtsName("Вася4")
                 .setMiddleName("Васильевич4")
                 .setBirthday(DateFormat.getDateInstance().parse("44.44.4994"))
                 ;

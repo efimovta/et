@@ -32,7 +32,7 @@ public class Creator {
 
         Client client = new Client()
                 .setSecondName(fio[0])
-                .setName(fio[1])
+                .setFirtsName(fio[1])
                 .setMiddleName(fio[2])
                 .setBirthday(birthDay);
 

@@ -4,7 +4,7 @@ package efimovta.store.entity;
  * Device types listing
  */
 public enum DeviceType {
-    PHONE {//todo delete view from
+    PHONE {//todo mb delete view from
         @Override
         public String toString() {
             return "Телефон";
@@ -22,7 +22,7 @@ public enum DeviceType {
             return "Ноутбук";
         }
     },
-    TAB {
+    TABLET {
         @Override
         public String toString() {
             return "Планшет";
