@@ -46,4 +46,25 @@ public class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
                 FindHelper.CLIENT_BY_FIO);
         return (List<Client>) serialize((Serializable)list);
     }
+
+    @Override
+    public List<Client> findByFirstName(String firstName) throws DAOException {
+        List<Client> list =  FindHelper.find(records, firstName,
+                FindHelper.CLIENT_BY_FIRST_NAME);
+        return (List<Client>) serialize((Serializable)list);
+    }
+
+    @Override
+    public List<Client> findBySecondName(String firstName) throws DAOException {
+        List<Client> list =  FindHelper.find(records, firstName,
+                FindHelper.CLIENT_BY_SECOND_NAME);
+        return (List<Client>) serialize((Serializable)list);
+    }
+
+    @Override
+    public List<Client> findByMiddleName(String firstName) throws DAOException {
+        List<Client> list =  FindHelper.find(records, firstName,
+                FindHelper.CLIENT_BY_MIDDLE_NAME);
+        return (List<Client>) serialize((Serializable)list);
+    }
 }

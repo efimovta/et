@@ -1,5 +1,6 @@
 package efimovta.store.menu.requester;
 
+import efimovta.store.Utility;
 import efimovta.store.menu.exception.OperationCanceledByUserException;
 
 import java.io.IOException;
@@ -21,20 +22,20 @@ public class ClientParamsRequester extends Requester {
     }
 
     public Date requestBirthDay() throws IOException, OperationCanceledByUserException {
-        System.out.println("Введите дату рождения клиента(Например: 13.11.1995)");
+        Utility.println("Введите дату рождения клиента(Например: 13.11.1995)");
         return requestDate();
     }
 
-    public String[] requestFIO() throws  IOException, OperationCanceledByUserException {
-        System.out.println("Введите ФИО(Например: Васильев Вася Васильевич)");
+    public String[] requestFIO() throws IOException, OperationCanceledByUserException {
+        Utility.println("Введите ФИО(Например: Васильев Вася Васильевич)");
         String[] fio;
         while (true) {
-            String str = getReader().readLine();
-            if(str.equals(EXIT_SYMBOL))throw new OperationCanceledByUserException();
+            String str = Utility.readLine();
+            if (str.equals(EXIT_SYMBOL)) throw new OperationCanceledByUserException();
 
             fio = str.trim().split("[ ]+");
             if (fio.length == 3) break;
-            else System.err.println(INPUT_ERROR_MSG);
+            else Utility.printErr(INPUT_ERROR_MSG);
         }
         return fio;
     }

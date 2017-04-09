@@ -4,15 +4,17 @@ package efimovta.store.entity;
  * Brand listing
  */
 public enum Brand {
-    SAMSUNG,
-    LG,
     ACER,
     APPLE,
     ASUS,
+    DELL,
     HP,
     HTC,
     LENOVO,
+    LG,
     MICROSOFT,
     MOTOROLA,
-    OTHER
+    OTHER,
+    SAMSUNG,
+    SONY
 }

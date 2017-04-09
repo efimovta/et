@@ -1,5 +1,6 @@
 package efimovta.store.menu;
 
+import efimovta.store.Utility;
 import efimovta.store.dao.*;
 import efimovta.store.entity.*;
 import efimovta.store.menu.exception.OperationCanceledByUserException;
@@ -32,7 +33,7 @@ public class Creator {
 
         Client client = new Client()
                 .setSecondName(fio[0])
-                .setName(fio[1])
+                .setFirtsName(fio[1])
                 .setMiddleName(fio[2])
                 .setBirthday(birthDay);
 
@@ -40,7 +41,7 @@ public class Creator {
         try {
             clientDAO.add(client);
         } catch (DAOException e) {
-            System.out.println(e.getMessage());
+            Utility.printErr(e.getMessage());
         }
     }
 
@@ -99,7 +100,7 @@ public class Creator {
         try {
             saleDAO.add(sale);
         } catch (DAOException e) {
-            System.out.println(e.getMessage());
+            Utility.printErr(e.getMessage());
         }
 
     }

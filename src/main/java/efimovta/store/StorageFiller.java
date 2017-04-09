@@ -32,15 +32,15 @@ public class StorageFiller {
             devices.add(new Device().setModel("gtx-4").setType(DeviceType.PHONE).setBrand(Brand.SAMSUNG).setColor(NamedColor.BLACK).setReleaseDate(DateFormat.getDateInstance().parse("16.11.1995")).setPrice(new BigDecimal("10557")));
             devices.add(new Device().setModel("gtx-5").setType(DeviceType.PHONE).setBrand(Brand.SAMSUNG).setColor(NamedColor.BLACK).setReleaseDate(DateFormat.getDateInstance().parse("16.11.1995")).setPrice(new BigDecimal("10657")));
 
-            clients.add(new Client().setSecondName("Васильев").setName("Вася").setMiddleName("Васильевич").setBirthday(DateFormat.getDateInstance().parse("11.11.1994")));
-            clients.add(new Client().setSecondName("НеЕфимов").setName("НеТимур").setMiddleName("НеАндреевич").setBirthday(DateFormat.getDateInstance().parse("13.11.1995")));
-            clients.add(new Client().setSecondName("Попов").setName("Александр").setMiddleName("Александрович").setBirthday(DateFormat.getDateInstance().parse("13.11.1976")));
-            clients.add(new Client().setSecondName("Попов").setName("Александр").setMiddleName("Александрович").setBirthday(DateFormat.getDateInstance().parse("13.11.2016")));
-            clients.add(new Client().setSecondName("Попов").setName("Александр").setMiddleName("Александрович").setBirthday(DateFormat.getDateInstance().parse("13.11.1996")));
-            clients.add(new Client().setSecondName("Попов").setName("Александр").setMiddleName("Александрович").setBirthday(DateFormat.getDateInstance().parse("13.11.1995")));
-            clients.add(new Client().setSecondName("Попов").setName("Александр").setMiddleName("Александрович").setBirthday(DateFormat.getDateInstance().parse("13.11.1994")));
-            clients.add(new Client().setSecondName("Феоктистов").setName("Иван").setMiddleName("Олегович").setBirthday(DateFormat.getDateInstance().parse("13.11.1997")));
-            clients.add(new Client().setSecondName("А").setName("Б").setMiddleName("В").setBirthday(DateFormat.getDateInstance().parse("13.11.1997")));
+            clients.add(new Client().setSecondName("Васильев").setFirtsName("Вася").setMiddleName("Васильевич").setBirthday(DateFormat.getDateInstance().parse("11.11.1994")));
+            clients.add(new Client().setSecondName("НеЕфимов").setFirtsName("НеТимур").setMiddleName("НеАндреевич").setBirthday(DateFormat.getDateInstance().parse("13.11.1995")));
+            clients.add(new Client().setSecondName("Попов").setFirtsName("Александр").setMiddleName("Блександрович").setBirthday(DateFormat.getDateInstance().parse("13.11.1976")));
+            clients.add(new Client().setSecondName("Попов").setFirtsName("Александр").setMiddleName("Влександрович").setBirthday(DateFormat.getDateInstance().parse("13.11.2016")));
+            clients.add(new Client().setSecondName("Попов").setFirtsName("Александс").setMiddleName("Александрович").setBirthday(DateFormat.getDateInstance().parse("13.11.1996")));
+            clients.add(new Client().setSecondName("Попов").setFirtsName("Александр").setMiddleName("Александрович").setBirthday(DateFormat.getDateInstance().parse("13.11.1995")));
+            clients.add(new Client().setSecondName("Попов").setFirtsName("Александр").setMiddleName("Александрович").setBirthday(DateFormat.getDateInstance().parse("13.11.1994")));
+            clients.add(new Client().setSecondName("Феоктистов").setFirtsName("Иван").setMiddleName("Олегович").setBirthday(DateFormat.getDateInstance().parse("13.11.1997")));
+            clients.add(new Client().setSecondName("А").setFirtsName("Б").setMiddleName("В").setBirthday(DateFormat.getDateInstance().parse("13.11.1997")));
 
             Map<Device, Integer> ds = new HashMap<>();
             for (int i = 0; i < 6; i++) {

@@ -29,5 +29,11 @@ public enum DeviceComparator implements Comparator<Device> {
          public int compare(Device o1, Device o2) {
              return o1.getBrand().compareTo(o2.getBrand());
          }
+     },
+     BY_MODEL {
+         @Override
+         public int compare(Device o1, Device o2) {
+             return o1.getModel().compareTo(o2.getModel());
+         }
      };
  }

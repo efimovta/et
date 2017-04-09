@@ -27,7 +27,7 @@ public class ClientTest {
 
         client = clientBuilder
                 .setSecondName(secondName)
-                .setName(name)
+                .setFirtsName(name)
                 .setMiddleName(middleName)
                 .setBirthday(birthDay);
         assertNotNull(client);
@@ -35,7 +35,7 @@ public class ClientTest {
         //client2.id != client.id
         client2 = clientBuilder
                 .setSecondName(secondName)
-                .setName(name)
+                .setFirtsName(name)
                 .setMiddleName(middleName)
                 .setBirthday(birthDay);
         assertNotNull(client2);

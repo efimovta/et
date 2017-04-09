@@ -16,5 +16,11 @@ public interface ClientDAO extends GenericDAO<Client> {
      *            with space delimiter
      * @return list of {@link Client} objects with the appropriate FIO
      */
-    public List<Client> findByFIO(String fio) throws DAOException;
+    List<Client> findByFIO(String fio) throws DAOException;
+
+    List<Client> findByFirstName(String firstName) throws DAOException;
+
+    List<Client> findBySecondName(String firstName) throws DAOException;
+
+    List<Client> findByMiddleName(String firstName) throws DAOException;
 }

@@ -12,32 +12,32 @@ import java.util.List;
  */
 public class FindHelper {
 
-    public static final FieldChecker<Sale, Long> SALE_BY_ID =
-            new FieldChecker<Sale, Long>() {
+    public static final ByFieldComparator<Sale, Long> SALE_BY_ID =
+            new ByFieldComparator<Sale, Long>() {
                 @Override
                 public boolean check(Sale sale, Long id) {
                     return IDENTIFIED_BY_ID.check(sale, id);
                 }
             };
 
-    public static final FieldChecker<Device, Long> DEVICE_BY_ID =
-            new FieldChecker<Device, Long>() {
+    public static final ByFieldComparator<Device, Long> DEVICE_BY_ID =
+            new ByFieldComparator<Device, Long>() {
                 @Override
                 public boolean check(Device device, Long id) {
                     return IDENTIFIED_BY_ID.check(device, id);
                 }
             };
 
-    public static final FieldChecker<Client, Long> CLIENT_BY_ID =
-            new FieldChecker<Client, Long>() {
+    public static final ByFieldComparator<Client, Long> CLIENT_BY_ID =
+            new ByFieldComparator<Client, Long>() {
                 @Override
                 public boolean check(Client client, Long id) {
                     return IDENTIFIED_BY_ID.check(client, id);
                 }
             };
 
-    public static final FieldChecker<Identified, Long> IDENTIFIED_BY_ID =
-            new FieldChecker<Identified, Long>() {
+    public static final ByFieldComparator<Identified, Long> IDENTIFIED_BY_ID =
+            new ByFieldComparator<Identified, Long>() {
                 @Override
                 public boolean check(Identified identified, Long id) {
                     return identified.getId() - id == 0;
@@ -45,16 +45,16 @@ public class FindHelper {
             };
 
 
-    public static final FieldChecker<Sale, Long> SALE_BY_CLIENT_ID =
-            new FieldChecker<Sale, Long>() {
+    public static final ByFieldComparator<Sale, Long> SALE_BY_CLIENT_ID =
+            new ByFieldComparator<Sale, Long>() {
                 @Override
                 public boolean check(Sale sale, Long clientId) {
                     return IDENTIFIED_BY_ID.check(sale.getClient(), clientId);
                 }
             };
 
-    public static final FieldChecker<Sale, Long> SALE_BY_DEVICE_ID =
-            new FieldChecker<Sale, Long>() {
+    public static final ByFieldComparator<Sale, Long> SALE_BY_DEVICE_ID =
+            new ByFieldComparator<Sale, Long>() {
                 @Override
                 public boolean check(Sale sale, Long deviceId) {
                     boolean otv;
@@ -68,40 +68,62 @@ public class FindHelper {
                 }
             };
 
-    public static final FieldChecker<Sale, Date> SALE_BY_SALE_DATE =
-            new FieldChecker<Sale, Date>() {
+    public static final ByFieldComparator<Sale, Date> SALE_BY_SALE_DATE =
+            new ByFieldComparator<Sale, Date>() {
                 @Override
                 public boolean check(Sale sale, Date saleDate) {
                     return sale.getSaleDate().equals(saleDate);
                 }
             };
 
-    public static final FieldChecker<Device, Date> DEVICE_BY_RELEASE_DATE =
-            new FieldChecker<Device, Date>() {
+    public static final ByFieldComparator<Device, Date> DEVICE_BY_RELEASE_DATE =
+            new ByFieldComparator<Device, Date>() {
                 @Override
                 public boolean check(Device device, Date releaseDate) {
                     return device.getReleaseDate().equals(releaseDate);
                 }
             };
 
-    public static final FieldChecker<Device, DeviceType> DEVICE_BY_TYPE =
-            new FieldChecker<Device, DeviceType>() {
+    public static final ByFieldComparator<Device, DeviceType> DEVICE_BY_TYPE =
+            new ByFieldComparator<Device, DeviceType>() {
                 @Override
                 public boolean check(Device device, DeviceType type) {
                     return device.getType().equals(type);
                 }
             };
 
-    public static final FieldChecker<Device, Brand> DEVICE_BY_BRAND =
-            new FieldChecker<Device, Brand>() {
+    public static final ByFieldComparator<Device, Brand> DEVICE_BY_BRAND =
+            new ByFieldComparator<Device, Brand>() {
                 @Override
                 public boolean check(Device device, Brand brand) {
                     return device.getBrand().equals(brand);
                 }
             };
 
-    public static final FieldChecker<Client, String> CLIENT_BY_FIO =
-            new FieldChecker<Client, String>() {
+    public static final ByFieldComparator<Client, String> CLIENT_BY_FIO =
+            new ByFieldComparator<Client, String>() {
+                @Override
+                public boolean check(Client client, String fio) {
+                    return (client.getFIO().compareToIgnoreCase(fio) == 0);
+                }
+            };
+
+    public static final ByFieldComparator<Client, String> CLIENT_BY_MIDDLE_NAME =
+            new ByFieldComparator<Client, String>() {
+                @Override
+                public boolean check(Client client, String fio) {
+                    return (client.getFIO().compareToIgnoreCase(fio) == 0);
+                }
+            };
+    public static final ByFieldComparator<Client, String> CLIENT_BY_FIRST_NAME =
+            new ByFieldComparator<Client, String>() {
+                @Override
+                public boolean check(Client client, String fio) {
+                    return (client.getFIO().compareToIgnoreCase(fio) == 0);
+                }
+            };
+    public static final ByFieldComparator<Client, String> CLIENT_BY_SECOND_NAME =
+            new ByFieldComparator<Client, String>() {
                 @Override
                 public boolean check(Client client, String fio) {
                     return (client.getFIO().compareToIgnoreCase(fio) == 0);
@@ -116,15 +138,15 @@ public class FindHelper {
      * @param <P>          field type
      * @param list         List of objects where you want to search
      * @param value        value of corresponding field
-     * @param fieldChecker Checks the field of the object to match the value
+     * @param byFieldComparator Checks the field of the object to match the value
      * @return list of objects with the corresponding parameter
      * @throws RecordNotFoundException If no objects are found with the corresponding parameter
      */
-    public static <T, P> List<T> find(List<T> list, P value, FieldChecker<T, P> fieldChecker)
+    public static <T, P> List<T> find(List<T> list, P value, ByFieldComparator<T, P> byFieldComparator)
             throws RecordNotFoundException {
         ArrayList<T> founded = new ArrayList<>();
         for (T t : list) {
-            if (fieldChecker.check(t, value))
+            if (byFieldComparator.check(t, value))
                 founded.add(t);
         }
 
@@ -139,7 +161,7 @@ public class FindHelper {
      * @param <T> object type
      * @param <P> field type
      */
-    abstract static class FieldChecker<T, P> {
+    abstract static class ByFieldComparator<T, P> {
         /**
          * Checks the field of the object to match the value
          *

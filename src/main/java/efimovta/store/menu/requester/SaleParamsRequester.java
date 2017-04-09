@@ -1,5 +1,6 @@
 package efimovta.store.menu.requester;
 
+import efimovta.store.Utility;
 import efimovta.store.dao.ClientDAO;
 import efimovta.store.dao.DAOException;
 import efimovta.store.dao.DAOFactory;
@@ -25,7 +26,7 @@ public class SaleParamsRequester extends Requester {
 
     public Client requestClient() throws IOException, OperationCanceledByUserException {
         Client client = null;
-        System.out.println("Введите id клиента(Например, 777):");
+        Utility.println("Введите id клиента(Например, 777):");
         while (true) {
             int id = requestIntNumber(0, Integer.MAX_VALUE);
 
@@ -33,8 +34,7 @@ public class SaleParamsRequester extends Requester {
                 client = clientDAO.findById(id);
                 break;
             } catch (DAOException e) {
-                System.err.println(e.getMessage());
-                System.err.println(INPUT_ERROR_MSG);
+                Utility.printErr(e.getMessage());
             }
         }
         return client;
