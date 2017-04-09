@@ -10,14 +10,47 @@ import java.util.Map;
 public class Viewer {
 
     /**
+     * Return client information
+     *
+     * @param client client to view
+     * @return client information
+     * @see Viewer#toStructuredStringWithLeftSpaces(int, Client)
+     */
+    public static String toString(Client client) {
+        return client.toString();
+    }
+
+    /**
+     * Return device information
+     *
+     * @param device client to view
+     * @return device information
+     * @see Viewer#toStructuredStringWithLeftSpaces(int, Device)
+     */
+    public static String toString(Device device) {
+        return device.toString();
+    }
+
+    /**
+     * Return sale information
+     *
+     * @param sale client to view
+     * @return sale information
+     * @see Viewer#toStructuredStringWithLeftSpaces(int, Sale)
+     */
+    public static String toString(Sale sale) {
+        return sale.toString();
+    }
+
+    /**
      * Return structured client information
      *
      * @param client client to view
      * @return structured client information
-     * @see Viewer#toStringWithLeftSpaces(int, Client)
+     * @see Viewer#toStructuredStringWithLeftSpaces(int, Client)
      */
-    public static String toString(Client client) {
-        return toStringWithLeftSpaces(0, client);
+    public static String toStructuredString(Client client) {
+        return toStructuredStringWithLeftSpaces(0, client);
     }
 
     /**
@@ -25,10 +58,10 @@ public class Viewer {
      *
      * @param device client to view
      * @return structured device information
-     * @see Viewer#toStringWithLeftSpaces(int, Device)
+     * @see Viewer#toStructuredStringWithLeftSpaces(int, Device)
      */
-    public static String toString(Device device) {
-        return toStringWithLeftSpaces(0, device);
+    public static String toStructuredString(Device device) {
+        return toStructuredStringWithLeftSpaces(0, device);
     }
 
     /**
@@ -36,10 +69,10 @@ public class Viewer {
      *
      * @param sale client to view
      * @return structured sale information
-     * @see Viewer#toStringWithLeftSpaces(int, Sale)
+     * @see Viewer#toStructuredStringWithLeftSpaces(int, Sale)
      */
-    public static String toString(Sale sale) {
-        return toStringWithLeftSpaces(0, sale);
+    public static String toStructuredString(Sale sale) {
+        return toStructuredStringWithLeftSpaces(0, sale);
     }
 
     /**
@@ -51,7 +84,7 @@ public class Viewer {
      * @return structured client information with a specified number
      * of left spaces
      */
-    public static String toStringWithLeftSpaces(int num, Client c) {
+    public static String toStructuredStringWithLeftSpaces(int num, Client c) {
         String spaces = getSpaces(num);
         StringBuilder sb = new StringBuilder()
                 .append(spaces)
@@ -80,7 +113,7 @@ public class Viewer {
      * @return structured device information string with a specified number of
      * left spaces
      */
-    public static String toStringWithLeftSpaces(int num, Device d) {
+    public static String toStructuredStringWithLeftSpaces(int num, Device d) {
         String spaces = getSpaces(num);
         StringBuilder sb = new StringBuilder()
                 .append(spaces)
@@ -114,7 +147,7 @@ public class Viewer {
      * @return structured sale information with a specified number of
      * left spaces
      */
-    public static String toStringWithLeftSpaces(int num, Sale s) {
+    public static String toStructuredStringWithLeftSpaces(int num, Sale s) {
         String spaces = getSpaces(num);
         int innerSpacesNum = num + 10;
         StringBuilder sb = new StringBuilder()
@@ -123,14 +156,14 @@ public class Viewer {
                 .append(spaces).append("\tsaleDate=").append(s.getSaleDate())
                 .append(",\n")
                 .append(spaces).append("\tclient=\n")
-                .append(toStringWithLeftSpaces(innerSpacesNum, s.getClient()))
+                .append(toStructuredStringWithLeftSpaces(innerSpacesNum, s.getClient()))
                 .append(",\n")
                 .append(spaces).append("\tdevices=\n");
 
 
         for (Map.Entry<Device, Integer> entry : s.getDevices().entrySet()) {
             sb
-                    .append(toStringWithLeftSpaces(innerSpacesNum, entry.getKey()))
+                    .append(toStructuredStringWithLeftSpaces(innerSpacesNum, entry.getKey()))
                     .append("---Number of this devices: ").append(entry.getValue())
                     .append('\n');
         }

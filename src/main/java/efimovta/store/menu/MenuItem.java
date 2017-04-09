@@ -19,4 +19,5 @@ public abstract class MenuItem {
     }
 
     public abstract void execute() throws IOException, OperationException;
+
 }
