@@ -1,3 +1,3 @@
 # et
-Attempt!
-SIM = Storage In Memory
+DeviceStore here:
+powertest/java/efimovta/store
