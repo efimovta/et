@@ -6,7 +6,6 @@ import efimovta.store.entity.Client;
 import efimovta.store.entity.ClientComparator;
 import efimovta.store.entity.Viewer;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,22 +25,22 @@ public class SortedViewMenuItems extends MenuItems {
         menuItems.addAll(Arrays.asList(
                             new MenuItem(VIEWING_CLIENTS_SORTED_BY_NAME) {
                                 @Override
-                                public void execute() throws IOException {
+                                public void execute()  {
                                     List<Client> ar = null;
                                     try {
                                         ar = Searcher.findAllClients();
+                                        Collections.sort(ar, ClientComparator.BY_FIO);
+                                        for (Client client : ar) {
+                                            Utility.println(Viewer.toString(client));
+                                        }
                                     } catch (DAOException e) {
                                         Utility.printErr(e.getMessage());
-                                    }
-                                    Collections.sort(ar, ClientComparator.BY_FIO);
-                                    for (Client client : ar) {
-                                        Utility.println(Viewer.toString(client));
                                     }
                                 }
                             },
                             new MenuItem(BACK_TO_MAIN_MENU) {
                                 @Override
-                                public void execute() throws IOException {
+                                public void execute()  {
                                     setNext(MainMenuItems.getInstance());
                                 }
                             }
