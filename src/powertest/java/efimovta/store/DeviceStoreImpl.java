@@ -4,6 +4,7 @@ import efimovta.store.dao.*;
 import efimovta.store.entity.*;
 
 import java.awt.*;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class DeviceStoreImpl implements IDeviceStore {
                     .setBrand(deviceBrand)
                     .setModel(model)
                     .setColor(deviceColor)
+                    .setPrice(new BigDecimal(0))
                     .setReleaseDate(issueDate);
             deviceDAO.add(device);
         } catch (DAOException e) {
@@ -76,10 +78,20 @@ public class DeviceStoreImpl implements IDeviceStore {
         try {
             List<Client> clients = new ArrayList<>();
             clients.addAll(clientDAO.findByFirstName(name));
+        } catch (DAOException e) {
+            System.err.println("findByFirstName(\'"+name+"\') not found");
+        }
+        try {
+            List<Client> clients = new ArrayList<>();
             clients.addAll(clientDAO.findBySecondName(name));
+        } catch (DAOException e) {
+            System.err.println("findBySecondName(\'"+name+"\') not found");
+        }
+        try {
+            List<Client> clients = new ArrayList<>();
             clients.addAll(clientDAO.findByMiddleName(name));
         } catch (DAOException e) {
-            e.printStackTrace();
+            System.err.println("findByMiddleName(\'"+name+"\') not found");
         }
     }
 
