@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 /**
- * Created by jcd on 01.04.2017.
+ * Class contains used Constants
  */
 public class Constants {
    public final static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
