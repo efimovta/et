@@ -6,7 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Unified interface for managing the persistent state of {@link Sale} objects
+ * Unified interface for managing the persistent state
+ * of {@link Sale} objects
  */
 public interface SaleDAO extends GenericDAO<Sale> {
 
@@ -16,7 +17,7 @@ public interface SaleDAO extends GenericDAO<Sale> {
      * @param id client id
      * @return list of {@link Sale} objects founded by client id
      */
-    public List<Sale> findByClientId(long id) throws DAOException;
+    public List<Sale> findByClientId(long id);
 
     /**
      * Finds the {@link Sale} objects by device id
@@ -24,7 +25,7 @@ public interface SaleDAO extends GenericDAO<Sale> {
      * @param id device id
      * @return list of {@link Sale} objects founded by device id
      */
-    public List<Sale> findByDeviceId(long id) throws DAOException;
+    public List<Sale> findByDeviceId(long id);
 
     /**
      * Finds the {@link Sale} objects by sale date
@@ -32,5 +33,5 @@ public interface SaleDAO extends GenericDAO<Sale> {
      * @param saleDate sale date
      * @return list of {@link Sale} objects founded by sale date
      */
-    public List<Sale> findBySaleDate(Date saleDate) throws DAOException;
+    public List<Sale> findBySaleDate(Date saleDate);
 }

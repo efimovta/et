@@ -2,7 +2,6 @@ package efimovta.store.menu;
 
 import efimovta.store.dao.*;
 import efimovta.store.entity.*;
-import efimovta.store.menu.exception.OperationCanceledByUserException;
 import efimovta.store.menu.requester.ClientParamsRequester;
 import efimovta.store.menu.requester.DeviceParamsRequester;
 
@@ -59,5 +58,11 @@ public class Searcher {
                 .replaceAll("\\[|\\]|,", "")
                 .toLowerCase();
         return clientDAO.findByFIO(fio);
+    }
+
+    public static List<Client> findClientByAnyName()
+            throws IOException, OperationCanceledByUserException, DAOException {
+        String name = cpr.requestName();
+        return clientDAO.findByAnyName(name);
     }
 }

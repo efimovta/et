@@ -8,30 +8,35 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Unified interface for managing the persistent state of {@link Device} objects
+ * Unified interface for managing the persistent state
+ * of {@link Device} objects
  */
 public interface DeviceDAO extends GenericDAO<Device> {
     /**
      * Finds the {@link Device} objects with the appropriate brand
      *
      * @param brand specific brand
-     * @return list of {@link Device} objects with the appropriate brand
+     * @return list of {@link Device} objects with
+     * the appropriate brand
      */
-    public List<Device> findDevicesByBrand(Brand brand) throws DAOException;
+    public List<Device> findDevicesByBrand(Brand brand);
 
     /**
      * Finds the {@link Device} objects with the appropriate type
      *
      * @param type specific type
-     * @return list of {@link Device} objects with the appropriate type
+     * @return list of {@link Device} objects with
+     * the appropriate type
      */
-    public List<Device> findDeviceByType(DeviceType type) throws DAOException;
+    public List<Device> findDeviceByType(DeviceType type);
 
     /**
-     * Finds the {@link Device} objects with the appropriate release date
+     * Finds the {@link Device} objects with the appropriate
+     * release date
      *
      * @param releaseDate specific release date
-     * @return list of {@link Device} objects with the appropriate release date
+     * @return list of {@link Device} objects with the appropriate
+     * release date
      */
-    public List<Device> findDeviceByReleaseDate(Date releaseDate) throws DAOException;
+    public List<Device> findDeviceByReleaseDate(Date releaseDate);
 }

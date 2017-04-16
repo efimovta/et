@@ -8,7 +8,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +29,6 @@ public class SIMDeviceDAOTest {
     static SIMDeviceDAO simDeviceDAO;
     static Device device;
     static Device device2;
-    static ArrayList<Device> source;
 
     @BeforeClass
     public static void setUp() throws Exception {
@@ -50,11 +48,10 @@ public class SIMDeviceDAOTest {
                 .setReleaseDate(releaseDate2)//not releaseDate !!!
                 .setPrice(price);
 
-        source = new ArrayList<>();
-        source.add(device);
-        source.add(device2);
+        simDeviceDAO = new SIMDeviceDAO();
+        simDeviceDAO.add(device);
+        simDeviceDAO.add(device2);
 
-        simDeviceDAO = new SIMDeviceDAO(source);
     }
 
 

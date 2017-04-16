@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.util.*;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -19,12 +20,14 @@ public class SIMSaleDAOTest {
     static final public ArrayList<Client> clients = new ArrayList<>();
     static final public ArrayList<Sale> sales = new ArrayList<>();
 
-    static SIMSaleDAO simSaleDAO = new SIMSaleDAO(sales);
+    static SIMSaleDAO simSaleDAO = new SIMSaleDAO();
+    static SIMClientDAO simClientDAO = new SIMClientDAO();
+    static SIMDeviceDAO simDeviceDAO = new SIMDeviceDAO();
 
     static Client client;
     static Client client2;
 
-    static String model = "gtx157";
+    static String model = "gtx1575456456";
     static DeviceType type = DeviceType.LAPTOP;
     static Brand brand = Brand.ACER;
     static NamedColor color = NamedColor.BLACK;
@@ -39,19 +42,22 @@ public class SIMSaleDAOTest {
     @BeforeClass
     public static void setUp() throws Exception {
         client = new Client()
-                .setSecondName("Васильев")
+                .setSecondName("Васильев123")
                 .setFirtsName("Вася")
                 .setMiddleName("Васильевич")
                 .setBirthday(DateFormat.getDateInstance().parse("11.11.1994"));
 
         client2 = new Client()
-                .setSecondName("Васильев2")
+                .setSecondName("Васильев2123")
                 .setFirtsName("Вася2")
                 .setMiddleName("Васильевич2")
                 .setBirthday(DateFormat.getDateInstance().parse("22.22.2994"));
 
+
         clients.add(client);
         clients.add(client2);
+        simClientDAO.add(client);
+        simClientDAO.add(client2);
 
         device = new Device()
                 .setModel(model)
@@ -69,18 +75,23 @@ public class SIMSaleDAOTest {
                 .setReleaseDate(releaseDate2)//not releaseDate !!!
                 .setPrice(price);
 
+
         devices.add(device);
         devices.add(device2);
+        simDeviceDAO.add(device);
+        simDeviceDAO.add(device2);
 
 
         Map<Device, Integer> ds = new HashMap<>();
         ds.put(device, 3);
+        ds.put(device2, 2);
         Sale sale = new Sale()
                 .setSaleDate(new Date())
                 .setClient(client)
                 .setDevices(ds);
 
         sales.add(sale);
+        simSaleDAO.add(sale);
     }
 //
 //    @Test
@@ -102,6 +113,11 @@ public class SIMSaleDAOTest {
     @Test(expected = RecordNotFoundException.class)
     public void addFail() throws Exception {
         Client c = new Client();
+        c = new Client()
+                .setSecondName("В")
+                .setFirtsName("Ва")
+                .setMiddleName("Вас")
+                .setBirthday(new Date());
 
         Map<Device, Integer> ds = new HashMap<>();
         ds.put(device, 3);
@@ -126,7 +142,7 @@ public class SIMSaleDAOTest {
     public void findByClientId() throws Exception {
         Client client = clients.get(0);
         List<Sale> ss = simSaleDAO.findByClientId(client.getId());
-        assertTrue(ss.size() == 1);
+        assertEquals(ss.size(), 1);
         assertEquals(ss.get(0).getClient(), client);
     }
 
@@ -134,7 +150,7 @@ public class SIMSaleDAOTest {
     public void findByDeviceId() throws Exception {
         Device device = devices.get(0);
         List<Sale> ss = simSaleDAO.findByDeviceId(device.getId());
-        assertTrue(ss.size() == 1);
+        assertEquals(ss.size(), 1);
         assertTrue(ss.get(0).getDevices().keySet().contains(device));
     }
 

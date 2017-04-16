@@ -35,6 +35,7 @@ public class Constants {
    public final static String ALL_DEVICES  = "Все устройства";
    public final static String ALL_SALES  = "Все продажи";
    public final static String SEARCHING_CLIENTS_BY_FIO  = "Поиск клиента(ов) по ФИО";
+   public final static String SEARCHING_CLIENTS_BY_ANY_NAME = "Поиск клиента(ов) по имени(любому)";
    public final static String SEARCHING_DEVICES_BY_BRAND  = "Поиск устройств по марке";
    public final static String SEARCHING_DEVICES_BY_TYPE  = "Поиск устройств по типу";
    public final static String SEARCHING_DEVICES_BY_RELEASE_DATE  = "Поиск устройств по году выпуска";

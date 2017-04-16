@@ -1,11 +1,11 @@
 package efimovta.store;
 
-import efimovta.store.dao.RecordNotFoundException;
 import efimovta.store.entity.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Used to find the entity by parameter in the array
@@ -57,14 +57,11 @@ public class FindHelper {
             new ByFieldComparator<Sale, Long>() {
                 @Override
                 public boolean check(Sale sale, Long deviceId) {
-                    boolean otv;
-                    try {
-                        find(new ArrayList<Identified>((sale).getDevices().keySet()), deviceId, IDENTIFIED_BY_ID);
-                        otv = true;
-                    } catch (RecordNotFoundException notFoundException) {
-                        otv = false;
-                    }
-                    return otv;
+                    List<Identified> i;
+                    Set<Device> set = (sale).getDevices().keySet();
+                    List<Identified> devices = new ArrayList<Identified>(set);
+                    i = find(devices, deviceId, IDENTIFIED_BY_ID);
+                    return i.size() > 0;
                 }
             };
 
@@ -111,22 +108,32 @@ public class FindHelper {
     public static final ByFieldComparator<Client, String> CLIENT_BY_MIDDLE_NAME =
             new ByFieldComparator<Client, String>() {
                 @Override
-                public boolean check(Client client, String fio) {
-                    return (client.getFIO().compareToIgnoreCase(fio) == 0);
+                public boolean check(Client client, String middleName) {
+                    return (client.getMiddleName().compareToIgnoreCase(middleName) == 0);
                 }
             };
     public static final ByFieldComparator<Client, String> CLIENT_BY_FIRST_NAME =
             new ByFieldComparator<Client, String>() {
                 @Override
-                public boolean check(Client client, String fio) {
-                    return (client.getFIO().compareToIgnoreCase(fio) == 0);
+                public boolean check(Client client, String first) {
+                    return (client.getFirstName().compareToIgnoreCase(first) == 0);
                 }
             };
     public static final ByFieldComparator<Client, String> CLIENT_BY_SECOND_NAME =
             new ByFieldComparator<Client, String>() {
                 @Override
-                public boolean check(Client client, String fio) {
-                    return (client.getFIO().compareToIgnoreCase(fio) == 0);
+                public boolean check(Client client, String second) {
+                    return (client.getSecondName().compareToIgnoreCase(second) == 0);
+                }
+            };
+
+    public static final ByFieldComparator<Client, String> CLIENT_BY_ANY_NAME =
+            new ByFieldComparator<Client, String>() {
+                @Override
+                public boolean check(Client client, String any) {
+                    return (client.getSecondName().compareToIgnoreCase(any) == 0)
+                            || (client.getFirstName().compareToIgnoreCase(any) == 0)
+                            || (client.getMiddleName().compareToIgnoreCase(any) == 0);
                 }
             };
 
@@ -134,29 +141,28 @@ public class FindHelper {
     /**
      * Finds objects with a field that has the required value
      *
-     * @param <T>          object type
-     * @param <P>          field type
-     * @param list         List of objects where you want to search
-     * @param value        value of corresponding field
-     * @param byFieldComparator Checks the field of the object to match the value
+     * @param <T>               object type
+     * @param <P>               field type
+     * @param list              List of objects where you want to
+     *                          search
+     * @param value             value of corresponding field
+     * @param byFieldComparator Checks the field of the object to
+     *                          match the value
      * @return list of objects with the corresponding parameter
-     * @throws RecordNotFoundException If no objects are found with the corresponding parameter
      */
-    public static <T, P> List<T> find(List<T> list, P value, ByFieldComparator<T, P> byFieldComparator)
-            throws RecordNotFoundException {
+    public static <T, P> List<T> find(
+            List<T> list, P value, ByFieldComparator<T, P> byFieldComparator) {
         ArrayList<T> founded = new ArrayList<>();
         for (T t : list) {
             if (byFieldComparator.check(t, value))
                 founded.add(t);
         }
-
-        if (founded.size() == 0) throw new RecordNotFoundException();
-
         return founded;
     }
 
     /**
-     * Contains a single method that checks the field of the object to match the value
+     * Contains a single method that checks the field of the object
+     * to match the value
      *
      * @param <T> object type
      * @param <P> field type

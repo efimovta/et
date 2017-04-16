@@ -1,7 +1,6 @@
 package efimovta.store.menu;
 
 import efimovta.store.Utility;
-import efimovta.store.menu.exception.OperationCanceledByUserException;
 
 import java.io.IOException;
 import java.util.ArrayList;

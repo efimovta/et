@@ -5,10 +5,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * Immutable Device entity. Creation occurs through the builder.
+ * Immutable Device entity.
  */
-public class Device implements Identified, Serializable {
-    private static long nextId = 1;
+public class Device implements Identified, Serializable, CloneReady<Device> {
+    private static long nextId = 0;
     private final long id;
 
     private String model;
@@ -148,5 +148,10 @@ public class Device implements Identified, Serializable {
                 ", releaseDate=" + releaseDate +
                 ", price=" + price +
                 '}';
+    }
+
+    @Override
+    public Device getClone() {
+        return new Device(this);
     }
 }

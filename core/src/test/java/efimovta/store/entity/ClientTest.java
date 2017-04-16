@@ -5,8 +5,7 @@ import org.junit.Test;
 
 import java.util.Date;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by EFIMOVAT on 26.03.2017.

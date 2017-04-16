@@ -3,7 +3,6 @@ package efimovta.store.menu;
 import efimovta.store.Utility;
 import efimovta.store.dao.*;
 import efimovta.store.entity.*;
-import efimovta.store.menu.exception.OperationCanceledByUserException;
 import efimovta.store.menu.requester.ClientParamsRequester;
 import efimovta.store.menu.requester.DeviceParamsRequester;
 import efimovta.store.menu.requester.SaleParamsRequester;

@@ -1,43 +1,33 @@
 package efimovta.store.dao;
 
 import efimovta.store.Config;
-import efimovta.store.dao.impl.sim.SIMDAOFactory;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static efimovta.store.dao.DAOFactory.DataSourceNames.STORAGE_IN_MEMORY;
 
 /**
- * Created by jcd on 19.03.2017.
+ * Abstract factory for DAO.
+ * Static method get() returns realization defined in {@link Config#DATA_SOURCE}
  */
 public abstract class DAOFactory {
 
-    private static Map<DataSourceNames, DAOFactory> cache = new HashMap<>();
-
+    /**
+     * @return realization of {@link ClientDAO}
+     */
     public abstract ClientDAO getClientDAO();
 
+
+    /**
+     * @return realization of {@link DeviceDAO}
+     */
     public abstract DeviceDAO getDeviceDAO();
 
+    /**
+     * @return realization of {@link SaleDAO}
+     */
     public abstract SaleDAO getSaleDAO();
 
-
+    /**
+     * @return realization of {@link DAOFactory} defined in {@link Config#DATA_SOURCE}
+     */
     public static DAOFactory get() {
-        DAOFactory daoFactory = null;
-        switch (Config.DATA_SOURCE) {
-            case STORAGE_IN_MEMORY: {
-                daoFactory = cache.get(STORAGE_IN_MEMORY);
-                if (daoFactory == null) {
-                    daoFactory = new SIMDAOFactory();
-                    cache.put(STORAGE_IN_MEMORY, daoFactory);
-                }
-                break;
-            }
-        }
-        return daoFactory;
-    }
-
-    public static enum DataSourceNames {
-        STORAGE_IN_MEMORY
+        return Config.DATA_SOURCE;
     }
 }

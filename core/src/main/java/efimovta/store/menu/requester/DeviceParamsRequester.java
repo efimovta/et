@@ -4,7 +4,7 @@ import efimovta.store.Utility;
 import efimovta.store.entity.Brand;
 import efimovta.store.entity.DeviceType;
 import efimovta.store.entity.NamedColor;
-import efimovta.store.menu.exception.OperationCanceledByUserException;
+import efimovta.store.menu.OperationCanceledByUserException;
 
 import java.io.IOException;
 import java.math.BigDecimal;

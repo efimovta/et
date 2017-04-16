@@ -5,12 +5,13 @@ import efimovta.store.entity.Device;
 import efimovta.store.entity.Sale;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by EFIMOVAT on 13.03.2017.
+ * It contains lists representing the storage in memory
  */
 public class StorageInMemory {
-    static final public ArrayList<Device> devices = new ArrayList<>();
-    static final public ArrayList<Client> clients = new ArrayList<>();
-    static final public ArrayList<Sale> sales = new ArrayList<>();
+    static final List<Client> clientRecords = new ArrayList<>();
+    static final List<Device> deviceRecords = new ArrayList<>();
+    static final List<Sale> saleRecords = new ArrayList<>();
 }

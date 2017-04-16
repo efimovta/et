@@ -1,5 +1,7 @@
 package efimovta.store.entity;
 
+import efimovta.store.Utility;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
@@ -7,10 +9,10 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Immutable Sale entity. Creation occurs through the builder.
+ * Immutable Sale entity.
  */
-public class Sale implements Identified, Serializable {
-    private static long nextId = 1;
+public class Sale implements Identified, Serializable, CloneReady<Sale> {
+    private static long nextId = 0;
     private final long id;
 
     private Date saleDate;
@@ -24,8 +26,8 @@ public class Sale implements Identified, Serializable {
     public Sale(Sale sale) {
         id = sale.getId();
         saleDate = sale.getSaleDate();
-        client = sale.getClient();
-        devices = sale.getDevices();
+        client = new Client(sale.getClient());
+        devices = Utility.deepCopy(sale.getDevices());
     }
 
     @Override
@@ -75,6 +77,7 @@ public class Sale implements Identified, Serializable {
             otv = true;
         } else if (o != null && getClass() == o.getClass()) {
             Sale sale = (Sale) o;
+            /* yes, Map Correctly checks equals */
             if (getClient().equals(sale.getClient())
                     && getSaleDate().equals(sale.getSaleDate())
                     && getDevices().equals(sale.getDevices())) {
@@ -99,8 +102,6 @@ public class Sale implements Identified, Serializable {
     }
 
     /**
-     * todo example
-     *
      * @return a string representation of the sale.
      */
     @Override
@@ -111,7 +112,6 @@ public class Sale implements Identified, Serializable {
                 .append(", saleDate=").append(saleDate)
                 .append(", clientId=").append(client.getId())
                 .append(", devices(id:count)={");
-
 
         Set<Map.Entry<Device, Integer>> entries = devices.entrySet();
         int size = entries.size();
@@ -128,5 +128,10 @@ public class Sale implements Identified, Serializable {
 
         sb.append("}}");
         return sb.toString();
+    }
+
+    @Override
+    public Sale getClone() {
+        return new Sale(this);
     }
 }

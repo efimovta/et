@@ -1,7 +1,7 @@
 package efimovta.store.menu.requester;
 
 import efimovta.store.Utility;
-import efimovta.store.menu.exception.OperationCanceledByUserException;
+import efimovta.store.menu.OperationCanceledByUserException;
 
 import java.io.IOException;
 import java.text.DateFormat;

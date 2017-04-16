@@ -4,7 +4,8 @@ import java.util.List;
 
 
 /**
- * Unified interface for managing the persistent state of {@link T} objects
+ * Unified interface for managing the persistent state
+ * of {@link T} objects
  */
 public interface GenericDAO<T> {
 
@@ -21,7 +22,7 @@ public interface GenericDAO<T> {
      * @param id id of object
      * @return {@link T} with the corresponding Id
      */
-    public T findById(long id) throws DAOException;
+    public T findById(long id);
 
     /**
      * Updates the corresponding add
@@ -38,9 +39,9 @@ public interface GenericDAO<T> {
     public void delete(T object) throws DAOException;
 
     /**
-     * Returns a list of {@link T} objects matching all records
+     * Returns a list of {@link T} objects matching all clientRecords
      *
-     * @return list of {@link T} objects matching all records
+     * @return list of {@link T} objects matching all clientRecords
      */
-    public List<T> getAll() throws DAOException;
+    public List<T> getAll();
 }

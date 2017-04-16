@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Immutable Client entity. Creation occurs through the builder.
+ * Immutable Client entity.
  */
-public class Client implements Identified, Serializable {
-    private static long nextId = 1;
+public class Client implements Identified, Serializable, CloneReady<Client> {
+    private static long nextId = 0;
     private final long id;
 
     private String secondName;
@@ -144,5 +144,10 @@ public class Client implements Identified, Serializable {
                 ", middleName='" + middleName + '\'' +
                 ", birthday=" + birthday +
                 '}';
+    }
+
+    @Override
+    public Client getClone() {
+        return new Client(this);
     }
 }

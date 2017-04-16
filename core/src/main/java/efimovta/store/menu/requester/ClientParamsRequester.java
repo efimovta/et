@@ -1,7 +1,7 @@
 package efimovta.store.menu.requester;
 
 import efimovta.store.Utility;
-import efimovta.store.menu.exception.OperationCanceledByUserException;
+import efimovta.store.menu.OperationCanceledByUserException;
 
 import java.io.IOException;
 import java.util.Date;
@@ -38,5 +38,17 @@ public class ClientParamsRequester extends Requester {
             else Utility.printErr(INPUT_ERROR_MSG);
         }
         return fio;
+    }
+
+    public String requestName() throws IOException, OperationCanceledByUserException {
+        Utility.println("Введите любое имя(Например: Васильев)");
+        String name;
+        while (true) {
+            name = Utility.readLine();
+            if (name.equals(EXIT_SYMBOL)) throw new OperationCanceledByUserException();
+            if (name.length() > 0) break;
+            else Utility.printErr(INPUT_ERROR_MSG);
+        }
+        return name;
     }
 }

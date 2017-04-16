@@ -11,6 +11,8 @@ import static org.junit.Assert.assertNotNull;
 public class DAOFactoryTest {
     @Test
     public void get() throws Exception {
-        assertNotNull(DAOFactory.get());
+        DAOFactory.get();
+        DAOFactory daoFactory = DAOFactory.get();
+        assertNotNull(daoFactory);
     }
 }

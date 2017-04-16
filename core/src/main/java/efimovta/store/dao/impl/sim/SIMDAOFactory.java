@@ -6,24 +6,33 @@ import efimovta.store.dao.DeviceDAO;
 import efimovta.store.dao.SaleDAO;
 
 /**
- * Created by jcd on 19.03.2017.
+ * Concrete abstract factory for DAO.
  */
 public class SIMDAOFactory extends DAOFactory {
-    private ClientDAO clientDAO = new SIMClientDAO(StorageInMemory.clients);
-    private DeviceDAO deviceDAO = new SIMDeviceDAO(StorageInMemory.devices);
-    private SaleDAO saleDAO = new SIMSaleDAO(StorageInMemory.sales);
+    private ClientDAO clientDAO = new SIMClientDAO();
+    private DeviceDAO deviceDAO = new SIMDeviceDAO();
+    private SaleDAO saleDAO = new SIMSaleDAO();
 
+
+    /**
+     * @return {@link SIMClientDAO}
+     */
     @Override
     public ClientDAO getClientDAO() {
         return clientDAO;
     }
 
+    /**
+     * @return {@link SIMDeviceDAO}
+     */
     @Override
     public DeviceDAO getDeviceDAO() {
         return deviceDAO;
-
     }
 
+    /**
+     * @return {@link SIMSaleDAO}
+     */
     @Override
     public SaleDAO getSaleDAO() {
         return saleDAO;

@@ -6,7 +6,6 @@ import efimovta.store.entity.Client;
 import efimovta.store.entity.Device;
 import efimovta.store.entity.Sale;
 import efimovta.store.entity.Viewer;
-import efimovta.store.menu.exception.OperationCanceledByUserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,6 +66,18 @@ public class SearchMenuItems extends MenuItems {
                     public void execute() throws IOException, OperationCanceledByUserException {
                         try {
                             for (Client client : Searcher.findClientByFIO()) {
+                                Utility.println(Viewer.toString(client));
+                            }
+                        } catch (DAOException e) {
+                            Utility.printErr(e.getMessage());
+                        }
+                    }
+                },
+                new MenuItem(SEARCHING_CLIENTS_BY_ANY_NAME) {
+                    @Override
+                    public void execute() throws IOException, OperationCanceledByUserException {
+                        try {
+                            for (Client client : Searcher.findClientByAnyName()) {
                                 Utility.println(Viewer.toString(client));
                             }
                         } catch (DAOException e) {

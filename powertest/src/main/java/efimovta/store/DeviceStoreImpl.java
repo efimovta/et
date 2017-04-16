@@ -75,62 +75,30 @@ public class DeviceStoreImpl implements IDeviceStore {
 
    
     public void searchClientsByName(String name) {
-        try {
             List<Client> clients = new ArrayList<>();
-            clients.addAll(clientDAO.findByFirstName(name));
-        } catch (DAOException e) {
-            System.err.println("findByFirstName(\'"+name+"\') not found");
-        }
-        try {
-            List<Client> clients = new ArrayList<>();
-            clients.addAll(clientDAO.findBySecondName(name));
-        } catch (DAOException e) {
-            System.err.println("findBySecondName(\'"+name+"\') not found");
-        }
-        try {
-            List<Client> clients = new ArrayList<>();
-            clients.addAll(clientDAO.findByMiddleName(name));
-        } catch (DAOException e) {
-            System.err.println("findByMiddleName(\'"+name+"\') not found");
-        }
+        clients.addAll(clientDAO.findByAnyName(name));
     }
 
    
     public void searchDevicesByIssueDate(Date issueDate) {
-        try {
             List<Device> devices = deviceDAO.findDeviceByReleaseDate(issueDate);
-        } catch (DAOException e) {
-            e.printStackTrace();
-        }
     }
 
    
     public void sortClientsByName() {
-        try {
             List<Client> clients = clientDAO.getAll();
             Collections.sort(clients, ClientComparator.BY_FIO);
-        } catch (DAOException e) {
-            e.printStackTrace();
-        }
     }
 
    
     public void sortDevicesByModel() {
-        try {
             List<Device> devices = deviceDAO.getAll();
             Collections.sort(devices, DeviceComparator.BY_MODEL);
-        } catch (DAOException e) {
-            e.printStackTrace();
-        }
     }
 
    
     public void sortSalesByDate() {
-        try {
             List<Sale> sales = saleDAO.getAll();
             Collections.sort(sales, SaleComparator.BY_SALE_DATE);
-        } catch (DAOException e) {
-            e.printStackTrace();
-        }
     }
 }

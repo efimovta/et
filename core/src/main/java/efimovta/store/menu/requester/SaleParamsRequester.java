@@ -2,10 +2,9 @@ package efimovta.store.menu.requester;
 
 import efimovta.store.Utility;
 import efimovta.store.dao.ClientDAO;
-import efimovta.store.dao.DAOException;
 import efimovta.store.dao.DAOFactory;
 import efimovta.store.entity.Client;
-import efimovta.store.menu.exception.OperationCanceledByUserException;
+import efimovta.store.menu.OperationCanceledByUserException;
 
 import java.io.IOException;
 
@@ -29,13 +28,9 @@ public class SaleParamsRequester extends Requester {
         Utility.println("Введите id клиента(Например, 777):");
         while (true) {
             int id = requestIntNumber(0, Integer.MAX_VALUE);
-
-            try {
-                client = clientDAO.findById(id);
-                break;
-            } catch (DAOException e) {
-                Utility.printErr(e.getMessage());
-            }
+            client = clientDAO.findById(id);
+            if (client != null) break;
+            else Utility.printErr("Клиент с id = " + id + " не найден");
         }
         return client;
     }

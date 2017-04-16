@@ -6,7 +6,7 @@ import java.util.Comparator;
  * Client comparator instances listing
  */
 public enum ClientComparator implements Comparator<Client> {
-    //todo http://stackoverflow.com/questions/1421322/how-do-i-sort-a-list-by-different-parameters-at-different-timed/1421537#1421537
+    //todo mb http://stackoverflow.com/questions/1421322/how-do-i-sort-a-list-by-different-parameters-at-different-timed/1421537#1421537
     BY_ID {
         @Override
         public int compare(Client o1, Client o2) {
