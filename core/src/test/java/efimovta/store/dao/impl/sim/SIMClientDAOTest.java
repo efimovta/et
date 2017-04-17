@@ -42,12 +42,12 @@ public class SIMClientDAOTest {
     @Test
     public void findByFIO() throws Exception {
         List<Client> list = simClientDAO.findByFIO("Васильев Вася Васильевич");
-        assertTrue(list.size()==1);
-        assertEquals(list.get(0),client);
+        assertTrue(list.size() == 1);
+        assertEquals(list.get(0), client);
 
         List<Client> list2 = simClientDAO.findByFIO("Васильев2 Вася2 Васильевич2");
-        assertTrue(list2.size()==1);
-        assertEquals(list2.get(0),client2);
+        assertTrue(list2.size() == 1);
+        assertEquals(list2.get(0), client2);
     }
 
     public void findByFIOFail() throws Exception {

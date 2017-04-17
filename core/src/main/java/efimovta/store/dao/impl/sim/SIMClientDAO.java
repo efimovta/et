@@ -1,7 +1,7 @@
 package efimovta.store.dao.impl.sim;
 
 import efimovta.store.FindHelper;
-import efimovta.store.Utility;
+import efimovta.store.Util;
 import efimovta.store.dao.ClientDAO;
 import efimovta.store.dao.NotAllFieldsAreFilledException;
 import efimovta.store.dao.RecordAlreadyExistsException;
@@ -21,7 +21,7 @@ public class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
      * already exists
      *
      * @param client for adding
-     * @throws RecordAlreadyExistsException
+     * @throws RecordAlreadyExistsException   if client already exists
      * @throws NotAllFieldsAreFilledException
      */
     @Override
@@ -59,7 +59,7 @@ public class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
         List<Client> clients = FindHelper.find(clientRecords, fio,
                 FindHelper.CLIENT_BY_FIO);
         if (!clients.isEmpty()) {
-            clients = Utility.deepCopy(clients);
+            clients = Util.deepCopy(clients);
         }
         return clients;
     }
@@ -75,7 +75,7 @@ public class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
         List<Client> clients = FindHelper.find(clientRecords, name,
                 FindHelper.CLIENT_BY_ANY_NAME);
         if (!clients.isEmpty()) {
-            clients = Utility.deepCopy(clients);
+            clients = Util.deepCopy(clients);
         }
         return clients;
     }
@@ -91,7 +91,7 @@ public class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
         List<Client> clients = FindHelper.find(clientRecords, firstName,
                 FindHelper.CLIENT_BY_FIRST_NAME);
         if (!clients.isEmpty()) {
-            clients = Utility.deepCopy(clients);
+            clients = Util.deepCopy(clients);
         }
         return clients;
     }
@@ -107,7 +107,7 @@ public class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
         List<Client> clients = FindHelper.find(clientRecords, secondName,
                 FindHelper.CLIENT_BY_SECOND_NAME);
         if (!clients.isEmpty()) {
-            clients = Utility.deepCopy(clients);
+            clients = Util.deepCopy(clients);
         }
         return clients;
     }
@@ -123,7 +123,7 @@ public class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
         List<Client> clients = FindHelper.find(clientRecords, middleName,
                 FindHelper.CLIENT_BY_MIDDLE_NAME);
         if (!clients.isEmpty()) {
-            clients = Utility.deepCopy(clients);
+            clients = Util.deepCopy(clients);
         }
         return clients;
     }
@@ -139,7 +139,7 @@ public class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
         if (clientRecords.size() == 0) {
             clients = new ArrayList<>(0);
         } else {
-            clients = Utility.deepCopy(clientRecords);
+            clients = Util.deepCopy(clientRecords);
         }
         return clients;
     }
@@ -147,19 +147,32 @@ public class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
     @Override
     protected void checkNullFields(Client client)
             throws NotAllFieldsAreFilledException {
-        if (client.getMiddleName() == null
-                || client.getFirstName() == null
-                || client.getSecondName() == null
-                || client.getBirthday() == null) {
-            throw new NotAllFieldsAreFilledException();
+        if (client.getMiddleName() == null) {
+            throw new NotAllFieldsAreFilledException(
+                    "client.getMiddleName() return null");
+        }
+        if (client.getFirstName() == null) {
+            throw new NotAllFieldsAreFilledException(
+                    "client.getFirstName() return null");
+        }
+        if (client.getSecondName() == null) {
+            throw new NotAllFieldsAreFilledException(
+                    "client.getSecondName() return null");
+        }
+        if (client.getBirthday() == null) {
+            throw new NotAllFieldsAreFilledException(
+                    "client.getBirthday() return null");
         }
     }
 
     @Override
     protected void checkAlreadyExists(Client c)
             throws RecordAlreadyExistsException {
-        if (clientRecords.contains(c)) {
-            throw new RecordAlreadyExistsException();
+        int i = clientRecords.indexOf(c);
+        if (i != -1) {
+            long id = clientRecords.get(i).getId();
+            throw new RecordAlreadyExistsException(
+                    "This client exists with id: " + id);
         }
     }
 }

@@ -1,21 +1,30 @@
 package efimovta.store.menu;
 
+import efimovta.store.OperationException;
+
 import java.io.IOException;
 
 /**
- * Created by EFIMOVAT on 08.04.2017.
+ * Is a menu item.
  */
 public abstract class MenuItem {
     private String description;
 
-    protected MenuItem(String description) {
+    public MenuItem(String description) {
         this.description = description;
     }
 
-    @Override public String toString() {
+    /**
+     * @return description of menu item
+     */
+    @Override
+    public String toString() {
         return description;
     }
 
+    /**
+     * MenuManager item action
+     */
     public abstract void execute() throws IOException, OperationException;
 
 }

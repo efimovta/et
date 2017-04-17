@@ -1,45 +1,72 @@
 package efimovta.store.menu;
 
-import efimovta.store.Utility;
+import java.util.List;
 
-import java.io.IOException;
-
-import static efimovta.store.Constants.INVALID_INPUT;
-import static efimovta.store.Constants.SELECT_ACTION;
+import static efimovta.store.Messages.DEFAULT_MENU_NAME;
 
 /**
- * Created by EFIMOVAT on 08.04.2017.
+ * The base class for the contents of the menu
  */
-public class Menu {
-    private static MenuItems current = MainMenuItems.getInstance();
+public abstract class Menu {
+    private Menu nextMenu;
+    private String menuName;
 
-    public static void startDialog() throws IOException {
-        while (true) {
-            activateMenu(current);
-            current = current.next();
-        }
+    /**
+     * Specifies the default menu name.
+     */
+    public Menu() {
+        this.menuName = DEFAULT_MENU_NAME;
     }
 
-    private static void activateMenu(MenuItems menuItems) throws IOException {
-        Utility.println(menuItems.toString());
-        int i = 1;
-        for (MenuItem mi : menuItems.get()) {
-            Utility.println(i + ". " + mi);
-            i++;
-        }
-
-        Utility.println(SELECT_ACTION);
-        String strOtv = Utility.readLine();
-        try {
-            int otv = Integer.parseInt(strOtv) - 1;
-            menuItems.get().get(otv).execute();
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            Utility.printErr(INVALID_INPUT);
-        } catch (OperationException e) {
-            Utility.printErr(e.getMessage());
-        }
+    /**
+     * Specifies menu name.
+     */
+    public Menu(String menuName) {
+        this.menuName = menuName;
     }
 
+    /**
+     * @return menu name
+     */
+    public String getMenuName() {
+        return menuName;
+    }
 
+    /**
+     * @return menu name
+     */
+    @Override
+    public String toString() {
+        return menuName;
+    }
 
+    /**
+     * Set next menu. Default {@code null} - if this is next menu.
+     *
+     * @param nextMenu next menu
+     */
+    public final void setNextMenu(Menu nextMenu) {
+        this.nextMenu = nextMenu;
+    }
+
+    /**
+     * Returns null if this is next menu.
+     * Otherwise returns another following menu and assigns
+     * {@code null} to the "nextMenu".
+     *
+     * @return nextMenu menu
+     */
+    public final Menu next() {
+        Menu items = this;
+        if (nextMenu != null) {
+            items = nextMenu;
+            nextMenu = null;
+        }
+        return items;
+    }
+
+    /**
+     * @return menu items
+     */
+    public abstract List<MenuItem> get();
 }

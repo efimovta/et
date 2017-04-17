@@ -48,7 +48,7 @@ public class DeviceStoreImplTest {
     public void addDevice() throws Exception {
         long a = System.currentTimeMillis();
         for (int i = 0; i < NUMBER; i++) {
-            ids.addDevice(TYPE, BRAND, ss.get(i), new Color(0, 0, 0), dd.get(i));
+            ids.addDevice(TYPE, BRAND, ss.get(i), Color.BLACK, dd.get(i));
         }
         long b = System.currentTimeMillis();
         System.out.println("time: " + (b - a));

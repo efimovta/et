@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Immutable Client entity.
+ * Client entity.
  */
 public class Client implements Identified, Serializable, CloneReady<Client> {
     private static long nextId = 0;
@@ -146,6 +146,12 @@ public class Client implements Identified, Serializable, CloneReady<Client> {
                 '}';
     }
 
+    /**
+     * Creates and returns a copy of this object.
+     * Uses the copy constructor.
+     *
+     * @return copy of this object
+     */
     @Override
     public Client getClone() {
         return new Client(this);

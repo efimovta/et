@@ -7,6 +7,7 @@ import efimovta.store.dao.SaleDAO;
 
 /**
  * Concrete abstract factory for DAO.
+ * Returns singletons.
  */
 public class SIMDAOFactory extends DAOFactory {
     private ClientDAO clientDAO = new SIMClientDAO();
@@ -15,7 +16,7 @@ public class SIMDAOFactory extends DAOFactory {
 
 
     /**
-     * @return {@link SIMClientDAO}
+     * @return Singleton {@link SIMClientDAO}
      */
     @Override
     public ClientDAO getClientDAO() {
@@ -23,7 +24,7 @@ public class SIMDAOFactory extends DAOFactory {
     }
 
     /**
-     * @return {@link SIMDeviceDAO}
+     * @return Singleton {@link SIMDeviceDAO}
      */
     @Override
     public DeviceDAO getDeviceDAO() {
@@ -31,7 +32,7 @@ public class SIMDAOFactory extends DAOFactory {
     }
 
     /**
-     * @return {@link SIMSaleDAO}
+     * @return Singleton {@link SIMSaleDAO}
      */
     @Override
     public SaleDAO getSaleDAO() {

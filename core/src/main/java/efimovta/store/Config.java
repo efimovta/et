@@ -9,4 +9,10 @@ import efimovta.store.dao.impl.sim.SIMDAOFactory;
  */
 public class Config {
     public static final DAOFactory DATA_SOURCE = new SIMDAOFactory();
+
+    public static final String LOGGING_PROPERTIES_LOCATION =
+            "/logging.properties";
+
+    public static final String BACKUP_LOCATION =
+            "app.backup";
 }

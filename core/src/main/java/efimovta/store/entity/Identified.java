@@ -6,6 +6,7 @@ package efimovta.store.entity;
 public interface Identified {
     /**
      * Returns long id of entity
+     *
      * @return id of entity
      */
     public long getId();

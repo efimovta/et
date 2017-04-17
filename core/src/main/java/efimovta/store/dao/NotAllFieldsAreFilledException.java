@@ -1,7 +1,14 @@
 package efimovta.store.dao;
 
 /**
- * Created by EFIMOVAT on 02.04.2017.
+ * If not all fields are filled in record
  */
 public class NotAllFieldsAreFilledException extends DAOException {
+    public NotAllFieldsAreFilledException() {
+
+    }
+
+    public NotAllFieldsAreFilledException(String message) {
+        super(message);
+    }
 }

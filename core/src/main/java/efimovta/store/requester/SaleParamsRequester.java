@@ -1,12 +1,15 @@
-package efimovta.store.menu.requester;
+package efimovta.store.requester;
 
-import efimovta.store.Utility;
+import efimovta.store.OperationCanceledByUserException;
+import efimovta.store.Util;
 import efimovta.store.dao.ClientDAO;
 import efimovta.store.dao.DAOFactory;
 import efimovta.store.entity.Client;
-import efimovta.store.menu.OperationCanceledByUserException;
 
 import java.io.IOException;
+
+import static efimovta.store.Messages.CLIENT_NOT_FOUND;
+import static efimovta.store.Messages.ENTER_SALE_CLIENT_ID;
 
 /**
  * Created by jcd on 26.03.2017.
@@ -23,14 +26,15 @@ public class SaleParamsRequester extends Requester {
     }
 
 
-    public Client requestClient() throws IOException, OperationCanceledByUserException {
+    public Client requestClient() throws IOException,
+            OperationCanceledByUserException {
         Client client = null;
-        Utility.println("Введите id клиента(Например, 777):");
+        Util.println(ENTER_SALE_CLIENT_ID);
         while (true) {
             int id = requestIntNumber(0, Integer.MAX_VALUE);
             client = clientDAO.findById(id);
             if (client != null) break;
-            else Utility.printErr("Клиент с id = " + id + " не найден");
+            else Util.printErr(CLIENT_NOT_FOUND + '\n' + INPUT_ERROR_MSG);
         }
         return client;
     }

@@ -176,7 +176,7 @@ public class Viewer {
      * @param num number of left spaces
      * @return string with specified number of spaces
      */
-    public static String getSpaces(int num) {
+    private static String getSpaces(int num) {
         String spaces;
         if (num == 0) {
             spaces = "";

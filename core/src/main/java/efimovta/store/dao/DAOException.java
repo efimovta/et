@@ -1,15 +1,15 @@
 package efimovta.store.dao;
 
 /**
- * Created by jcd on 18.03.2017.
+ * If any problem with DAO occurs
  */
-public class DAOException extends Exception {//todo delete russian
+public class DAOException extends Exception {
 
     public DAOException() {
-        super("Ошибка хранилища");
+
     }
 
     public DAOException(String message) {
-        super("Ошибка хранилища: " + message);
+        super(message);
     }
 }

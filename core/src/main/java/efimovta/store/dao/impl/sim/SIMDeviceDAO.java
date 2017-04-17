@@ -1,7 +1,7 @@
 package efimovta.store.dao.impl.sim;
 
 import efimovta.store.FindHelper;
-import efimovta.store.Utility;
+import efimovta.store.Util;
 import efimovta.store.dao.DeviceDAO;
 import efimovta.store.dao.NotAllFieldsAreFilledException;
 import efimovta.store.dao.RecordAlreadyExistsException;
@@ -24,7 +24,7 @@ public class SIMDeviceDAO extends SIMGenericDAO<Device> implements DeviceDAO {
      * already exists
      *
      * @param device for adding
-     * @throws RecordAlreadyExistsException
+     * @throws RecordAlreadyExistsException   if device already exists
      * @throws NotAllFieldsAreFilledException
      */
     @Override
@@ -63,7 +63,7 @@ public class SIMDeviceDAO extends SIMGenericDAO<Device> implements DeviceDAO {
         List<Device> devices = FindHelper.find(deviceRecords, brand,
                 FindHelper.DEVICE_BY_BRAND);
         if (!devices.isEmpty()) {
-            devices = Utility.deepCopy(devices);
+            devices = Util.deepCopy(devices);
         }
         return devices;
     }
@@ -80,7 +80,7 @@ public class SIMDeviceDAO extends SIMGenericDAO<Device> implements DeviceDAO {
         List<Device> devices = FindHelper.find(deviceRecords, type,
                 FindHelper.DEVICE_BY_TYPE);
         if (!devices.isEmpty()) {
-            devices = Utility.deepCopy(devices);
+            devices = Util.deepCopy(devices);
         }
         return devices;
     }
@@ -96,7 +96,7 @@ public class SIMDeviceDAO extends SIMGenericDAO<Device> implements DeviceDAO {
         List<Device> devices = FindHelper.find(deviceRecords, releaseDate,
                 FindHelper.DEVICE_BY_RELEASE_DATE);
         if (!devices.isEmpty()) {
-            devices = Utility.deepCopy(devices);
+            devices = Util.deepCopy(devices);
         }
         return devices;
     }
@@ -112,7 +112,7 @@ public class SIMDeviceDAO extends SIMGenericDAO<Device> implements DeviceDAO {
         if (deviceRecords.size() == 0) {
             devices = new ArrayList<>(0);
         } else {
-            devices = Utility.deepCopy(deviceRecords);
+            devices = Util.deepCopy(deviceRecords);
         }
         return devices;
     }
@@ -120,21 +120,34 @@ public class SIMDeviceDAO extends SIMGenericDAO<Device> implements DeviceDAO {
     @Override
     protected void checkNullFields(Device device)
             throws NotAllFieldsAreFilledException {
-        if (device.getBrand() == null
-                || device.getColor() == null
-                || device.getModel() == null
-                || device.getPrice() == null
-                || device.getReleaseDate() == null
-                || device.getType() == null) {
-            throw new NotAllFieldsAreFilledException();
+        if (device.getBrand() == null) {
+            throw new NotAllFieldsAreFilledException("device.getBrand() return null");
+        }
+        if (device.getColor() == null) {
+            throw new NotAllFieldsAreFilledException("device.getColor() return null");
+        }
+        if (device.getModel() == null) {
+            throw new NotAllFieldsAreFilledException("device.getModel() return null");
+        }
+        if (device.getPrice() == null) {
+            throw new NotAllFieldsAreFilledException("device.getPrice() return null");
+        }
+        if (device.getReleaseDate() == null) {
+            throw new NotAllFieldsAreFilledException("device.getReleaseDate() return null");
+        }
+        if (device.getType() == null) {
+            throw new NotAllFieldsAreFilledException("device.getType() return null");
         }
     }
 
     @Override
     protected void checkAlreadyExists(Device d)
             throws RecordAlreadyExistsException {
-        if (deviceRecords.contains(d)) {
-            throw new RecordAlreadyExistsException();
+        int i = deviceRecords.indexOf(d);
+        if (i != -1) {
+            long id = deviceRecords.get(i).getId();
+            throw new RecordAlreadyExistsException(
+                    "This device exists with id: " + id);
         }
     }
 }

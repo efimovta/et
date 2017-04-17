@@ -22,22 +22,22 @@ public class SaleTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        saleDate  = new Date();
+        saleDate = new Date();
         client = new Client().setFirtsName("a").setSecondName("b").setMiddleName("c");
-        devices  = new HashMap<>();
+        devices = new HashMap<>();
 
         sale = new Sale()
                 .setSaleDate(saleDate)
                 .setClient(client)
                 .setDevices(devices)
-                ;
+        ;
         assertNotNull(sale);
 
         sale2 = new Sale()
                 .setSaleDate(saleDate)
                 .setClient(client)
                 .setDevices(devices)
-                ;
+        ;
         assertNotNull(sale2);
     }
 
@@ -49,7 +49,7 @@ public class SaleTest {
 
     @Test
     public void saleHashCode() throws Exception {
-        assertTrue(sale.hashCode()==sale2.hashCode());
+        assertTrue(sale.hashCode() == sale2.hashCode());
     }
 
     @Test

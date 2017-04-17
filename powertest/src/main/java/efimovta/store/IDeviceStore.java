@@ -24,6 +24,7 @@ public interface IDeviceStore {
      * @param issueDate - date of device issue
      */
     void addDevice(String type, String brand, String model, java.awt.Color color, java.util.Date issueDate);
+
     /**
      * Create new sale
      *
@@ -32,6 +33,7 @@ public interface IDeviceStore {
      * @param deviceIdAndQuantity - map of device id and its quantity
      */
     void addSale(java.util.Date saleDate, Integer clientId, java.util.Map<Integer, Integer> deviceIdAndQuantity);
+
     /**
      * Search clients by any name (last name, first name or middle name)
      *

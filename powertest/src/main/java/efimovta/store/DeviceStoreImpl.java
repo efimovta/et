@@ -17,7 +17,6 @@ public class DeviceStoreImpl implements IDeviceStore {
     SaleDAO saleDAO = DAOFactory.get().getSaleDAO();
 
 
-   
     public void addClient(String lastName, String firstName, String middleName, Date birthDate) {
         try {
             Client client = new Client()
@@ -31,7 +30,7 @@ public class DeviceStoreImpl implements IDeviceStore {
         }
     }
 
-   
+
     public void addDevice(String type, String brand, String model, Color color, Date issueDate) {
         try {
             DeviceType deviceType = DeviceType.valueOf(type);
@@ -51,7 +50,7 @@ public class DeviceStoreImpl implements IDeviceStore {
         }
     }
 
-   
+
     public void addSale(Date saleDate, Integer clientId, Map<Integer, Integer> deviceIdAndQuantity) {
         try {
             Client client = clientDAO.findById(clientId);
@@ -73,32 +72,32 @@ public class DeviceStoreImpl implements IDeviceStore {
         }
     }
 
-   
+
     public void searchClientsByName(String name) {
-            List<Client> clients = new ArrayList<>();
+        List<Client> clients = new ArrayList<>();
         clients.addAll(clientDAO.findByAnyName(name));
     }
 
-   
+
     public void searchDevicesByIssueDate(Date issueDate) {
-            List<Device> devices = deviceDAO.findDeviceByReleaseDate(issueDate);
+        List<Device> devices = deviceDAO.findDeviceByReleaseDate(issueDate);
     }
 
-   
+
     public void sortClientsByName() {
-            List<Client> clients = clientDAO.getAll();
-            Collections.sort(clients, ClientComparator.BY_FIO);
+        List<Client> clients = clientDAO.getAll();
+        Collections.sort(clients, ClientComparator.BY_FIO);
     }
 
-   
+
     public void sortDevicesByModel() {
-            List<Device> devices = deviceDAO.getAll();
-            Collections.sort(devices, DeviceComparator.BY_MODEL);
+        List<Device> devices = deviceDAO.getAll();
+        Collections.sort(devices, DeviceComparator.BY_MODEL);
     }
 
-   
+
     public void sortSalesByDate() {
-            List<Sale> sales = saleDAO.getAll();
-            Collections.sort(sales, SaleComparator.BY_SALE_DATE);
+        List<Sale> sales = saleDAO.getAll();
+        Collections.sort(sales, SaleComparator.BY_SALE_DATE);
     }
 }

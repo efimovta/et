@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * Immutable Device entity.
+ * Device entity.
  */
 public class Device implements Identified, Serializable, CloneReady<Device> {
     private static long nextId = 0;
@@ -150,6 +150,12 @@ public class Device implements Identified, Serializable, CloneReady<Device> {
                 '}';
     }
 
+    /**
+     * Creates and returns a copy of this object.
+     * Uses the copy constructor.
+     *
+     * @return copy of this object
+     */
     @Override
     public Device getClone() {
         return new Device(this);

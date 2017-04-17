@@ -6,7 +6,6 @@ import java.util.Comparator;
  * Client comparator instances listing
  */
 public enum ClientComparator implements Comparator<Client> {
-    //todo mb http://stackoverflow.com/questions/1421322/how-do-i-sort-a-list-by-different-parameters-at-different-timed/1421537#1421537
     BY_ID {
         @Override
         public int compare(Client o1, Client o2) {
@@ -35,6 +34,12 @@ public enum ClientComparator implements Comparator<Client> {
         @Override
         public int compare(Client o1, Client o2) {
             return o1.getMiddleName().compareTo(o2.getMiddleName());
+        }
+    },
+    BY_BIRTHDAY {
+        @Override
+        public int compare(Client o1, Client o2) {
+            return o1.getBirthday().compareTo(o2.getBirthday());
         }
     }
 }

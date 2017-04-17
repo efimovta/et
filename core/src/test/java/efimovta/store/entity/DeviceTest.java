@@ -34,7 +34,7 @@ public class DeviceTest {
                 .setColor(color)
                 .setReleaseDate(releaseDate)
                 .setPrice(price)
-                ;
+        ;
         assertNotNull(device);
 
         device2 = builder
@@ -44,7 +44,7 @@ public class DeviceTest {
                 .setColor(color)
                 .setReleaseDate(releaseDate)
                 .setPrice(price)
-                ;
+        ;
         assertNotNull(device2);
     }
 
@@ -56,9 +56,9 @@ public class DeviceTest {
 
     @Test
     public void deviceHashCode() throws Exception {
-        assertTrue(device.hashCode()==device2.hashCode());
+        assertTrue(device.hashCode() == device2.hashCode());
     }
-    
+
     @Test
     public void getId() throws Exception {
         assertNotNull(device.getId());

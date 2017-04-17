@@ -1,11 +1,11 @@
 package efimovta.store.dao;
 
 /**
- * Created by jcd on 18.03.2017.
+ * If record not found in storage
  */
 public class RecordNotFoundException extends DAOException {
     public RecordNotFoundException() {
-        super("Запись не найдена");
+
     }
 
     public RecordNotFoundException(String message) {

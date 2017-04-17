@@ -1,11 +1,12 @@
-package efimovta.store.menu;
+package efimovta.store.service;
 
-import efimovta.store.Utility;
+import efimovta.store.OperationCanceledByUserException;
+import efimovta.store.OperationCanceledException;
 import efimovta.store.dao.*;
 import efimovta.store.entity.*;
-import efimovta.store.menu.requester.ClientParamsRequester;
-import efimovta.store.menu.requester.DeviceParamsRequester;
-import efimovta.store.menu.requester.SaleParamsRequester;
+import efimovta.store.requester.ClientParamsRequester;
+import efimovta.store.requester.DeviceParamsRequester;
+import efimovta.store.requester.SaleParamsRequester;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -14,16 +15,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by jcd on 13.03.2017.
+ * Contains static methods to start creating entities in interactive mode
  */
 public class Creator {
 
     /**
      * Creating a new client in interactive mode.
+     *
      * @throws IOException
      * @throws OperationCanceledByUserException
      */
-    public static void startClientCreationDialog() throws IOException, OperationCanceledByUserException {
+    public static Client startClientCreationDialog() throws IOException,
+            OperationCanceledByUserException, OperationCanceledException {
         ClientDAO clientDAO = DAOFactory.get().getClientDAO();
         ClientParamsRequester cpr = ClientParamsRequester.getInstance();
 
@@ -36,20 +39,23 @@ public class Creator {
                 .setMiddleName(fio[2])
                 .setBirthday(birthDay);
 
-        //todo validator?
         try {
             clientDAO.add(client);
         } catch (DAOException e) {
-            Utility.printErr(e.getMessage());
+            throw new OperationCanceledException(
+                    "Client was not added: " + client.toString(), e);
         }
+        return client;
     }
 
     /**
      * Creating a new device in interactive mode.
+     *
      * @throws IOException
      * @throws OperationCanceledByUserException
      */
-    public static void startDeviceCreationDialog() throws IOException, OperationCanceledByUserException {
+    public static Device startDeviceCreationDialog() throws IOException,
+            OperationCanceledByUserException, OperationCanceledException {
         DeviceDAO deviceDAO = DAOFactory.get().getDeviceDAO();
         DeviceParamsRequester dpr = DeviceParamsRequester.getInstance();
         DeviceType type = dpr.requestType();
@@ -68,40 +74,43 @@ public class Creator {
                 .setPrice(price);
 
 
-        //todo validator?
         try {
             deviceDAO.add(device);
         } catch (DAOException e) {
-            e.printStackTrace();
+            throw new OperationCanceledException(
+                    "Device was not added: " + device.toString(), e);
         }
+        return device;
     }
 
     /**
      * Creating a new sale in interactive mode.
+     *
      * @throws IOException
      * @throws OperationCanceledByUserException
      */
-    public static void startSaleCreationDialog() throws IOException, OperationCanceledByUserException {
+    public static Sale startSaleCreationDialog() throws IOException,
+            OperationCanceledByUserException, OperationCanceledException {
         SaleDAO saleDAO = DAOFactory.get().getSaleDAO();
         SaleParamsRequester spr = SaleParamsRequester.getInstance();
 
         Client client = spr.requestClient();
         Date saleDate = new Date();
-        Map<Device, Integer> devices=new HashMap<>();//TODO CREATE REQUESTER FOR
+        Map<Device, Integer> devices = new HashMap<>();
+        //TODO CREATE REQUESTER FOR
 
         Sale sale = new Sale()
                 .setClient(client)
                 .setDevices(devices)
                 .setSaleDate(saleDate);
 
-        //todo validator?
-
         try {
             saleDAO.add(sale);
         } catch (DAOException e) {
-            Utility.printErr(e.getMessage());
+            throw new OperationCanceledException(
+                    "Sale was not added: " + sale.toString(), e);
         }
-
+        return sale;
     }
 
 

@@ -1,11 +1,11 @@
 package efimovta.store.dao;
 
 /**
- * Created by jcd on 18.03.2017.
+ * If record already exists in storage
  */
 public class RecordAlreadyExistsException extends DAOException {
     public RecordAlreadyExistsException() {
-        super("Запись уже существует");
+
     }
 
     public RecordAlreadyExistsException(String message) {

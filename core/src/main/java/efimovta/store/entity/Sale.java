@@ -1,15 +1,12 @@
 package efimovta.store.entity;
 
-import efimovta.store.Utility;
+import efimovta.store.Util;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
- * Immutable Sale entity.
+ * Sale entity.
  */
 public class Sale implements Identified, Serializable, CloneReady<Sale> {
     private static long nextId = 0;
@@ -27,7 +24,7 @@ public class Sale implements Identified, Serializable, CloneReady<Sale> {
         id = sale.getId();
         saleDate = sale.getSaleDate();
         client = new Client(sale.getClient());
-        devices = Utility.deepCopy(sale.getDevices());
+        devices = Util.deepCopy(sale.getDevices());
     }
 
     @Override
@@ -43,8 +40,11 @@ public class Sale implements Identified, Serializable, CloneReady<Sale> {
         return (Date) saleDate.clone();
     }
 
+    /**
+     * @return {@link Collections.UnmodifiableMap}
+     */
     public Map<Device, Integer> getDevices() {
-        return new HashMap<>(devices);
+        return Collections.unmodifiableMap(devices);
     }
 
     public Sale setClient(Client client) {
@@ -102,6 +102,10 @@ public class Sale implements Identified, Serializable, CloneReady<Sale> {
     }
 
     /**
+     * String looks like: {@code
+     * Sale{id=3, saleDate=Sat Nov 13 00:00:00 MSK 1993, clientId=3,
+     * devices(id:count)={(1:2),(2:5),(3:10),(0:1)}}
+     * }
      * @return a string representation of the sale.
      */
     @Override
@@ -130,6 +134,12 @@ public class Sale implements Identified, Serializable, CloneReady<Sale> {
         return sb.toString();
     }
 
+    /**
+     * Creates and returns a copy of this object.
+     * Uses the copy constructor.
+     *
+     * @return copy of this object
+     */
     @Override
     public Sale getClone() {
         return new Sale(this);

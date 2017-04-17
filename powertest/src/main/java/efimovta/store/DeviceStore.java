@@ -5,12 +5,11 @@ package efimovta.store;
  */
 public class DeviceStore {
     static {
-        StorageFiller.fillStorage();
+        //StorageFiller.fillStorage();
     }
 
     public static void main(String[] args) {
-
-        IDeviceStore iDeviceStore = getDeviceStore();
+        //IDeviceStore iDeviceStore = getDeviceStore();
     }
 
     public static IDeviceStore getDeviceStore() {

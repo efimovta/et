@@ -5,6 +5,7 @@ package efimovta.store.entity;
  */
 public enum DeviceType {
     PHONE {//todo mb delete view from
+
         @Override
         public String toString() {
             return "Телефон";

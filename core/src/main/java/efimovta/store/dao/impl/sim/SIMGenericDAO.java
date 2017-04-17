@@ -29,8 +29,8 @@ public abstract class SIMGenericDAO<T> implements GenericDAO<T> {
     protected void checkBeforeAdd(T object)
             throws RecordAlreadyExistsException,
             NotAllFieldsAreFilledException {
-        checkAlreadyExists(object);
         checkNullFields(object);
+        checkAlreadyExists(object);
     }
 
     protected abstract void checkNullFields(T object)
