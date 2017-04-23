@@ -41,17 +41,17 @@ public class SIMSaleDAOTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        client = new Client()
-                .setSecondName("Васильев123")
-                .setFirtsName("Вася")
-                .setMiddleName("Васильевич")
-                .setBirthday(DateFormat.getDateInstance().parse("11.11.1994"));
+        client = new Client();
+        client.setSecondName("Васильев123");
+        client.setFirstName("Вася");
+        client.setMiddleName("Васильевич");
+        client.setBirthday(DateFormat.getDateInstance().parse("11.11.1994"));
 
-        client2 = new Client()
-                .setSecondName("Васильев2123")
-                .setFirtsName("Вася2")
-                .setMiddleName("Васильевич2")
-                .setBirthday(DateFormat.getDateInstance().parse("22.22.2994"));
+        client2 = new Client();
+        client2.setSecondName("Васильев2123");
+        client2.setFirstName("Вася2");
+        client2.setMiddleName("Васильевич2");
+        client2.setBirthday(DateFormat.getDateInstance().parse("22.22.2994"));
 
 
         clients.add(client);
@@ -59,21 +59,22 @@ public class SIMSaleDAOTest {
         simClientDAO.add(client);
         simClientDAO.add(client2);
 
-        device = new Device()
-                .setModel(model)
-                .setType(type)
-                .setBrand(brand)
-                .setColor(color)
-                .setReleaseDate(releaseDate)
-                .setPrice(price);
+        device = new Device();
+        device.setModel(model);
 
-        device2 = new Device()
-                .setModel(model)
-                .setType(type)
-                .setBrand(brand)
-                .setColor(color)
-                .setReleaseDate(releaseDate2)//not releaseDate !!!
-                .setPrice(price);
+        device.setType(type);
+        device.setBrand(brand);
+        device.setColor(color);
+        device.setReleaseDate(releaseDate);
+        device.setPrice(price);
+
+        device2 = new Device();
+        device2.setModel(model);
+        device2.setType(type);
+        device2.setBrand(brand);
+        device2.setColor(color);
+        device2.setReleaseDate(releaseDate2);
+        device2.setPrice(price);
 
 
         devices.add(device);
@@ -85,10 +86,10 @@ public class SIMSaleDAOTest {
         Map<Device, Integer> ds = new HashMap<>();
         ds.put(device, 3);
         ds.put(device2, 2);
-        Sale sale = new Sale()
-                .setSaleDate(new Date())
-                .setClient(client)
-                .setDevices(ds);
+        Sale sale = new Sale();
+        sale.setSaleDate(new Date());
+        sale.setClient(client);
+        sale.setDevices(ds);
 
         sales.add(sale);
         simSaleDAO.add(sale);
@@ -100,9 +101,9 @@ public class SIMSaleDAOTest {
 //        ds.put(device, 3);
 //
 //        Sale sale = Sale.getBuilder()
-//                .setSaleDate(new Date())
-//                .setClient(client)
-//                .setDevices(ds)
+//                ;sale.setSaleDate(new Date())
+//                ;sale.setClient(client)
+//                ;sale.setDevices(ds)
 //                .build();
 //
 //        simSaleDAO.add(sale);
@@ -112,20 +113,20 @@ public class SIMSaleDAOTest {
     //You can not add a purchase to a client or device that does not exist in the database
     @Test(expected = RecordNotFoundException.class)
     public void addFail() throws Exception {
-        Client c = new Client();
-        c = new Client()
-                .setSecondName("В")
-                .setFirtsName("Ва")
-                .setMiddleName("Вас")
-                .setBirthday(new Date());
+        Client c;
+        c = new Client();
+        c.setSecondName("В");
+        c.setFirstName("Ва");
+        c.setMiddleName("Вас");
+        c.setBirthday(new Date());
 
         Map<Device, Integer> ds = new HashMap<>();
         ds.put(device, 3);
 
-        Sale sale = new Sale()
-                .setSaleDate(new Date())
-                .setClient(c)
-                .setDevices(ds);
+        Sale sale = new Sale();
+        sale.setSaleDate(new Date());
+        sale.setClient(c);
+        sale.setDevices(ds);
 
         simSaleDAO.add(sale);
         assertTrue(sales.contains(sale));

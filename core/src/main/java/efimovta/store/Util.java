@@ -34,6 +34,9 @@ public class Util {
         }
     }
 
+    private Util() {
+    }
+
     /**
      * Print result of {@code object.toString()} on "standard" output
      * stream ({@code System.out})

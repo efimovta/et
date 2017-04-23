@@ -31,10 +31,20 @@ public enum NamedColor {
         this.awtColor = awtColor;
     }
 
+    /**
+     * @return defined awt color for this color
+     */
     public Color getAwtColor() {
         return awtColor;
     }
 
+    /**
+     * Convert awt color to element of this enum
+     *
+     * @param color awt color to conver
+     * @return Corresponding color or null, if enum not contains
+     * color with this defined awt color
+     */
     public static NamedColor getNamedColor(Color color) {
         NamedColor namedColor = null;
         for (NamedColor nc : NamedColor.values()) {

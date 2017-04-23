@@ -14,7 +14,7 @@ public interface GenericDAO<T> {
      *
      * @param object object to add
      */
-    public void add(T object) throws DAOException;
+    void add(T object) throws DAOException;
 
     /**
      * Returns {@link T} object with the corresponding Id or null
@@ -22,26 +22,26 @@ public interface GenericDAO<T> {
      * @param id id of object
      * @return {@link T} with the corresponding Id
      */
-    public T findById(long id);
+    T findById(long id);
 
     /**
      * Updates the corresponding add
      *
      * @param object object to update add
      */
-    public void update(T object) throws DAOException;
+    void update(T object) throws DAOException;
 
     /**
      * Deletes an object add
      *
      * @param object object to delete
      */
-    public void delete(T object) throws DAOException;
+    void delete(T object) throws DAOException;
 
     /**
      * Returns a list of {@link T} objects matching all clientRecords
      *
      * @return list of {@link T} objects matching all clientRecords
      */
-    public List<T> getAll();
+    List<T> getAll();
 }

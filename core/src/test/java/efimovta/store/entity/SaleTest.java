@@ -23,21 +23,22 @@ public class SaleTest {
     @BeforeClass
     public static void setUp() throws Exception {
         saleDate = new Date();
-        client = new Client().setFirtsName("a").setSecondName("b").setMiddleName("c");
+        client = new Client();
+        client.setFirstName("a");
+        client.setSecondName("b");
+        client.setMiddleName("c");
         devices = new HashMap<>();
 
-        sale = new Sale()
-                .setSaleDate(saleDate)
-                .setClient(client)
-                .setDevices(devices)
-        ;
+        sale = new Sale();
+        sale.setSaleDate(saleDate);
+        sale.setClient(client);
+        sale.setDevices(devices);
         assertNotNull(sale);
 
-        sale2 = new Sale()
-                .setSaleDate(saleDate)
-                .setClient(client)
-                .setDevices(devices)
-        ;
+        sale2 = new Sale();
+        sale2.setSaleDate(saleDate);
+        sale2.setClient(client);
+        sale2.setDevices(devices);
         assertNotNull(sale2);
     }
 
@@ -55,7 +56,7 @@ public class SaleTest {
     @Test
     public void getId() throws Exception {
         assertNotNull(sale.getId());
-        assertTrue(sale.getId() > 0);
+        assertTrue(sale.getId() >= 0);
     }
 
     @Test

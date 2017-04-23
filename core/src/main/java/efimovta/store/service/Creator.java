@@ -33,11 +33,11 @@ public class Creator {
         String[] fio = cpr.requestFIO();
         Date birthDay = cpr.requestBirthDay();
 
-        Client client = new Client()
-                .setSecondName(fio[0])
-                .setFirtsName(fio[1])
-                .setMiddleName(fio[2])
-                .setBirthday(birthDay);
+        Client client = new Client();
+        client.setSecondName(fio[0]);
+        client.setFirstName(fio[1]);
+        client.setMiddleName(fio[2]);
+        client.setBirthday(birthDay);
 
         try {
             clientDAO.add(client);
@@ -65,13 +65,13 @@ public class Creator {
         Date releaseDate = dpr.requestReleaseDate();
         BigDecimal price = dpr.requestPrice();
 
-        Device device = new Device()
-                .setModel(model)
-                .setType(type)
-                .setBrand(brand)
-                .setColor(color)
-                .setReleaseDate(releaseDate)
-                .setPrice(price);
+        Device device = new Device();
+        device.setModel(model);
+        device.setType(type);
+        device.setBrand(brand);
+        device.setColor(color);
+        device.setReleaseDate(releaseDate);
+        device.setPrice(price);
 
 
         try {
@@ -99,10 +99,10 @@ public class Creator {
         Map<Device, Integer> devices = new HashMap<>();
         //TODO CREATE REQUESTER FOR
 
-        Sale sale = new Sale()
-                .setClient(client)
-                .setDevices(devices)
-                .setSaleDate(saleDate);
+        Sale sale = new Sale();
+        sale.setClient(client);
+        sale.setDevices(devices);
+        sale.setSaleDate(saleDate);
 
         try {
             saleDAO.add(sale);

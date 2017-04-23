@@ -22,17 +22,17 @@ public class SIMClientDAOTest {
     public static void setUp() throws Exception {
         simClientDAO = new SIMClientDAO();
 
-        client = new Client()
-                .setSecondName("Васильев")
-                .setFirtsName("Вася")
-                .setMiddleName("Васильевич")
-                .setBirthday(DateFormat.getDateInstance().parse("11.11.1994"));
+        client = new Client();
+        client.setSecondName("Васильев");
+        client.setFirstName("Вася");
+        client.setMiddleName("Васильевич");
+        client.setBirthday(DateFormat.getDateInstance().parse("11.11.1994"));
 
-        client2 = new Client()
-                .setSecondName("Васильев2")
-                .setFirtsName("Вася2")
-                .setMiddleName("Васильевич2")
-                .setBirthday(DateFormat.getDateInstance().parse("22.22.2994"));
+        client2 = new Client();
+        client2.setSecondName("Васильев2");
+        client2.setFirstName("Вася2");
+        client2.setMiddleName("Васильевич2");
+        client2.setBirthday(DateFormat.getDateInstance().parse("22.22.2994"));
 
         simClientDAO.add(client);
         simClientDAO.add(client2);

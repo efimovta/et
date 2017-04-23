@@ -22,22 +22,20 @@ public class ClientTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        Client clientBuilder = new Client();
-        assertNotNull(clientBuilder);
 
-        client = clientBuilder
-                .setSecondName(secondName)
-                .setFirtsName(name)
-                .setMiddleName(middleName)
-                .setBirthday(birthDay);
+        client = new Client();
+        client.setSecondName(secondName);
+        client.setFirstName(name);
+        client.setMiddleName(middleName);
+        client.setBirthday(birthDay);
         assertNotNull(client);
 
         //client2.id != client.id
-        client2 = clientBuilder
-                .setSecondName(secondName)
-                .setFirtsName(name)
-                .setMiddleName(middleName)
-                .setBirthday(birthDay);
+        client2 = new Client();
+        client2.setSecondName(secondName);
+        client2.setFirstName(name);
+        client2.setMiddleName(middleName);
+        client2.setBirthday(birthDay);
         assertNotNull(client2);
     }
 

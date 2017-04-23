@@ -5,11 +5,11 @@ package efimovta.store.dao;
  */
 public class DAOException extends Exception {
 
-    public DAOException() {
-
+    DAOException() {
+        super();
     }
 
-    public DAOException(String message) {
+    DAOException(String message) {
         super(message);
     }
 }

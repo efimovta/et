@@ -4,6 +4,7 @@ import efimovta.store.dao.impl.sim.StorageInMemory;
 import efimovta.store.menu.MenuManager;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 
@@ -21,13 +22,16 @@ public class Main {
         if (file.exists()) {
             try {
                 StorageInMemory.loadBackup(file);
-            } catch (IOException e) {
+            } catch (FileNotFoundException e) {
                 Util.printErr(e.getMessage());
                 Util.log.log(Level.SEVERE,
                         "problem with loading backup ("
                                 + BACKUP_LOCATION + ");", e);
                 Util.println("standard filler was activated");
                 StorageFiller.fillStorage();
+            } catch (BackupException e) {
+                //todo chose
+
             }
         } else {
             StorageFiller.fillStorage();
@@ -45,11 +49,13 @@ public class Main {
 
         try {
             StorageInMemory.saveBackup(file);
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
             Util.printErr(e.getMessage());
             Util.log.log(Level.SEVERE,
                     "problem with saving backup ("
                             + BACKUP_LOCATION + ");", e);
+        } catch (BackupException e) {
+            //todo chose
         }
         Util.log.info(APP_SUCCESSFULLY_CLOSED);
 

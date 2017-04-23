@@ -24,27 +24,22 @@ public class DeviceTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        Device builder = new Device();
-        assertNotNull(builder);
-
-        device = builder
-                .setModel(model)
-                .setType(type)
-                .setBrand(brand)
-                .setColor(color)
-                .setReleaseDate(releaseDate)
-                .setPrice(price)
-        ;
+        device = new Device();
+        device.setModel(model);
+        device.setType(type);
+        device.setBrand(brand);
+        device.setColor(color);
+        device.setReleaseDate(releaseDate);
+        device.setPrice(price);
         assertNotNull(device);
 
-        device2 = builder
-                .setModel(model)
-                .setType(type)
-                .setBrand(brand)
-                .setColor(color)
-                .setReleaseDate(releaseDate)
-                .setPrice(price)
-        ;
+        device2 = new Device();
+        device2.setModel(model);
+        device2.setType(type);
+        device2.setBrand(brand);
+        device2.setColor(color);
+        device2.setReleaseDate(releaseDate);
+        device2.setPrice(price);
         assertNotNull(device2);
     }
 

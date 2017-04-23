@@ -15,10 +15,7 @@ import java.util.*;
 /**
  * Class provide DAO for {@link Sale}
  */
-public class SIMSaleDAO extends SIMGenericDAO<Sale> implements SaleDAO {
-    protected List<Client> clientRecords = StorageInMemory.clientRecords;
-    protected List<Device> deviceRecords = StorageInMemory.deviceRecords;
-    protected List<Sale> saleRecords = StorageInMemory.saleRecords;
+class SIMSaleDAO extends SIMGenericDAO<Sale> implements SaleDAO {
 
     /**
      * Stores a copy in the database, replaces the references
@@ -41,29 +38,30 @@ public class SIMSaleDAO extends SIMGenericDAO<Sale> implements SaleDAO {
         Sale newSale = new Sale(sale);
 
         Client client = sale.getClient();
-        int clientIndex = clientRecords.indexOf(client);
+        int clientIndex = StorageInMemory.getClients().indexOf(client);
         if (clientIndex == -1) {
             throw new RecordNotFoundException(
                     "Can't add sale with non exists client: "
                             + client.toString());
         }
-        newSale.setClient(clientRecords.get(clientIndex));
+        newSale.setClient(StorageInMemory.getClients().get(clientIndex));
 
         Map<Device, Integer> map = new HashMap<>();
         for (Map.Entry<Device, Integer> entry : sale.getDevices().entrySet()) {
-            int deviceIndex = deviceRecords.indexOf(entry.getKey());
+            int deviceIndex =
+                    StorageInMemory.getDevices().indexOf(entry.getKey());
             if (deviceIndex == -1) {
                 throw new RecordNotFoundException(
                         "Can't add sale with non exists device: "
                                 + entry.getKey());
             }
-            Device d = deviceRecords.get(deviceIndex);
+            Device d = StorageInMemory.getDevices().get(deviceIndex);
             int count = entry.getValue();
             map.put(d, count);
         }
         newSale.setDevices(map);
 
-        saleRecords.add(newSale);
+        StorageInMemory.getSales().add(newSale);
     }
 
     /**
@@ -75,7 +73,7 @@ public class SIMSaleDAO extends SIMGenericDAO<Sale> implements SaleDAO {
     @Override
     public Sale findById(long id) {
         Sale sale = null;
-        List<Sale> list = FindHelper.find(saleRecords, id,
+        List<Sale> list = FindHelper.find(StorageInMemory.getSales(), id,
                 FindHelper.SALE_BY_ID);
         if (!list.isEmpty()) {
             sale = list.get(0).getClone();
@@ -91,7 +89,7 @@ public class SIMSaleDAO extends SIMGenericDAO<Sale> implements SaleDAO {
      */
     @Override
     public List<Sale> findByClientId(long id) {
-        List<Sale> sales = FindHelper.find(saleRecords, id,
+        List<Sale> sales = FindHelper.find(StorageInMemory.getSales(), id,
                 FindHelper.SALE_BY_CLIENT_ID);
         if (!sales.isEmpty()) {
             sales = Util.deepCopy(sales);
@@ -107,7 +105,7 @@ public class SIMSaleDAO extends SIMGenericDAO<Sale> implements SaleDAO {
      */
     @Override
     public List<Sale> findByDeviceId(long id) {
-        List<Sale> sales = FindHelper.find(saleRecords, id,
+        List<Sale> sales = FindHelper.find(StorageInMemory.getSales(), id,
                 FindHelper.SALE_BY_DEVICE_ID);
         if (!sales.isEmpty()) {
             sales = Util.deepCopy(sales);
@@ -123,8 +121,8 @@ public class SIMSaleDAO extends SIMGenericDAO<Sale> implements SaleDAO {
      */
     @Override
     public List<Sale> findBySaleDate(Date saleDate) {
-        List<Sale> sales = FindHelper.find(saleRecords, saleDate,
-                FindHelper.SALE_BY_SALE_DATE);
+        List<Sale> sales = FindHelper.find(StorageInMemory.getSales(),
+                saleDate, FindHelper.SALE_BY_SALE_DATE);
         if (!sales.isEmpty()) {
             sales = Util.deepCopy(sales);
         }
@@ -139,37 +137,50 @@ public class SIMSaleDAO extends SIMGenericDAO<Sale> implements SaleDAO {
     @Override
     public List<Sale> getAll() {
         List<Sale> sales;
-        if (saleRecords.size() == 0) {
+        if (StorageInMemory.getSales().isEmpty()) {
             sales = new ArrayList<>(0);
         } else {
-            sales = Util.deepCopy(saleRecords);
+            sales = Util.deepCopy(StorageInMemory.getSales());
         }
         return sales;
     }
 
+    /**
+     * Check the Sale fields
+     *
+     * @param s for check
+     * @throws NotAllFieldsAreFilledException if any field is null
+     */
     @Override
-    protected void checkNullFields(Sale sale) throws
+    protected void checkNullFields(Sale s) throws
             NotAllFieldsAreFilledException {
-        if (sale.getSaleDate() == null) {
+        if (s.getSaleDate() == null) {
             throw new NotAllFieldsAreFilledException(
                     "sale.getSaleDate() return null");
         }
-        if (sale.getClient() == null) {
+        if (s.getClient() == null) {
             throw new NotAllFieldsAreFilledException(
                     "sale.getClient() return null");
         }
-        if (sale.getDevices() == null) {
+        if (s.getDevices() == null) {
             throw new NotAllFieldsAreFilledException(
                     "sale.getDevices() return null");
         }
     }
 
+    /**
+     * Checks. Does the Sale record exist
+     *
+     * @param s for check
+     * @throws RecordAlreadyExistsException if record
+     *                                      already exists
+     */
     @Override
     protected void checkAlreadyExists(Sale s)
             throws RecordAlreadyExistsException {
-        int i = saleRecords.indexOf(s);
+        int i = StorageInMemory.getSales().indexOf(s);
         if (i != -1) {
-            long id = saleRecords.get(i).getId();
+            long id = StorageInMemory.getSales().get(i).getId();
             throw new RecordAlreadyExistsException(
                     "This sale exists with id: " + id);
         }

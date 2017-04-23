@@ -9,5 +9,5 @@ public interface Identified {
      *
      * @return id of entity
      */
-    public long getId();
+    long getId();
 }

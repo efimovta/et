@@ -19,7 +19,7 @@ public interface DeviceDAO extends GenericDAO<Device> {
      * @return list of {@link Device} objects with
      * the appropriate brand
      */
-    public List<Device> findDevicesByBrand(Brand brand);
+    List<Device> findDevicesByBrand(Brand brand);
 
     /**
      * Finds the {@link Device} objects with the appropriate type
@@ -28,7 +28,7 @@ public interface DeviceDAO extends GenericDAO<Device> {
      * @return list of {@link Device} objects with
      * the appropriate type
      */
-    public List<Device> findDeviceByType(DeviceType type);
+    List<Device> findDeviceByType(DeviceType type);
 
     /**
      * Finds the {@link Device} objects with the appropriate
@@ -38,5 +38,5 @@ public interface DeviceDAO extends GenericDAO<Device> {
      * @return list of {@link Device} objects with the appropriate
      * release date
      */
-    public List<Device> findDeviceByReleaseDate(Date releaseDate);
+    List<Device> findDeviceByReleaseDate(Date releaseDate);
 }

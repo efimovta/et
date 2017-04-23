@@ -15,10 +15,19 @@ public class Client implements Identified, Serializable, CloneReady<Client> {
     private String middleName;
     private Date birthday;
 
+    /**
+     * id was auto generated from static field "nextId"
+     * by incrementation
+     */
     public Client() {
         id = nextId++;
     }
 
+    /**
+     * Create copy of client. All fields will be copied.
+     *
+     * @param client to copy
+     */
     public Client(Client client) {
         id = client.getId();
         secondName = client.getSecondName();
@@ -29,7 +38,7 @@ public class Client implements Identified, Serializable, CloneReady<Client> {
 
     /**
      * Return unique identifier of this client.
-     * For first instance it is 1.
+     * For first instance it is 0.
      *
      * @return Unique identifier of this client
      */
@@ -72,24 +81,34 @@ public class Client implements Identified, Serializable, CloneReady<Client> {
         return (Date) birthday.clone();
     }
 
-    public Client setSecondName(String secondName) {
+    /**
+     * @param secondName second name for set
+     */
+    public void setSecondName(String secondName) {
         this.secondName = secondName;
-        return this;
     }
 
-    public Client setFirtsName(String name) {
-        this.firstName = name;
-        return this;
+    /**
+     * @param firstName first name for set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public Client setMiddleName(String middleName) {
+    /**
+     * @param middleName middle name for set
+     */
+    public void setMiddleName(String middleName) {
         this.middleName = middleName;
-        return this;
     }
 
-    public Client setBirthday(Date birthday) {
+    /**
+     * Set copy of birthday
+     *
+     * @param birthday birthday for set
+     */
+    public void setBirthday(Date birthday) {
         this.birthday = (Date) birthday.clone();
-        return this;
     }
 
     /**

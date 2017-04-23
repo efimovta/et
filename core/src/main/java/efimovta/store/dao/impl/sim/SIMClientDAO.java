@@ -13,22 +13,22 @@ import java.util.List;
 /**
  * Class provide DAO for {@link Client}
  */
-public class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
-    protected List<Client> clientRecords = StorageInMemory.clientRecords;
+class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
 
     /**
      * Adding a client if all fields are not null and client not
      * already exists
      *
      * @param client for adding
-     * @throws RecordAlreadyExistsException   if client already exists
-     * @throws NotAllFieldsAreFilledException
+     * @throws RecordAlreadyExistsException   if client
+     *                                        already exists
+     * @throws NotAllFieldsAreFilledException if any field is null
      */
     @Override
     public void add(Client client) throws RecordAlreadyExistsException,
             NotAllFieldsAreFilledException {
         checkBeforeAdd(client);
-        clientRecords.add(client.getClone());
+        StorageInMemory.getClients().add(client.getClone());
     }
 
     /**
@@ -40,7 +40,7 @@ public class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
     @Override
     public Client findById(long id) {
         Client client = null;
-        List<Client> list = FindHelper.find(clientRecords, id,
+        List<Client> list = FindHelper.find(StorageInMemory.getClients(), id,
                 FindHelper.CLIENT_BY_ID);
         if (!list.isEmpty()) {
             client = list.get(0).getClone();
@@ -56,8 +56,8 @@ public class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
      */
     @Override
     public List<Client> findByFIO(String fio) {
-        List<Client> clients = FindHelper.find(clientRecords, fio,
-                FindHelper.CLIENT_BY_FIO);
+        List<Client> clients = FindHelper.find(StorageInMemory.getClients(),
+                fio, FindHelper.CLIENT_BY_FIO);
         if (!clients.isEmpty()) {
             clients = Util.deepCopy(clients);
         }
@@ -72,8 +72,8 @@ public class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
      */
     @Override
     public List<Client> findByAnyName(String name) {
-        List<Client> clients = FindHelper.find(clientRecords, name,
-                FindHelper.CLIENT_BY_ANY_NAME);
+        List<Client> clients = FindHelper.find(StorageInMemory.getClients(),
+                name, FindHelper.CLIENT_BY_ANY_NAME);
         if (!clients.isEmpty()) {
             clients = Util.deepCopy(clients);
         }
@@ -88,8 +88,8 @@ public class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
      */
     @Override
     public List<Client> findByFirstName(String firstName) {
-        List<Client> clients = FindHelper.find(clientRecords, firstName,
-                FindHelper.CLIENT_BY_FIRST_NAME);
+        List<Client> clients = FindHelper.find(StorageInMemory.getClients(),
+                firstName, FindHelper.CLIENT_BY_FIRST_NAME);
         if (!clients.isEmpty()) {
             clients = Util.deepCopy(clients);
         }
@@ -104,8 +104,8 @@ public class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
      */
     @Override
     public List<Client> findBySecondName(String secondName) {
-        List<Client> clients = FindHelper.find(clientRecords, secondName,
-                FindHelper.CLIENT_BY_SECOND_NAME);
+        List<Client> clients = FindHelper.find(StorageInMemory.getClients(),
+                secondName, FindHelper.CLIENT_BY_SECOND_NAME);
         if (!clients.isEmpty()) {
             clients = Util.deepCopy(clients);
         }
@@ -120,8 +120,8 @@ public class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
      */
     @Override
     public List<Client> findByMiddleName(String middleName) {
-        List<Client> clients = FindHelper.find(clientRecords, middleName,
-                FindHelper.CLIENT_BY_MIDDLE_NAME);
+        List<Client> clients = FindHelper.find(StorageInMemory.getClients(),
+                middleName, FindHelper.CLIENT_BY_MIDDLE_NAME);
         if (!clients.isEmpty()) {
             clients = Util.deepCopy(clients);
         }
@@ -136,41 +136,54 @@ public class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
     @Override
     public List<Client> getAll() {
         List<Client> clients;
-        if (clientRecords.size() == 0) {
+        if (StorageInMemory.getClients().isEmpty()) {
             clients = new ArrayList<>(0);
         } else {
-            clients = Util.deepCopy(clientRecords);
+            clients = Util.deepCopy(StorageInMemory.getClients());
         }
         return clients;
     }
 
+    /**
+     * Check the Client fields
+     *
+     * @param c for check
+     * @throws NotAllFieldsAreFilledException if any field is null
+     */
     @Override
-    protected void checkNullFields(Client client)
+    protected void checkNullFields(Client c)
             throws NotAllFieldsAreFilledException {
-        if (client.getMiddleName() == null) {
+        if (c.getMiddleName() == null) {
             throw new NotAllFieldsAreFilledException(
                     "client.getMiddleName() return null");
         }
-        if (client.getFirstName() == null) {
+        if (c.getFirstName() == null) {
             throw new NotAllFieldsAreFilledException(
                     "client.getFirstName() return null");
         }
-        if (client.getSecondName() == null) {
+        if (c.getSecondName() == null) {
             throw new NotAllFieldsAreFilledException(
                     "client.getSecondName() return null");
         }
-        if (client.getBirthday() == null) {
+        if (c.getBirthday() == null) {
             throw new NotAllFieldsAreFilledException(
                     "client.getBirthday() return null");
         }
     }
 
+    /**
+     * Checks. Does the Client record exist
+     *
+     * @param c for check
+     * @throws RecordAlreadyExistsException if record
+     *                                      already exists
+     */
     @Override
     protected void checkAlreadyExists(Client c)
             throws RecordAlreadyExistsException {
-        int i = clientRecords.indexOf(c);
+        int i = StorageInMemory.getClients().indexOf(c);
         if (i != -1) {
-            long id = clientRecords.get(i).getId();
+            long id = StorageInMemory.getClients().get(i).getId();
             throw new RecordAlreadyExistsException(
                     "This client exists with id: " + id);
         }

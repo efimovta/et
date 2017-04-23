@@ -32,21 +32,22 @@ public class SIMDeviceDAOTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        device = new Device()
-                .setModel(model)
-                .setType(type)
-                .setBrand(brand)
-                .setColor(color)
-                .setReleaseDate(releaseDate)
-                .setPrice(price);
+        device = new Device();
+        device.setModel(model);
 
-        device2 = new Device()
-                .setModel(model)
-                .setType(type)
-                .setBrand(brand)
-                .setColor(color)
-                .setReleaseDate(releaseDate2)//not releaseDate !!!
-                .setPrice(price);
+        device.setType(type);
+        device.setBrand(brand);
+        device.setColor(color);
+        device.setReleaseDate(releaseDate);
+        device.setPrice(price);
+
+        device2 = new Device();
+        device2.setModel(model);
+        device2.setType(type);
+        device2.setBrand(brand);
+        device2.setColor(color);
+        device2.setReleaseDate(releaseDate2);
+        device2.setPrice(price);
 
         simDeviceDAO = new SIMDeviceDAO();
         simDeviceDAO.add(device);

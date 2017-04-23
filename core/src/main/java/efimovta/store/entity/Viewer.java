@@ -14,7 +14,6 @@ public class Viewer {
      *
      * @param client client to view
      * @return client information
-     * @see Viewer#toStructuredStringWithLeftSpaces(int, Client)
      */
     public static String toString(Client client) {
         return client.toString();
@@ -23,9 +22,8 @@ public class Viewer {
     /**
      * Return device information
      *
-     * @param device client to view
+     * @param device device to view
      * @return device information
-     * @see Viewer#toStructuredStringWithLeftSpaces(int, Device)
      */
     public static String toString(Device device) {
         return device.toString();
@@ -34,9 +32,8 @@ public class Viewer {
     /**
      * Return sale information
      *
-     * @param sale client to view
+     * @param sale sale to view
      * @return sale information
-     * @see Viewer#toStructuredStringWithLeftSpaces(int, Sale)
      */
     public static String toString(Sale sale) {
         return sale.toString();

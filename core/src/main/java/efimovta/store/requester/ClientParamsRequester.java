@@ -20,7 +20,7 @@ public class ClientParamsRequester extends Requester {
         return ourInstance;
     }
 
-    protected ClientParamsRequester() {
+    private ClientParamsRequester() {
 
     }
 

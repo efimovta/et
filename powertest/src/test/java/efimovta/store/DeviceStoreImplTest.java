@@ -16,7 +16,7 @@ import java.util.List;
 
 @FixMethodOrder(value = MethodSorters.NAME_ASCENDING)
 public class DeviceStoreImplTest {
-    static public final int NUMBER = 10000;
+    static public final int NUMBER = 100;
     static public final String TYPE = "LAPTOP";
     static public final String BRAND = "HP";
 
