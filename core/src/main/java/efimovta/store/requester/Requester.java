@@ -39,7 +39,7 @@ public class Requester {
             otv = Integer.parseInt(str);
 
             if (start <= otv && otv <= end) break;
-            else Util.printErr(INPUT_ERROR_MSG);
+            else Util.println(INPUT_ERROR_MSG);
         }
         return otv;
     }
@@ -57,7 +57,7 @@ public class Requester {
                 date = DateFormat.getDateInstance().parse(str);
                 break;
             } catch (ParseException e) {
-                Util.printErr(INPUT_ERROR_MSG);
+                Util.println(INPUT_ERROR_MSG);
             }
         }
         return date;

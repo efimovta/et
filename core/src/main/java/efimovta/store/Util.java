@@ -29,7 +29,7 @@ public class Util {
             LogManager.getLogManager().readConfiguration(
                     Main.class.getResourceAsStream(LOGGING_PROPERTIES_LOCATION));
         } catch (IOException e) {
-            printErr("Could not setup logger configuration: "
+            println("Could not setup logger configuration: "
                     + e.toString());
         }
     }
@@ -45,17 +45,6 @@ public class Util {
      */
     public static void println(Object o) {
         System.out.println(o);
-    }
-
-
-    /**
-     * Print result of {@code object.toString()} on "standard" error
-     * output stream ({@code System.err})
-     *
-     * @param o object to print
-     */
-    public static void printErr(Object o) {
-        System.err.println(o);
     }
 
     /**

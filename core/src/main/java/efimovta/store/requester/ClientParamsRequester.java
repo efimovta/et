@@ -42,7 +42,7 @@ public class ClientParamsRequester extends Requester {
 
             fio = str.trim().split("[ ]+");
             if (fio.length == 3) break;
-            else Util.printErr(INPUT_ERROR_MSG);
+            else Util.println(INPUT_ERROR_MSG);
         }
         return fio;
     }
@@ -57,7 +57,7 @@ public class ClientParamsRequester extends Requester {
                 throw new OperationCanceledByUserException();
             }
             if (name.length() > 0) break;
-            else Util.printErr(INPUT_ERROR_MSG);
+            else Util.println(INPUT_ERROR_MSG);
         }
         return name;
     }

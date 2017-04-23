@@ -1,6 +1,5 @@
 package efimovta.store.menu;
 
-import efimovta.store.ExitException;
 import efimovta.store.OperationException;
 
 import java.io.IOException;
@@ -44,8 +43,8 @@ public class MainMenu extends Menu {
                 },
                 new MenuItem(EXIT) {
                     @Override
-                    public void execute() throws ExitException {
-                        throw new ExitException();
+                    public void execute() {
+                        MenuManager.setExit();
                     }
                 }
         ));

@@ -23,6 +23,8 @@ public class StorageInMemory {
     static private List<Sale> sales = new ArrayList<>();
 
     /**
+     * Use it for edit/add/remove records in storage
+     *
      * @return Changeable client list
      */
     static List<Client> getClients() {
@@ -30,6 +32,8 @@ public class StorageInMemory {
     }
 
     /**
+     * Use it for edit/add/remove records in storage
+     *
      * @return Changeable device list
      */
     static List<Device> getDevices() {
@@ -37,6 +41,8 @@ public class StorageInMemory {
     }
 
     /**
+     * Use it for edit/add/remove records in storage
+     *
      * @return Changeable sale list
      */
     static List<Sale> getSales() {
@@ -47,24 +53,26 @@ public class StorageInMemory {
      * Load data from file
      *
      * @param file with backup
-     * @throws FileNotFoundException if file not found
-     * @throws BackupException       if there was a deserialize
-     *                               problem
+     * @throws BackupException       if There was a deserialize
+     *                               problem of if file not found
      */
     public static void loadBackup(File file)
-            throws FileNotFoundException, BackupException {
-        Map<Class, List> newArr;
+            throws BackupException {
         try (ObjectInputStream ois =
                      new ObjectInputStream(new FileInputStream(file))) {
-            newArr = (HashMap<Class, List>) ois.readObject();
+            Map<Class, List> newArr = (HashMap<Class, List>) ois.readObject();
 
-            clients.clear();
-            devices.clear();
-            sales.clear();
+            List<Client> clients = newArr.get(Client.class);
+            List<Device> devices = newArr.get(Device.class);
+            List<Sale> sales = newArr.get(Sale.class);
 
-            clients.addAll(newArr.get(Client.class));
-            devices.addAll(newArr.get(Device.class));
-            sales.addAll(newArr.get(Sale.class));
+            StorageInMemory.clients.clear();
+            StorageInMemory.devices.clear();
+            StorageInMemory.sales.clear();
+
+            StorageInMemory.clients.addAll(clients);
+            StorageInMemory.devices.addAll(devices);
+            StorageInMemory.sales.addAll(sales);
 
             ((ArrayList) clients).trimToSize();
             ((ArrayList) devices).trimToSize();
@@ -74,7 +82,7 @@ public class StorageInMemory {
                     "Occurred while trying to read " +
                             "the HashMap<Class, List>) instance from file", e);
         } catch (FileNotFoundException e) {
-            throw e;
+            throw new BackupException("File not found!", e);
         } catch (IOException e) {
             throw new BackupException("Deserialize problem", e);
         }
@@ -84,11 +92,11 @@ public class StorageInMemory {
      * Save data in file
      *
      * @param file for saving to
-     * @throws FileNotFoundException if file not found
      * @throws BackupException       if There was a deserialize
-     *                               problem
+     *                               problem of if file not found
      */
-    public static void saveBackup(File file) throws BackupException, FileNotFoundException {
+    public static void saveBackup(File file)
+            throws BackupException {
         HashMap<Class, List> arr = new HashMap<>();
         arr.put(Client.class, clients);
         arr.put(Device.class, devices);
@@ -98,7 +106,7 @@ public class StorageInMemory {
                      new ObjectOutputStream(new FileOutputStream(file))) {
             oos.writeObject(arr);
         } catch (FileNotFoundException e) {
-            throw e;
+            throw new BackupException("File not found!", e);
         } catch (IOException e) {
             throw new BackupException("Serialize problem", e);
         }

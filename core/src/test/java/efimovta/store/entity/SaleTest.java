@@ -15,37 +15,38 @@ import static org.junit.Assert.*;
 public class SaleTest {
     static Sale sale;
     static Sale sale2;
-    static Date saleDate;
+    static int id1 = 1;
+    static int id2 = 2;
+    static Date saleDate = new Date();
     static Client client;
     static Map<Device, Integer> devices;
 
 
     @BeforeClass
     public static void setUp() throws Exception {
-        saleDate = new Date();
         client = new Client();
+        client.setId(id1);
         client.setFirstName("a");
         client.setSecondName("b");
         client.setMiddleName("c");
         devices = new HashMap<>();
 
         sale = new Sale();
+        sale.setId(id1);        //different id
         sale.setSaleDate(saleDate);
         sale.setClient(client);
         sale.setDevices(devices);
-        assertNotNull(sale);
 
         sale2 = new Sale();
+        sale2.setId(id2);
         sale2.setSaleDate(saleDate);
         sale2.setClient(client);
         sale2.setDevices(devices);
-        assertNotNull(sale2);
     }
 
     @Test
     public void saleEquals() throws Exception {
         assertTrue(sale.equals(sale2));
-
     }
 
     @Test
@@ -55,8 +56,7 @@ public class SaleTest {
 
     @Test
     public void getId() throws Exception {
-        assertNotNull(sale.getId());
-        assertTrue(sale.getId() >= 0);
+        assertTrue(sale.getId() == id1);
     }
 
     @Test

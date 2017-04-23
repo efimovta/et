@@ -41,12 +41,12 @@ public class DeviceParamsRequester extends Requester {
             try {
                 price = new BigDecimal(str);
             } catch (NumberFormatException e) {
-                Util.printErr(INPUT_ERROR_MSG);
+                Util.println(INPUT_ERROR_MSG);
                 continue;
             }
 
             if (price.doubleValue() > 0) break;
-            else Util.printErr(INPUT_ERROR_MSG);
+            else Util.println(INPUT_ERROR_MSG);
         }
         return price;
     }
@@ -115,7 +115,7 @@ public class DeviceParamsRequester extends Requester {
 
             model = str.trim();
             if (!model.isEmpty()) break;
-            else Util.printErr(INPUT_ERROR_MSG);
+            else Util.println(INPUT_ERROR_MSG);
         }
         return model;
     }

@@ -9,19 +9,16 @@ import java.util.*;
  * Sale entity.
  */
 public class Sale implements Identified, Serializable, CloneReady<Sale> {
-    private static long nextId = 0;
-    private final long id;
-
+    private long id;
     private Date saleDate;
     private Client client;
     private Map<Device, Integer> devices;
 
     /**
-     * id was auto generated from static field "nextId"
-     * by incrementation
+     * default constructor
      */
     public Sale() {
-        id = nextId++;
+        //default constructor
     }
 
     /**
@@ -37,14 +34,17 @@ public class Sale implements Identified, Serializable, CloneReady<Sale> {
     }
 
     /**
-     * Return unique identifier of this sale.
-     * For first instance it is 0.
-     *
-     * @return Unique identifier of this sale
+     * @return sale id
      */
-    @Override
     public long getId() {
         return id;
+    }
+
+    /**
+     * @param id id for set
+     */
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**
@@ -55,20 +55,6 @@ public class Sale implements Identified, Serializable, CloneReady<Sale> {
     }
 
     /**
-     * @return clone instance of sale date
-     */
-    public Date getSaleDate() {
-        return (Date) saleDate.clone();
-    }
-
-    /**
-     * @return {@link Collections.UnmodifiableMap} of purchased devices
-     */
-    public Map<Device, Integer> getDevices() {
-        return Collections.unmodifiableMap(devices);
-    }
-
-    /**
      * @param client client to set
      */
     public void setClient(Client client) {
@@ -76,10 +62,24 @@ public class Sale implements Identified, Serializable, CloneReady<Sale> {
     }
 
     /**
+     * @return clone instance of sale date
+     */
+    public Date getSaleDate() {
+        return (Date) saleDate.clone();
+    }
+
+    /**
      * @param saleDate sale date to set
      */
     public void setSaleDate(Date saleDate) {
         this.saleDate = (Date) saleDate.clone();
+    }
+
+    /**
+     * @return {@link Collections.UnmodifiableMap} of purchased devices
+     */
+    public Map<Device, Integer> getDevices() {
+        return Collections.unmodifiableMap(devices);
     }
 
     /**

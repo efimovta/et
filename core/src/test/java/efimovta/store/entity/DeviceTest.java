@@ -14,6 +14,8 @@ import static org.junit.Assert.*;
 public class DeviceTest {
     static Device device;
     static Device device2;
+    static int id1 = 1;
+    static int id2 = 2;
     static String model = "gtx157";
     static DeviceType type = DeviceType.LAPTOP;
     static Brand brand = Brand.ACER;
@@ -25,6 +27,7 @@ public class DeviceTest {
     @BeforeClass
     public static void setUp() throws Exception {
         device = new Device();
+        device.setId(id1);      //different id
         device.setModel(model);
         device.setType(type);
         device.setBrand(brand);
@@ -34,6 +37,7 @@ public class DeviceTest {
         assertNotNull(device);
 
         device2 = new Device();
+        device2.setId(id2);
         device2.setModel(model);
         device2.setType(type);
         device2.setBrand(brand);
@@ -56,8 +60,7 @@ public class DeviceTest {
 
     @Test
     public void getId() throws Exception {
-        assertNotNull(device.getId());
-        assertTrue(device.getId() > 0);
+        assertTrue(device.getId() == id1);
     }
 
     @Test

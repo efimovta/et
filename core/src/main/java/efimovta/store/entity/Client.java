@@ -7,20 +7,17 @@ import java.util.Date;
  * Client entity.
  */
 public class Client implements Identified, Serializable, CloneReady<Client> {
-    private static long nextId = 0;
-    private final long id;
-
+    private long id;
     private String secondName;
     private String firstName;
     private String middleName;
     private Date birthday;
 
     /**
-     * id was auto generated from static field "nextId"
-     * by incrementation
+     * default constructor
      */
     public Client() {
-        id = nextId++;
+        //default constructor
     }
 
     /**
@@ -37,10 +34,7 @@ public class Client implements Identified, Serializable, CloneReady<Client> {
     }
 
     /**
-     * Return unique identifier of this client.
-     * For first instance it is 0.
-     *
-     * @return Unique identifier of this client
+     * @return client id
      */
     public long getId() {
         return id;
@@ -79,6 +73,13 @@ public class Client implements Identified, Serializable, CloneReady<Client> {
      */
     public Date getBirthday() {
         return (Date) birthday.clone();
+    }
+
+    /**
+     * @param id id for set
+     */
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**

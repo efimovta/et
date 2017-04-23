@@ -14,6 +14,8 @@ public class ClientTest {
 
     static Client client;
     static Client client2;
+    static int id1 = 1;
+    static int id2 = 2;
     static String secondName = "Васильев";
     static String name = "Вася";
     static String middleName = "Васильевич";
@@ -24,14 +26,15 @@ public class ClientTest {
     public static void setUp() throws Exception {
 
         client = new Client();
+        client.setId(id1);      //different id
         client.setSecondName(secondName);
         client.setFirstName(name);
         client.setMiddleName(middleName);
         client.setBirthday(birthDay);
         assertNotNull(client);
 
-        //client2.id != client.id
         client2 = new Client();
+        client2.setId(id2);
         client2.setSecondName(secondName);
         client2.setFirstName(name);
         client2.setMiddleName(middleName);
@@ -53,8 +56,7 @@ public class ClientTest {
 
     @Test
     public void getId() throws Exception {
-        assertNotNull(client.getId());
-        assertTrue(client.getId() > 0);
+        assertTrue(client.getId() == id1);
     }
 
     @Test

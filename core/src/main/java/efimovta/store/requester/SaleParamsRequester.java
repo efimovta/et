@@ -34,7 +34,7 @@ public class SaleParamsRequester extends Requester {
             int id = requestIntNumber(0, Integer.MAX_VALUE);
             client = clientDAO.findById(id);
             if (client != null) break;
-            else Util.printErr(CLIENT_NOT_FOUND + '\n' + INPUT_ERROR_MSG);
+            else Util.println(CLIENT_NOT_FOUND + '\n' + INPUT_ERROR_MSG);
         }
         return client;
     }

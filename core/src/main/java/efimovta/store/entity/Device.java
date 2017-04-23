@@ -8,9 +8,7 @@ import java.util.Date;
  * Device entity.
  */
 public class Device implements Identified, Serializable, CloneReady<Device> {
-    private static long nextId = 0;
-    private final long id;
-
+    private long id;
     private String model;
     private DeviceType type;
     private Brand brand;
@@ -19,11 +17,10 @@ public class Device implements Identified, Serializable, CloneReady<Device> {
     private BigDecimal price;
 
     /**
-     * id was auto generated from static field "nextId"
-     * by incrementation
+     * default constructor
      */
     public Device() {
-        id = nextId++;
+        //default constructor
     }
 
     /**
@@ -41,12 +38,8 @@ public class Device implements Identified, Serializable, CloneReady<Device> {
         price = device.getPrice();
     }
 
-
     /**
-     * Return unique identifier of this device.
-     * For first instance it is 0.
-     *
-     * @return Unique identifier of this device
+     * @return device id
      */
     public long getId() {
         return id;
@@ -92,6 +85,13 @@ public class Device implements Identified, Serializable, CloneReady<Device> {
      */
     public BigDecimal getPrice() {
         return price;
+    }
+
+    /**
+     * @param id id for set
+     */
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**

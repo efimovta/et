@@ -14,5 +14,5 @@ public class Config {
             "/logging.properties";
 
     public static final String BACKUP_LOCATION =
-            "app.backup";
+            "store.backup";
 }

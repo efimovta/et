@@ -20,7 +20,6 @@ public class DeviceStoreImplTest {
     static public final String TYPE = "LAPTOP";
     static public final String BRAND = "HP";
 
-
     static IDeviceStore ids = DeviceStore.getDeviceStore();
     static StringRandomer sr = new StringRandomer();
     static List<String> ss = new ArrayList<>();
