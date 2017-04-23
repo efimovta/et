@@ -19,11 +19,12 @@ public class DeviceStoreImpl implements IDeviceStore {
 
     public void addClient(String lastName, String firstName, String middleName, Date birthDate) {
         try {
-            Client client = new Client()
-                    .setSecondName(lastName)
-                    .setFirtsName(firstName)
-                    .setMiddleName(middleName)
-                    .setBirthday(birthDate);
+            Client client = new Client();
+            client.setSecondName(lastName);
+            client.setFirstName(firstName);
+            client.setMiddleName(middleName);
+            client.setBirthday(birthDate);
+
             clientDAO.add(client);
         } catch (DAOException e) {
             e.printStackTrace();//todo mb make better
@@ -37,13 +38,14 @@ public class DeviceStoreImpl implements IDeviceStore {
             Brand deviceBrand = Brand.valueOf(brand);
             NamedColor deviceColor = NamedColor.getNamedColor(color);
 
-            Device device = new Device()
-                    .setType(deviceType)
-                    .setBrand(deviceBrand)
-                    .setModel(model)
-                    .setColor(deviceColor)
-                    .setPrice(new BigDecimal(0))
-                    .setReleaseDate(issueDate);
+            Device device = new Device();
+            device.setType(deviceType);
+            device.setBrand(deviceBrand);
+            device.setModel(model);
+            device.setColor(deviceColor);
+            device.setPrice(new BigDecimal(0));
+            device.setReleaseDate(issueDate);
+
             deviceDAO.add(device);
         } catch (DAOException e) {
             e.printStackTrace();
@@ -62,10 +64,10 @@ public class DeviceStoreImpl implements IDeviceStore {
                 devices.put(device, count);
             }
 
-            Sale sale = new Sale()
-                    .setSaleDate(saleDate)
-                    .setClient(client)
-                    .setDevices(devices);
+            Sale sale = new Sale();
+            sale.setSaleDate(saleDate);
+            sale.setClient(client);
+            sale.setDevices(devices);
             saleDAO.add(sale);
         } catch (DAOException e) {
             e.printStackTrace();
