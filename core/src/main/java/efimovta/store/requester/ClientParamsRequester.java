@@ -3,61 +3,85 @@ package efimovta.store.requester;
 import efimovta.store.OperationCanceledByUserException;
 import efimovta.store.Util;
 
-import java.io.IOException;
 import java.util.Date;
 
-import static efimovta.store.Messages.*;
+import static efimovta.store.Messages.ENTER_ANY_CLIENT_NAME;
+import static efimovta.store.Messages.ENTER_CLIENT_BIRTHDAY;
+import static efimovta.store.Messages.ENTER_CLIENT_FIO;
 
 /**
- * Created by jcd on 26.03.2017.
+ * Client params requester. Used for request client params.
  */
 public class ClientParamsRequester extends Requester {
 
     private static ClientParamsRequester ourInstance =
             new ClientParamsRequester();
 
-    public static ClientParamsRequester getInstance() {
-        return ourInstance;
-    }
-
     private ClientParamsRequester() {
 
     }
 
-    public Date requestBirthDay() throws IOException,
-            OperationCanceledByUserException {
+    /**
+     * @return Singleton {@link ClientParamsRequester}
+     */
+    public static ClientParamsRequester getInstance() {
+        return ourInstance;
+    }
+
+    /**
+     * Request birthday
+     *
+     * @return requested date
+     * @throws OperationCanceledByUserException if user type
+     *                                          {@link #EXIT_SYMBOL}
+     */
+    public Date requestBirthDay() throws OperationCanceledByUserException {
         Util.println(ENTER_CLIENT_BIRTHDAY);
         return requestDate();
     }
 
-    public String[] requestFIO() throws IOException,
-            OperationCanceledByUserException {
+    /**
+     * Request FIO
+     *
+     * @return requested FIO
+     * @throws OperationCanceledByUserException if user type
+     *                                          {@link #EXIT_SYMBOL}
+     */
+    public String[] requestFIO() throws OperationCanceledByUserException {
         Util.println(ENTER_CLIENT_FIO);
-        String[] fio;
-        while (true) {
+        String[] fio = null;
+        while (fio == null || fio.length != 3) {
             String str = Util.readLine();
             if (str.equals(EXIT_SYMBOL)) {
                 throw new OperationCanceledByUserException();
             }
 
             fio = str.trim().split("[ ]+");
-            if (fio.length == 3) break;
-            else Util.println(INPUT_ERROR_MSG);
+            if (fio.length != 3) {
+                Util.println(INPUT_ERROR_MSG);
+            }
         }
         return fio;
     }
 
-    public String requestName() throws IOException,
-            OperationCanceledByUserException {
+    /**
+     * Request client name
+     *
+     * @return requested name
+     * @throws OperationCanceledByUserException if user type
+     *                                          {@link #EXIT_SYMBOL}
+     */
+    public String requestName() throws OperationCanceledByUserException {
         Util.println(ENTER_ANY_CLIENT_NAME);
-        String name;
-        while (true) {
+        String name = null;
+        while (name == null || name.length() <= 0) {
             name = Util.readLine();
             if (name.equals(EXIT_SYMBOL)) {
                 throw new OperationCanceledByUserException();
             }
-            if (name.length() > 0) break;
-            else Util.println(INPUT_ERROR_MSG);
+            if (name.length() <= 0) {
+                Util.println(INPUT_ERROR_MSG);
+            }
         }
         return name;
     }

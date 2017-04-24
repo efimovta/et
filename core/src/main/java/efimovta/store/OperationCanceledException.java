@@ -13,5 +13,6 @@ public class OperationCanceledException extends OperationException {
     }
 
     public OperationCanceledException() {
+        super();
     }
 }

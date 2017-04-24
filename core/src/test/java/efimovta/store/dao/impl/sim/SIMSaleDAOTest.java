@@ -1,15 +1,23 @@
 package efimovta.store.dao.impl.sim;
 
 import efimovta.store.dao.RecordNotFoundException;
-import efimovta.store.entity.*;
+import efimovta.store.entity.Brand;
+import efimovta.store.entity.Client;
+import efimovta.store.entity.Device;
+import efimovta.store.entity.DeviceType;
+import efimovta.store.entity.NamedColor;
+import efimovta.store.entity.Sale;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -56,8 +64,10 @@ public class SIMSaleDAOTest {
 
         clients.add(client);
         clients.add(client2);
+
         simClientDAO.add(client);
         simClientDAO.add(client2);
+
 
         device = new Device();
         device.setModel(model);
@@ -79,6 +89,7 @@ public class SIMSaleDAOTest {
 
         devices.add(device);
         devices.add(device2);
+
         simDeviceDAO.add(device);
         simDeviceDAO.add(device2);
 
@@ -139,21 +150,6 @@ public class SIMSaleDAOTest {
         assertTrue(ss.equals(sale));
     }
 
-    @Test
-    public void findByClientId() throws Exception {
-        Client client = clients.get(0);
-        List<Sale> ss = simSaleDAO.findByClientId(client.getId());
-        assertEquals(ss.size(), 1);
-        assertEquals(ss.get(0).getClient(), client);
-    }
-
-    @Test
-    public void findByDeviceId() throws Exception {
-        Device device = devices.get(0);
-        List<Sale> ss = simSaleDAO.findByDeviceId(device.getId());
-        assertEquals(ss.size(), 1);
-        assertTrue(ss.get(0).getDevices().keySet().contains(device));
-    }
 
     @Test
     public void findBySaleDate() throws Exception {

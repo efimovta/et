@@ -9,6 +9,11 @@ import java.util.Map;
  */
 public class Viewer {
 
+    private static final String ID_PARAM = "id=";
+
+    private Viewer() {
+    }
+
     /**
      * Return client information
      *
@@ -87,7 +92,7 @@ public class Viewer {
                 .append(spaces)
                 .append("Client{\n")
                 .append(spaces)
-                .append("\tid=").append(c.getId()).append(",\n")
+                .append('\t').append(ID_PARAM).append(c.getId()).append(",\n")
                 .append(spaces)
                 .append("\tsecondName=").append(c.getSecondName()).append(",\n")
                 .append(spaces)
@@ -116,7 +121,7 @@ public class Viewer {
                 .append(spaces)
                 .append("Device{\n")
                 .append(spaces)
-                .append("\tid=").append(d.getId()).append(",\n")
+                .append('\t').append(ID_PARAM).append(d.getId()).append(",\n")
                 .append(spaces)
                 .append("\tmodel=").append(d.getModel()).append(",\n")
                 .append(spaces)
@@ -149,7 +154,7 @@ public class Viewer {
         int innerSpacesNum = num + 10;
         StringBuilder sb = new StringBuilder()
                 .append(spaces).append("Sale{\n")
-                .append(spaces).append("\tid=").append(s.getId()).append(",\n")
+                .append(spaces).append('\t').append(ID_PARAM).append(s.getId()).append(",\n")
                 .append(spaces).append("\tsaleDate=").append(s.getSaleDate())
                 .append(",\n")
                 .append(spaces).append("\tclient=\n")
@@ -178,7 +183,8 @@ public class Viewer {
         if (num == 0) {
             spaces = "";
         } else {
-            spaces = String.format("%" + num + "s", "");
+            String fmt = "%" + num + "s";
+            spaces = String.format(fmt, "");
         }
         return spaces;
     }

@@ -6,33 +6,46 @@ import efimovta.store.entity.Brand;
 import efimovta.store.entity.DeviceType;
 import efimovta.store.entity.NamedColor;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static efimovta.store.Messages.*;
+import static efimovta.store.Messages.ENTER_DEVICE_BRAND;
+import static efimovta.store.Messages.ENTER_DEVICE_COLOR;
+import static efimovta.store.Messages.ENTER_DEVICE_MODEL;
+import static efimovta.store.Messages.ENTER_DEVICE_PRICE;
+import static efimovta.store.Messages.ENTER_DEVICE_RELEASE;
+import static efimovta.store.Messages.ENTER_DEVICE_TYPE;
 
 /**
- * Created by jcd on 26.03.2017.
+ * Device params requester. Used for request device params.
  */
 public class DeviceParamsRequester extends Requester {
     private static DeviceParamsRequester ourInstance =
             new DeviceParamsRequester();
 
+    private DeviceParamsRequester() {
+    }
+
+    /**
+     * @return Singleton {@link ClientParamsRequester}
+     */
     public static DeviceParamsRequester getInstance() {
         return ourInstance;
     }
 
-    private DeviceParamsRequester() {
-    }
-
-    public BigDecimal requestPrice() throws IOException,
-            OperationCanceledByUserException {
+    /**
+     * Request price
+     *
+     * @return requested price
+     * @throws OperationCanceledByUserException if user type
+     *                                          {@link #EXIT_SYMBOL}
+     */
+    public BigDecimal requestPrice() throws OperationCanceledByUserException {
         Util.println(ENTER_DEVICE_PRICE);
         BigDecimal price = null;
-        while (true) {
+        while (price == null || price.doubleValue() <= 0) {
             String str = Util.readLine();
             if (str.equals(EXIT_SYMBOL)) {
                 throw new OperationCanceledByUserException();
@@ -45,20 +58,33 @@ public class DeviceParamsRequester extends Requester {
                 continue;
             }
 
-            if (price.doubleValue() > 0) break;
-            else Util.println(INPUT_ERROR_MSG);
+            if (price.doubleValue() <= 0) {
+                Util.println(INPUT_ERROR_MSG);
+            }
         }
         return price;
     }
 
-    public Date requestReleaseDate() throws IOException,
-            OperationCanceledByUserException {
+    /**
+     * Request release date
+     *
+     * @return requested date
+     * @throws OperationCanceledByUserException if user type
+     *                                          {@link #EXIT_SYMBOL}
+     */
+    public Date requestReleaseDate() throws OperationCanceledByUserException {
         Util.println(ENTER_DEVICE_RELEASE);
         return requestDate();
     }
 
-    public NamedColor requestColor() throws IOException,
-            OperationCanceledByUserException {
+    /**
+     * Request color
+     *
+     * @return requested color
+     * @throws OperationCanceledByUserException if user type
+     *                                          {@link #EXIT_SYMBOL}
+     */
+    public NamedColor requestColor() throws OperationCanceledByUserException {
         int i = 1;
 
         Util.println(ENTER_DEVICE_COLOR);
@@ -72,8 +98,14 @@ public class DeviceParamsRequester extends Requester {
         return ncs.get(otv - 1);
     }
 
-    public Brand requestBrand() throws IOException,
-            OperationCanceledByUserException {
+    /**
+     * Request brand
+     *
+     * @return requested brand
+     * @throws OperationCanceledByUserException if user type
+     *                                          {@link #EXIT_SYMBOL}
+     */
+    public Brand requestBrand() throws OperationCanceledByUserException {
         int i = 1;
 
         Util.println(ENTER_DEVICE_BRAND);
@@ -87,9 +119,14 @@ public class DeviceParamsRequester extends Requester {
         return brands.get(otv - 1);
     }
 
-    public DeviceType requestType() throws IOException,
-            OperationCanceledByUserException {
-        DeviceType dt = null;
+    /**
+     * Request type
+     *
+     * @return requested type
+     * @throws OperationCanceledByUserException if user type
+     *                                          {@link #EXIT_SYMBOL}
+     */
+    public DeviceType requestType() throws OperationCanceledByUserException {
         int i = 1;
 
         Util.println(ENTER_DEVICE_TYPE);
@@ -103,19 +140,26 @@ public class DeviceParamsRequester extends Requester {
         return dts.get(otv - 1);
     }
 
-    public String requestModel() throws IOException,
-            OperationCanceledByUserException {
+    /**
+     * Request model
+     *
+     * @return requested model
+     * @throws OperationCanceledByUserException if user type
+     *                                          {@link #EXIT_SYMBOL}
+     */
+    public String requestModel() throws OperationCanceledByUserException {
         Util.println(ENTER_DEVICE_MODEL);
         String model = null;
-        while (true) {
+        while (model == null || model.isEmpty()) {
             String str = Util.readLine();
             if (str.equals(EXIT_SYMBOL)) {
                 throw new OperationCanceledByUserException();
             }
 
             model = str.trim();
-            if (!model.isEmpty()) break;
-            else Util.println(INPUT_ERROR_MSG);
+            if (model.isEmpty()) {
+                Util.println(INPUT_ERROR_MSG);
+            }
         }
         return model;
     }

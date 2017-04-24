@@ -46,52 +46,17 @@ public class Device implements Identified, Serializable, CloneReady<Device> {
     }
 
     /**
-     * @return model of this device
-     */
-    public String getModel() {
-        return model;
-    }
-
-    /**
-     * @return type of this device
-     */
-    public DeviceType getType() {
-        return type;
-    }
-
-    /**
-     * @return brand of this device
-     */
-    public Brand getBrand() {
-        return brand;
-    }
-
-    /**
-     * @return color of this device
-     */
-    public NamedColor getColor() {
-        return color;
-    }
-
-    /**
-     * @return clone instance of device release date
-     */
-    public Date getReleaseDate() {
-        return (Date) releaseDate.clone();
-    }
-
-    /**
-     * @return price of this device
-     */
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    /**
      * @param id id for set
      */
     public void setId(long id) {
         this.id = id;
+    }
+
+    /**
+     * @return model of this device
+     */
+    public String getModel() {
+        return model;
     }
 
     /**
@@ -102,10 +67,24 @@ public class Device implements Identified, Serializable, CloneReady<Device> {
     }
 
     /**
+     * @return type of this device
+     */
+    public DeviceType getType() {
+        return type;
+    }
+
+    /**
      * @param type type for set
      */
     public void setType(DeviceType type) {
         this.type = type;
+    }
+
+    /**
+     * @return brand of this device
+     */
+    public Brand getBrand() {
+        return brand;
     }
 
     /**
@@ -116,10 +95,24 @@ public class Device implements Identified, Serializable, CloneReady<Device> {
     }
 
     /**
+     * @return color of this device
+     */
+    public NamedColor getColor() {
+        return color;
+    }
+
+    /**
      * @param color color for set
      */
     public void setColor(NamedColor color) {
         this.color = color;
+    }
+
+    /**
+     * @return clone instance of device release date
+     */
+    public Date getReleaseDate() {
+        return (Date) releaseDate.clone();
     }
 
     /**
@@ -129,6 +122,13 @@ public class Device implements Identified, Serializable, CloneReady<Device> {
      */
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = (Date) releaseDate.clone();
+    }
+
+    /**
+     * @return price of this device
+     */
+    public BigDecimal getPrice() {
+        return price;
     }
 
     /**

@@ -1,6 +1,11 @@
 package efimovta.store;
 
-import efimovta.store.entity.*;
+import efimovta.store.entity.Brand;
+import efimovta.store.entity.Client;
+import efimovta.store.entity.Device;
+import efimovta.store.entity.DeviceType;
+import efimovta.store.entity.Identified;
+import efimovta.store.entity.Sale;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,30 +17,6 @@ import java.util.Set;
  */
 public class FindHelper {
 
-    public static final ByFieldComparator<Sale, Long> SALE_BY_ID =
-            new ByFieldComparator<Sale, Long>() {
-                @Override
-                public boolean check(Sale sale, Long id) {
-                    return IDENTIFIED_BY_ID.check(sale, id);
-                }
-            };
-
-    public static final ByFieldComparator<Device, Long> DEVICE_BY_ID =
-            new ByFieldComparator<Device, Long>() {
-                @Override
-                public boolean check(Device device, Long id) {
-                    return IDENTIFIED_BY_ID.check(device, id);
-                }
-            };
-
-    public static final ByFieldComparator<Client, Long> CLIENT_BY_ID =
-            new ByFieldComparator<Client, Long>() {
-                @Override
-                public boolean check(Client client, Long id) {
-                    return IDENTIFIED_BY_ID.check(client, id);
-                }
-            };
-
     public static final ByFieldComparator<Identified, Long> IDENTIFIED_BY_ID =
             new ByFieldComparator<Identified, Long>() {
                 @Override
@@ -43,8 +24,27 @@ public class FindHelper {
                     return identified.getId() - id == 0;
                 }
             };
-
-
+    public static final ByFieldComparator<Sale, Long> SALE_BY_ID =
+            new ByFieldComparator<Sale, Long>() {
+                @Override
+                public boolean check(Sale sale, Long id) {
+                    return IDENTIFIED_BY_ID.check(sale, id);
+                }
+            };
+    public static final ByFieldComparator<Device, Long> DEVICE_BY_ID =
+            new ByFieldComparator<Device, Long>() {
+                @Override
+                public boolean check(Device device, Long id) {
+                    return IDENTIFIED_BY_ID.check(device, id);
+                }
+            };
+    public static final ByFieldComparator<Client, Long> CLIENT_BY_ID =
+            new ByFieldComparator<Client, Long>() {
+                @Override
+                public boolean check(Client client, Long id) {
+                    return IDENTIFIED_BY_ID.check(client, id);
+                }
+            };
     public static final ByFieldComparator<Sale, Long> SALE_BY_CLIENT_ID =
             new ByFieldComparator<Sale, Long>() {
                 @Override
@@ -59,9 +59,10 @@ public class FindHelper {
                 public boolean check(Sale sale, Long deviceId) {
                     List<Identified> i;
                     Set<Device> set = (sale).getDevices().keySet();
-                    List<Identified> devices = new ArrayList<Identified>(set);
+                    List<Identified> devices = new ArrayList<>();
+                    devices.addAll(set);
                     i = find(devices, deviceId, IDENTIFIED_BY_ID);
-                    return i.size() > 0;
+                    return !i.isEmpty();
                 }
             };
 
@@ -101,7 +102,7 @@ public class FindHelper {
             new ByFieldComparator<Client, String>() {
                 @Override
                 public boolean check(Client client, String fio) {
-                    return (client.getFIO().compareToIgnoreCase(fio) == 0);
+                    return client.getFIO().compareToIgnoreCase(fio) == 0;
                 }
             };
 
@@ -109,21 +110,21 @@ public class FindHelper {
             new ByFieldComparator<Client, String>() {
                 @Override
                 public boolean check(Client client, String middleName) {
-                    return (client.getMiddleName().compareToIgnoreCase(middleName) == 0);
+                    return client.getMiddleName().compareToIgnoreCase(middleName) == 0;
                 }
             };
     public static final ByFieldComparator<Client, String> CLIENT_BY_FIRST_NAME =
             new ByFieldComparator<Client, String>() {
                 @Override
                 public boolean check(Client client, String first) {
-                    return (client.getFirstName().compareToIgnoreCase(first) == 0);
+                    return client.getFirstName().compareToIgnoreCase(first) == 0;
                 }
             };
     public static final ByFieldComparator<Client, String> CLIENT_BY_SECOND_NAME =
             new ByFieldComparator<Client, String>() {
                 @Override
                 public boolean check(Client client, String second) {
-                    return (client.getSecondName().compareToIgnoreCase(second) == 0);
+                    return client.getSecondName().compareToIgnoreCase(second) == 0;
                 }
             };
 
@@ -137,6 +138,9 @@ public class FindHelper {
                 }
             };
 
+
+    private FindHelper() {
+    }
 
     /**
      * Finds objects with a field that has the required value

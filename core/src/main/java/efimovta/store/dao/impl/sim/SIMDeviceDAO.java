@@ -15,12 +15,14 @@ import java.util.List;
 
 /**
  * Class provide DAO for {@link Device}
+ * Attempt! Id of added device was overridden.
+ * Id correspond List index.
  */
 class SIMDeviceDAO extends SIMGenericDAO<Device> implements DeviceDAO {
 
     /**
      * Adding a device if all fields are not null and device not
-     * already exists
+     * already exists. Attempt! Id war overridden.
      *
      * @param device for adding
      * @throws RecordAlreadyExistsException   if device
@@ -31,7 +33,10 @@ class SIMDeviceDAO extends SIMGenericDAO<Device> implements DeviceDAO {
     public void add(Device device) throws RecordAlreadyExistsException,
             NotAllFieldsAreFilledException {
         checkBeforeAdd(device);
-        StorageInMemory.getDevices().add(device.getClone());
+        Device newDevice = device.getClone();
+        long id = StorageInMemory.getDevices().size();
+        newDevice.setId(id);
+        StorageInMemory.getDevices().add(newDevice);
     }
 
     /**

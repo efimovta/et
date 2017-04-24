@@ -1,7 +1,16 @@
 package efimovta.store;
 
-import efimovta.store.dao.*;
-import efimovta.store.entity.*;
+import efimovta.store.dao.ClientDAO;
+import efimovta.store.dao.DAOException;
+import efimovta.store.dao.DAOFactory;
+import efimovta.store.dao.DeviceDAO;
+import efimovta.store.dao.SaleDAO;
+import efimovta.store.entity.Brand;
+import efimovta.store.entity.Client;
+import efimovta.store.entity.Device;
+import efimovta.store.entity.DeviceType;
+import efimovta.store.entity.NamedColor;
+import efimovta.store.entity.Sale;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
@@ -14,6 +23,9 @@ import java.util.Map;
  * The class contains only one method that fills STORAGE_IN_MEMORY(SIM) storage with some data
  */
 public class StorageFiller {
+    private StorageFiller() {
+    }
+
     /**
      * Fills STORAGE_IN_MEMORY(SIM) storage with some data
      */

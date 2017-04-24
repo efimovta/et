@@ -4,10 +4,13 @@ import efimovta.store.OperationCanceledByUserException;
 import efimovta.store.OperationException;
 import efimovta.store.Util;
 
-import java.io.IOException;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import static efimovta.store.Messages.*;
+import static efimovta.store.Messages.INVALID_INPUT;
+import static efimovta.store.Messages.MENU_ITEM_EXECUTE_THOW_EXCEPTION;
+import static efimovta.store.Messages.SELECT_ACTION;
+import static efimovta.store.Messages.THE_OPERATION_WAS_SUCCESSFULLY_CANCELED;
 
 /**
  * Menu manager.
@@ -16,6 +19,8 @@ import static efimovta.store.Messages.*;
  * @see Menu
  */
 public class MenuManager {
+    private static final Logger log = Logger.getLogger(MenuManager.class.getName());
+
     private static Menu current = MainMenu.getInstance();
     private static boolean exit = false;
 
@@ -26,9 +31,8 @@ public class MenuManager {
      * Displays a menu and prompts for user selection.
      *
      * @param menu menu to dialog
-     * @throws IOException if any problem with console input
      */
-    private static void activateMenu(Menu menu) throws IOException {
+    private static void activateMenu(Menu menu) {
         Util.println(menu.toString());
         int i = 1;
         for (MenuItem mi : menu.get()) {
@@ -43,11 +47,13 @@ public class MenuManager {
             menu.get().get(otv).execute();
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             Util.println(INVALID_INPUT);
+            log.log(Level.INFO, INVALID_INPUT, e);
         } catch (OperationCanceledByUserException e) {
             Util.println(THE_OPERATION_WAS_SUCCESSFULLY_CANCELED);
+            log.log(Level.INFO, THE_OPERATION_WAS_SUCCESSFULLY_CANCELED, e);
         } catch (OperationException e) {
             Util.println(e.getMessage());
-            Util.log.log(Level.SEVERE, MENU_ITEM_EXECUTE_THOW_EXCEPTION, e);
+            log.log(Level.SEVERE, MENU_ITEM_EXECUTE_THOW_EXCEPTION, e);
         }
     }
 
@@ -55,10 +61,9 @@ public class MenuManager {
      * In the infinite loop, it calls the following menu
      * The exit is by {@link #setExit()}
      *
-     * @throws IOException if any problem with console input
      * @see #activateMenu(Menu menu)
      */
-    public static void startDialog() throws IOException {
+    public static void startDialog() {
         while (!exit) {
             activateMenu(current);
             current = current.next();

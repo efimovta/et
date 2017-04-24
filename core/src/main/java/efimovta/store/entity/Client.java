@@ -41,10 +41,24 @@ public class Client implements Identified, Serializable, CloneReady<Client> {
     }
 
     /**
+     * @param id id for set
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
      * @return second firstName of this client
      */
     public String getSecondName() {
         return secondName;
+    }
+
+    /**
+     * @param secondName second name for set
+     */
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
     }
 
     /**
@@ -55,10 +69,24 @@ public class Client implements Identified, Serializable, CloneReady<Client> {
     }
 
     /**
+     * @param firstName first name for set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
      * @return middle firstName of this client
      */
     public String getMiddleName() {
         return middleName;
+    }
+
+    /**
+     * @param middleName middle name for set
+     */
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     /**
@@ -73,34 +101,6 @@ public class Client implements Identified, Serializable, CloneReady<Client> {
      */
     public Date getBirthday() {
         return (Date) birthday.clone();
-    }
-
-    /**
-     * @param id id for set
-     */
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    /**
-     * @param secondName second name for set
-     */
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
-    }
-
-    /**
-     * @param firstName first name for set
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    /**
-     * @param middleName middle name for set
-     */
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
     }
 
     /**

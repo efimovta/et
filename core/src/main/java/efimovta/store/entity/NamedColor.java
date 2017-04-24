@@ -1,6 +1,6 @@
 package efimovta.store.entity;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * Named color listing. Each element contains a reference
@@ -32,13 +32,6 @@ public enum NamedColor {
     }
 
     /**
-     * @return defined awt color for this color
-     */
-    public Color getAwtColor() {
-        return awtColor;
-    }
-
-    /**
      * Convert awt color to element of this enum
      *
      * @param color awt color to conver
@@ -54,6 +47,13 @@ public enum NamedColor {
             }
         }
         return namedColor;
+    }
+
+    /**
+     * @return defined awt color for this color
+     */
+    public Color getAwtColor() {
+        return awtColor;
     }
 
 }

@@ -1,15 +1,15 @@
 package efimovta.store;
 
 /**
- * Created by EFIMOVAT on 08.04.2017.
+ * For powertest
  */
 public class DeviceStore {
-    static {
-        //StorageFiller.fillStorage();
+
+    private DeviceStore() {
     }
 
     public static void main(String[] args) {
-        //IDeviceStore iDeviceStore = getDeviceStore();
+        //non
     }
 
     public static IDeviceStore getDeviceStore() {

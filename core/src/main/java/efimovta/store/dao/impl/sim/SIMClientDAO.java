@@ -12,12 +12,14 @@ import java.util.List;
 
 /**
  * Class provide DAO for {@link Client}
+ * Attempt! Id of added client was overridden.
+ * Id correspond List index.
  */
 class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
 
     /**
      * Adding a client if all fields are not null and client not
-     * already exists
+     * already exists. Attempt! Id war overridden.
      *
      * @param client for adding
      * @throws RecordAlreadyExistsException   if client
@@ -28,7 +30,10 @@ class SIMClientDAO extends SIMGenericDAO<Client> implements ClientDAO {
     public void add(Client client) throws RecordAlreadyExistsException,
             NotAllFieldsAreFilledException {
         checkBeforeAdd(client);
-        StorageInMemory.getClients().add(client.getClone());
+        Client newClient = client.getClone();
+        long id = StorageInMemory.getClients().size();
+        newClient.setId(id);
+        StorageInMemory.getClients().add(newClient);
     }
 
     /**

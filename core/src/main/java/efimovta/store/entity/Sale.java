@@ -3,7 +3,11 @@ package efimovta.store.entity;
 import efimovta.store.Util;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Sale entity.
@@ -157,7 +161,9 @@ public class Sale implements Identified, Serializable, CloneReady<Sale> {
                     .append(':')
                     .append(entry.getValue())
                     .append(')');
-            if (++i != size) sb.append(',');
+            if (++i != size) {
+                sb.append(',');
+            }
         }
 
         sb.append("}}");

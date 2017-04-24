@@ -2,8 +2,6 @@ package efimovta.store.menu;
 
 import efimovta.store.OperationException;
 
-import java.io.IOException;
-
 /**
  * Is a menu item.
  */
@@ -25,6 +23,6 @@ public abstract class MenuItem {
     /**
      * MenuManager item action
      */
-    public abstract void execute() throws IOException, OperationException;
+    public abstract void execute() throws OperationException;
 
 }

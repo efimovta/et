@@ -2,44 +2,26 @@ package efimovta.store;
 
 import efimovta.store.entity.CloneReady;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
-
-import static efimovta.store.Config.LOGGING_PROPERTIES_LOCATION;
+import java.util.Scanner;
 
 
 /**
  * Util class.
  */
 public class Util {
-    public static final Logger log = Logger.getLogger(Main.class.getName());
-
-    public static final BufferedReader br = new BufferedReader(
-            new InputStreamReader(System.in));
-
-    static {
-        try {
-            LogManager.getLogManager().readConfiguration(
-                    Main.class.getResourceAsStream(LOGGING_PROPERTIES_LOCATION));
-        } catch (IOException e) {
-            println("Could not setup logger configuration: "
-                    + e.toString());
-        }
-    }
+    private static final Scanner sc = new Scanner(System.in);
 
     private Util() {
     }
 
     /**
-     * Print result of {@code object.toString()} on "standard" output
-     * stream ({@code System.out})
+     * Print result of {@code object.toString()} on
+     * ({@code System.out})<br/>
+     * {@link System#out#println()} used.
      *
      * @param o object to print
      */
@@ -48,14 +30,13 @@ public class Util {
     }
 
     /**
-     * Reads a line of text from "standard" input ({@code System.in})
+     * Reads a line of text from ({@code System.in}).
+     * {@link Scanner#nextLine()} used.
      *
      * @return A String containing the contents of the line.
-     * @throws IOException If an I/O error occurs
-     * @see #br
      */
-    public static String readLine() throws IOException {
-        return br.readLine();
+    public static String readLine() {
+        return sc.nextLine();
     }
 
     /**

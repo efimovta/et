@@ -1,26 +1,36 @@
 package efimovta.store.dao.impl.sim;
 
 import efimovta.store.BackupException;
-import efimovta.store.Util;
 import efimovta.store.entity.Client;
 import efimovta.store.entity.Device;
 import efimovta.store.entity.Sale;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * It contains lists representing the storage in memory
  */
 public class StorageInMemory {
+    private static final Logger log = Logger.getLogger(StorageInMemory.class.getName());
 
-    static private List<Client> clients = new ArrayList<>();
-    static private List<Device> devices = new ArrayList<>();
-    static private List<Sale> sales = new ArrayList<>();
+    private static List<Client> clients = new ArrayList<>();
+    private static List<Device> devices = new ArrayList<>();
+    private static List<Sale> sales = new ArrayList<>();
+
+    private StorageInMemory() {
+    }
 
     /**
      * Use it for edit/add/remove records in storage
@@ -53,8 +63,8 @@ public class StorageInMemory {
      * Load data from file
      *
      * @param file with backup
-     * @throws BackupException       if There was a deserialize
-     *                               problem of if file not found
+     * @throws BackupException if There was a deserialize
+     *                         problem of if file not found
      */
     public static void loadBackup(File file)
             throws BackupException {
@@ -78,9 +88,10 @@ public class StorageInMemory {
             ((ArrayList) devices).trimToSize();
             ((ArrayList) sales).trimToSize();
         } catch (ClassNotFoundException e) {
-            Util.log.log(Level.SEVERE,
+            log.log(Level.SEVERE,
                     "Occurred while trying to read " +
                             "the HashMap<Class, List>) instance from file", e);
+            throw new BackupException("Wrong or damaged file!", e);
         } catch (FileNotFoundException e) {
             throw new BackupException("File not found!", e);
         } catch (IOException e) {
@@ -92,8 +103,8 @@ public class StorageInMemory {
      * Save data in file
      *
      * @param file for saving to
-     * @throws BackupException       if There was a deserialize
-     *                               problem of if file not found
+     * @throws BackupException if There was a deserialize
+     *                         problem of if file not found
      */
     public static void saveBackup(File file)
             throws BackupException {
@@ -110,8 +121,5 @@ public class StorageInMemory {
         } catch (IOException e) {
             throw new BackupException("Serialize problem", e);
         }
-    }
-
-    private StorageInMemory() {
     }
 }

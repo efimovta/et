@@ -1,17 +1,37 @@
 package efimovta.store;
 
-import efimovta.store.dao.*;
-import efimovta.store.entity.*;
+import efimovta.store.dao.ClientDAO;
+import efimovta.store.dao.DAOException;
+import efimovta.store.dao.DAOFactory;
+import efimovta.store.dao.DeviceDAO;
+import efimovta.store.dao.SaleDAO;
+import efimovta.store.entity.Brand;
+import efimovta.store.entity.Client;
+import efimovta.store.entity.ClientComparator;
+import efimovta.store.entity.Device;
+import efimovta.store.entity.DeviceComparator;
+import efimovta.store.entity.DeviceType;
+import efimovta.store.entity.NamedColor;
+import efimovta.store.entity.Sale;
+import efimovta.store.entity.SaleComparator;
 
-import java.awt.*;
+import java.awt.Color;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by EFIMOVAT on 08.04.2017.
  */
 public class DeviceStoreImpl implements IDeviceStore {
+    private static final Logger log = Logger.getLogger(DeviceStoreImpl.class.getName());
+
     ClientDAO clientDAO = DAOFactory.get().getClientDAO();
     DeviceDAO deviceDAO = DAOFactory.get().getDeviceDAO();
     SaleDAO saleDAO = DAOFactory.get().getSaleDAO();
@@ -27,7 +47,8 @@ public class DeviceStoreImpl implements IDeviceStore {
 
             clientDAO.add(client);
         } catch (DAOException e) {
-            e.printStackTrace();//todo mb make better
+            log.log(Level.SEVERE, e.getMessage(), e);
+
         }
     }
 
@@ -48,7 +69,7 @@ public class DeviceStoreImpl implements IDeviceStore {
 
             deviceDAO.add(device);
         } catch (DAOException e) {
-            e.printStackTrace();
+            log.log(Level.SEVERE, e.getMessage(), e);
         }
     }
 
@@ -70,7 +91,7 @@ public class DeviceStoreImpl implements IDeviceStore {
             sale.setDevices(devices);
             saleDAO.add(sale);
         } catch (DAOException e) {
-            e.printStackTrace();
+            log.log(Level.SEVERE, e.getMessage(), e);
         }
     }
 
@@ -82,7 +103,7 @@ public class DeviceStoreImpl implements IDeviceStore {
 
 
     public void searchDevicesByIssueDate(Date issueDate) {
-        List<Device> devices = deviceDAO.findDeviceByReleaseDate(issueDate);
+        deviceDAO.findDeviceByReleaseDate(issueDate);
     }
 
 

@@ -1,111 +1,125 @@
 package efimovta.store;
 
-import efimovta.StringRandomer;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
-
-import java.awt.*;
-import java.util.*;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
 
 /**
- * Created by EFIMOVAT on 16.04.2017.
+ * easy Power test
  */
 
-@FixMethodOrder(value = MethodSorters.NAME_ASCENDING)
 public class DeviceStoreImplTest {
-    static public final int NUMBER = 100;
-    static public final String TYPE = "LAPTOP";
-    static public final String BRAND = "HP";
+    public static final int NUMBER = 100;
+    public static final String TYPE = "LAPTOP";
+    public static final String BRAND = "HP";
+
+    private static final Logger log = Logger.getLogger(DeviceStoreImplTest.class.getName());
 
     static IDeviceStore ids = DeviceStore.getDeviceStore();
     static StringRandomer sr = new StringRandomer();
     static List<String> ss = new ArrayList<>();
     static List<Date> dd = new ArrayList<>();
 
-    @BeforeClass
-    public static void setUp() throws Exception {
+    public void setUp() {
         for (int i = 0; i < NUMBER; i++) {
             ss.add(sr.createRandomString());
             dd.add(new Date(127 + i * i * i * i));
         }
+        addClient();
+        addDevice();
+        addSale();
+        searchClientsByName();
+        searchDevicesByIssueDate();
+        sortClientsByName();
+        sortDevicesByModel();
+        sortSalesByDate();
     }
 
-    @Test
-    public void addClient() throws Exception {
+
+    public void addClient() {
         long a = System.currentTimeMillis();
         for (int i = 0; i < NUMBER; i++) {
             ids.addClient(ss.get(i), ss.get(NUMBER - 1 - i), ss.get(i), dd.get(i));
         }
         long b = System.currentTimeMillis();
-        System.out.println("time: " + (b - a));
+        String msg = "addClient time: " + (b - a);
+        log.info(msg);
     }
 
-    @Test
-    public void addDevice() throws Exception {
+
+    public void addDevice() {
         long a = System.currentTimeMillis();
         for (int i = 0; i < NUMBER; i++) {
             ids.addDevice(TYPE, BRAND, ss.get(i), Color.BLACK, dd.get(i));
         }
         long b = System.currentTimeMillis();
-        System.out.println("time: " + (b - a));
+        String msg = "addDevice time: " + (b - a);
+        log.info(msg);
     }
 
-    @Test
-    public void addSale() throws Exception {
+
+    public void addSale() {
         long a = System.currentTimeMillis();
         Map<Integer, Integer> d = new HashMap<>();
         for (int i = 0; i < NUMBER; i++) {
             ids.addSale(dd.get(i), i, d);
         }
         long b = System.currentTimeMillis();
-        System.out.println("time: " + (b - a));
+        String msg = "addSale time: " + (b - a);
+        log.info(msg);
     }
 
-    @Test
-    public void searchClientsByName() throws Exception {
+
+    public void searchClientsByName() {
         long a = System.currentTimeMillis();
         for (int i = 0; i < NUMBER; i++) {
             ids.searchClientsByName(ss.get(i));
         }
         long b = System.currentTimeMillis();
-        System.out.println("time: " + (b - a));
+        String msg = "searchClientsByName time: " + (b - a);
+        log.info(msg);
     }
 
-    @Test
-    public void searchDevicesByIssueDate() throws Exception {
+
+    public void searchDevicesByIssueDate() {
         long a = System.currentTimeMillis();
         for (int i = 0; i < NUMBER; i++) {
             ids.searchDevicesByIssueDate(dd.get(i));
         }
         long b = System.currentTimeMillis();
-        System.out.println("time: " + (b - a));
+        String msg = "searchDevicesByIssueDate time: " + (b - a);
+        log.info(msg);
     }
 
-    @Test
-    public void sortClientsByName() throws Exception {
+
+    public void sortClientsByName() {
         long a = System.currentTimeMillis();
         ids.sortClientsByName();
         long b = System.currentTimeMillis();
-        System.out.println("time: " + (b - a));
+        String msg = "sortClientsByName time: " + (b - a);
+        log.info(msg);
     }
 
-    @Test
-    public void sortDevicesByModel() throws Exception {
+
+    public void sortDevicesByModel() {
         long a = System.currentTimeMillis();
         ids.sortDevicesByModel();
         long b = System.currentTimeMillis();
-        System.out.println("time: " + (b - a));
+        String msg = "sortDevicesByModel time: " + (b - a);
+        log.info(msg);
     }
 
-    @Test
-    public void sortSalesByDate() throws Exception {
+
+    public void sortSalesByDate() {
         long a = System.currentTimeMillis();
         ids.sortSalesByDate();
         long b = System.currentTimeMillis();
-        System.out.println("time: " + (b - a));
+        String msg = "sortSalesByDate time: " + (b - a);
+        log.info(msg);
 
     }
 

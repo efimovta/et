@@ -10,20 +10,26 @@ import efimovta.store.entity.Client;
 import efimovta.store.entity.Device;
 import efimovta.store.entity.Sale;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Class provide DAO for {@link Sale}
+ * Attempt! Id of added sale was overridden.
+ * Id correspond List index.
  */
 class SIMSaleDAO extends SIMGenericDAO<Sale> implements SaleDAO {
 
     /**
      * Stores a copy in the database, replaces the references
      * to the client and devices to the corresponding ones from
-     * the database.
+     * the database. Attempt! Id war overridden.
      * <br/>
      * You can not add a sale to a non-existent client or with
-     * non-exists devices
+     * non-exists devices.
      *
      * @param sale sale to add
      * @throws NotAllFieldsAreFilledException if not all filled
@@ -35,7 +41,9 @@ class SIMSaleDAO extends SIMGenericDAO<Sale> implements SaleDAO {
     public void add(Sale sale) throws RecordNotFoundException,
             NotAllFieldsAreFilledException {
         checkNullFields(sale);
-        Sale newSale = new Sale(sale);
+        Sale newSale = sale.getClone();
+        long id = StorageInMemory.getSales().size();
+        newSale.setId(id);
 
         Client client = sale.getClient();
         int clientIndex = StorageInMemory.getClients().indexOf(client);
