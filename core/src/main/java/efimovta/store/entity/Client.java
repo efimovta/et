@@ -36,6 +36,7 @@ public class Client implements Identified, Serializable, CloneReady<Client> {
     /**
      * @return client id
      */
+    @Override
     public long getId() {
         return id;
     }

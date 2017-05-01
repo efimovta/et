@@ -67,8 +67,10 @@ public class SaleParamsRequester extends Requester {
     public Map<Device, Integer> requestDevices()
             throws OperationCanceledByUserException {
         Map<Device, Integer> map = new HashMap<>();
-        String[] ss = null;
+
+
         while (true) {
+            String[] ss;
             Util.println(ENTER_SALE_DEVICE_ID_AND_COUNT);
             Util.println(PRESS_TO_END + EXIT_SYMBOL);
             String str = Util.readLine();

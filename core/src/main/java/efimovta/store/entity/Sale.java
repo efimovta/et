@@ -40,6 +40,7 @@ public class Sale implements Identified, Serializable, CloneReady<Sale> {
     /**
      * @return sale id
      */
+    @Override
     public long getId() {
         return id;
     }

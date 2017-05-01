@@ -34,7 +34,6 @@ public class SIMDeviceDAOTest {
     public static void setUp() throws Exception {
         device = new Device();
         device.setModel(model);
-
         device.setType(type);
         device.setBrand(brand);
         device.setColor(color);

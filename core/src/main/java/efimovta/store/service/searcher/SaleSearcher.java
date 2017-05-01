@@ -27,6 +27,7 @@ public class SaleSearcher implements Searcher<Sale> {
     /**
      * @return all sales
      */
+    @Override
     public List<Sale> findAll() {
         return saleDAO.getAll();
     }

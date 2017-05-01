@@ -36,6 +36,7 @@ public class DeviceSearcher implements Searcher<Device> {
     /**
      * @return all devices
      */
+    @Override
     public List<Device> findAll() {
         return deviceDAO.getAll();
     }

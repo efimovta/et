@@ -41,6 +41,7 @@ public class Device implements Identified, Serializable, CloneReady<Device> {
     /**
      * @return device id
      */
+    @Override
     public long getId() {
         return id;
     }
@@ -154,12 +155,22 @@ public class Device implements Identified, Serializable, CloneReady<Device> {
             otv = true;
         } else if (o != null && getClass() == o.getClass()) {
             Device device = (Device) o;
-            if (getModel().equals(device.getModel())
-                    && getType().equals(device.getType())
-                    && getBrand().equals(device.getBrand())
-                    && getColor().equals(device.getColor())
-                    && getReleaseDate().equals(device.getReleaseDate())) {
-                otv = true;
+            otv = true;
+            if (model != null && !model.equals(device.model)
+                    || model == null && model != device.model) {
+                otv = false;
+            } else if (type != null && !type.equals(device.type)
+                    || type == null && type != device.type) {
+                otv = false;
+            } else if (brand != null && !brand.equals(device.brand)
+                    || brand == null && brand != device.brand) {
+                otv = false;
+            } else if (color != null && !color.equals(device.color)
+                    ||color == null &&  color != device.color) {
+                otv = false;
+            } else if (releaseDate != null && !releaseDate.equals(device.releaseDate)
+                    || releaseDate == null && releaseDate != device.releaseDate) {
+                otv = false;
             }
         }
 

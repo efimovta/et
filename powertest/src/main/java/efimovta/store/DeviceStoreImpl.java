@@ -36,7 +36,7 @@ public class DeviceStoreImpl implements IDeviceStore {
     DeviceDAO deviceDAO = DAOFactory.get().getDeviceDAO();
     SaleDAO saleDAO = DAOFactory.get().getSaleDAO();
 
-
+    @Override
     public void addClient(String lastName, String firstName, String middleName, Date birthDate) {
         try {
             Client client = new Client();
@@ -53,6 +53,7 @@ public class DeviceStoreImpl implements IDeviceStore {
     }
 
 
+    @Override
     public void addDevice(String type, String brand, String model, Color color, Date issueDate) {
         try {
             DeviceType deviceType = DeviceType.valueOf(type);
@@ -74,6 +75,7 @@ public class DeviceStoreImpl implements IDeviceStore {
     }
 
 
+    @Override
     public void addSale(Date saleDate, Integer clientId, Map<Integer, Integer> deviceIdAndQuantity) {
         try {
             Client client = clientDAO.findById(clientId);
@@ -96,29 +98,34 @@ public class DeviceStoreImpl implements IDeviceStore {
     }
 
 
+    @Override
     public void searchClientsByName(String name) {
         List<Client> clients = new ArrayList<>();
         clients.addAll(clientDAO.findByAnyName(name));
     }
 
 
+    @Override
     public void searchDevicesByIssueDate(Date issueDate) {
         deviceDAO.findDeviceByReleaseDate(issueDate);
     }
 
 
+    @Override
     public void sortClientsByName() {
         List<Client> clients = clientDAO.getAll();
         Collections.sort(clients, ClientComparator.BY_FIO);
     }
 
 
+    @Override
     public void sortDevicesByModel() {
         List<Device> devices = deviceDAO.getAll();
         Collections.sort(devices, DeviceComparator.BY_MODEL);
     }
 
 
+    @Override
     public void sortSalesByDate() {
         List<Sale> sales = saleDAO.getAll();
         Collections.sort(sales, SaleComparator.BY_SALE_DATE);

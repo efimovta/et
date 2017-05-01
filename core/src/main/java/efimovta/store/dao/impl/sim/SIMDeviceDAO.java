@@ -131,29 +131,53 @@ class SIMDeviceDAO extends SIMGenericDAO<Device> implements DeviceDAO {
     @Override
     protected void checkNullFields(Device d)
             throws NotAllFieldsAreFilledException {
-        if (d.getBrand() == null) {
+        checkBrand(d);
+        checkColor(d);
+        checkModel(d);
+        checkPrice(d);
+        checkReliaseDate(d);
+        checkType(d);
+    }
+
+    private void checkType(Device d) throws NotAllFieldsAreFilledException {
+        if (d.getType() == null) {
             throw new NotAllFieldsAreFilledException(
-                    "device.getBrand() return null");
+                    "device.getType() return null");
         }
-        if (d.getColor() == null) {
-            throw new NotAllFieldsAreFilledException(
-                    "device.getColor() return null");
-        }
-        if (d.getModel() == null) {
-            throw new NotAllFieldsAreFilledException(
-                    "device.getModel() return null");
-        }
-        if (d.getPrice() == null) {
-            throw new NotAllFieldsAreFilledException(
-                    "device.getPrice() return null");
-        }
+    }
+
+    private void checkReliaseDate(Device d) throws NotAllFieldsAreFilledException {
         if (d.getReleaseDate() == null) {
             throw new NotAllFieldsAreFilledException(
                     "device.getReleaseDate() return null");
         }
-        if (d.getType() == null) {
+    }
+
+    private void checkPrice(Device d) throws NotAllFieldsAreFilledException {
+        if (d.getPrice() == null) {
             throw new NotAllFieldsAreFilledException(
-                    "device.getType() return null");
+                    "device.getPrice() return null");
+        }
+    }
+
+    private void checkModel(Device d) throws NotAllFieldsAreFilledException {
+        if (d.getModel() == null) {
+            throw new NotAllFieldsAreFilledException(
+                    "device.getModel() return null");
+        }
+    }
+
+    private void checkColor(Device d) throws NotAllFieldsAreFilledException {
+        if (d.getColor() == null) {
+            throw new NotAllFieldsAreFilledException(
+                    "device.getColor() return null");
+        }
+    }
+
+    private void checkBrand(Device d) throws NotAllFieldsAreFilledException {
+        if (d.getBrand() == null) {
+            throw new NotAllFieldsAreFilledException(
+                    "device.getBrand() return null");
         }
     }
 

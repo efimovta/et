@@ -37,6 +37,7 @@ public class SaleCreator implements Creator<Sale> {
      *
      * @return created sale instance
      */
+    @Override
     public Sale startCreationDialog()
             throws OperationCanceledByUserException, OperationCanceledException {
         SaleDAO saleDAO = DAOFactory.get().getSaleDAO();

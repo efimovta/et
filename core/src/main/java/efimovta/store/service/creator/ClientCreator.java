@@ -34,6 +34,7 @@ public class ClientCreator implements Creator<Client> {
      *
      * @return created client instance
      */
+    @Override
     public Client startCreationDialog()
             throws OperationCanceledByUserException, OperationCanceledException {
         ClientDAO clientDAO = DAOFactory.get().getClientDAO();

@@ -33,6 +33,7 @@ public class ClientSearcher implements Searcher<Client> {
     /**
      * @return all clients
      */
+    @Override
     public List<Client> findAll() {
         return clientDAO.getAll();
     }

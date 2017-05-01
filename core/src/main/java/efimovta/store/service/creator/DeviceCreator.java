@@ -39,6 +39,7 @@ public class DeviceCreator implements Creator<Device> {
      *
      * @return created device instance
      */
+    @Override
     public Device startCreationDialog()
             throws OperationCanceledByUserException, OperationCanceledException {
         DeviceDAO deviceDAO = DAOFactory.get().getDeviceDAO();
